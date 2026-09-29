@@ -1,0 +1,43 @@
+{
+  "standard": "OIML R 76-1:2006",
+  "table": "Table 6",
+  "name": "Maximum permissible errors in initial verification",
+  "source_clause": "3.5.1",
+  "classes": {
+    "I": {
+      "steps": [
+        { "max_intervals": 50000, "multiplier": 0.5 },
+        { "max_intervals": 200000, "multiplier": 1.0 },
+        { "max_intervals": null, "multiplier": 1.5 }
+      ]
+    },
+    "II": {
+      "steps": [
+        { "max_intervals": 5000, "multiplier": 0.5 },
+        { "max_intervals": 20000, "multiplier": 1.0 },
+        { "max_intervals": 100000, "multiplier": 1.5 }
+      ]
+    },
+    "III": {
+      "steps": [
+        { "max_intervals": 500, "multiplier": 0.5 },
+        { "max_intervals": 2000, "multiplier": 1.0 },
+        { "max_intervals": 10000, "multiplier": 1.5 }
+      ]
+    },
+    "IIII": {
+      "steps": [
+        { "max_intervals": 50, "multiplier": 0.5 },
+        { "max_intervals": 200, "multiplier": 1.0 },
+        { "max_intervals": 1000, "multiplier": 1.5 }
+      ]
+    }
+  },
+  "formula": "MPE = multiplier × e",
+  "in_service_multiplier": 2.0,
+  "notes": [
+    "n = Max / e",
+    "Absolute MPE value excludes sign.",
+    "In-service MPE is twice the initial verification MPE."
+  ]
+}

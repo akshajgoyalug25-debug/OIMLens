@@ -1,0 +1,178 @@
+OIML R 76-1: 2006 (E) 
+ 
+3.4.3 Minimum capacity 
+The minimum capacity of the instrument is determined in conformity with the requirements in 
+Table 3. However, in the last column of this Table, the verification scale interval, e, is replaced by the 
+actual scale interval, d. 
+3.4.4 Minimum number of verification scale intervals 
+For an instrument of class I with d < 0.1 mg, n may be less than 50 000. 
+3.5 Maximum permissible errors 
+3.5.1 Values of maximum permissible errors on initial verification 
+The maximum permissible errors for increasing or decreasing loads are given in Table 6. 
+Table 6 
+For loads, m, expressed in verification scale intervals, e 
+Maximum 
+permissible 
+errors on 
+initial 
+verification Class I Class II Class III Class IIII 
+± 0.5 e 0 ≤ m ≤ 50 000 0 ≤ m ≤ 5 000 0 ≤ m ≤ 500 0 ≤ m ≤ 50 
+± 1.0 e 50 000 < m ≤ 200 000 5 000 < m ≤ 20 000 500 < m ≤ 2 000 50 < m ≤ 200 
+± 1.5 e 200 000 < m 20 000 < m ≤ 100 000 2 000 < m ≤ 10 000 200 < m ≤ 1 000 
+Note: The absolute value of the maximum permissible error is 0.5 e, 1.0 e or 1.5 e, i.e. it is the 
+value of the maximum permissible error without the positive or negative sign. 
+Note: For multi-interval instruments, refe r to 3.3 (including the example). 
+3.5.2 Values of maximum perm issible errors in service 
+The maximum permissible errors in service shall be twice the maximum permissible errors on initial 
+verification (see 8.4.2). 
+3.5.3 Basic rules concerning the determination of errors 
+3.5.3.1 Influence factors 
+Errors shall be determined under normal test cond itions. When the effect of one factor is being 
+evaluated, all other factors are to be kept relatively constant, at a value close to normal. 
+3.5.3.2 Elimination of rounding error 
+The rounding error included in any digital indication sha ll be eliminated if the actual scale interval is 
+greater than 0.2 e. 
+3.5.3.3 Maximum permissible errors for net values 
+The maximum permissible errors apply to the net va lue for every possible tare load, except preset tare 
+values. 
+ 
+ 
+30 
+ 
+
+OIML R 76-1: 2006 (E) 
+ 
+3.5.3.4 Tare weighing device 
+The maximum permissible errors for a tare weighing device are the same, for any tare value, as those 
+of the instrument, for the same value of load. 
+3.6 Permissible differences between results 
+Regardless of what variation of results is permitted,  the error of any single weighing result shall by 
+itself not exceed the maximum permissible error for the given load. 
+3.6.1 Repeatability 
+The difference between the results of several weighings of the same load shall not be greater than the 
+absolute value of the maximum permissible error of the instrument for that load. 
+3.6.2 Eccentric loading 
+The indications for different positions of a load sh all meet the maximum permissible errors, when the 
+instrument is tested according to 3.6.2.1-3.6.2.4. 
+Note: If an instrument is designed in such a way th at loads may be applied in different manners, it 
+may be appropriate to apply more than one of the following tests. 
+3.6.2.1 Unless otherwise specified hereafter, a load corresponding to 1/3 of the sum of the maximum 
+capacity and the corresponding maximum additive tare effect shall be applied. 
+3.6.2.2 On an instrument with a load receptor having n  points of support, with n > 4, the fraction 
+1/(n – 1) of the sum of the maximum capacity and the maximum additive tare effect shall be applied to 
+each point of support. 
+3.6.2.3 On an instrument with a load receptor subj ect to minimal off-centre loading (e.g. tank, 
+hopper, etc.) a test load corresponding to 1/10 of th e sum of the maximum capacity and the maximum 
+additive tare effect shall be applied to each point of support. 
+3.6.2.4 On an instrument used for weighing rollin g loads (e.g. vehicle scale, rail suspension 
+instrument) a test load corresponding to the usual ro lling load, the heaviest and the most concentrated 
+one which may be weighed, but not exceeding 0.8 times the sum of the maximum capacity and the 
+maximum additive tare effect, shall be applied at different points on the load receptor. 
+3.6.3 Multiple indicating devices 
+For a given load the difference between the indica tions of multiple indicating devices including tare 
+weighing devices, shall be not greater than the abso lute value of the maximum permissible error, but 
+shall be zero between digital displaying and printing devices. 
+3.6.4 Different positions of equilibrium 
+The difference between two results obtained for the sa me load when the method of balancing the load 
+is changed (in the case of an instrument fitted with a device for extending the self-indication capacity) 
+in two consecutive tests, shall not exceed the abso lute value of the maximum permissible error for the 
+applied load. 
+ 
+31 
+ 
+
+OIML R 76-1: 2006 (E) 
+ 
+3.7 Test standards 
+3.7.1 Weights 
+In principle, the standard weights or standard mass es used for the type examination or verification of 
+an instrument shall meet the metrological requireme nts of OIML R 111. They shall not have an error 
+greater than 1/3 of the maximum permissible error of the instrument for the applied load. If they 
+belong to class E 2 or better, their uncertainty (rather than their error) is allowed to be not greater than 
+1/3 of the maximum permissible error of the instru ment for the applied load, provided that the actual 
+conventional mass and the estimated long-term stability is taken into account. 
+3.7.2 Auxiliary verification device 
+When an instrument is fitted with an auxiliary verification device, or when it is verified with a separate 
+auxiliary device, the maximum permissible errors  of this device shall be 1/3 of the maximum 
+permissible errors for the applied load. If weights ar e used, the effect of their errors shall not exceed 
+1/5 of the maximum permissible errors of the instrument to be verified for the same load. 
+3.7.3 Substitution of standard weights at verification 
+When testing instruments at the place of use (app lication), instead of standard weights any other 
+constant load may be used, provided that standard weights of at least 1/2 Max are used. 
+If the repeatability error is not greater than 0.3 e, the portion of standard weights may be reduced to 
+1/3 Max. 
+If the repeatability error is not greater than 0.2 e, this portion may be reduced to 1/5 Max. 
+The repeatability error has to be determined with a load (weights or any other load) of about the value 
+where the substitution is made, by placing it 3 times on the load receptor. 
+3.8 Discrimination 
+3.8.1 Non-self-indicating instruments 
+An extra load equivalent to 0.4 times the absolute  value of the maximum permissible error for the 
+applied load, but not less than 1 mg, when gently  placed on or withdrawn from the instrument at 
+equilibrium shall produce a visible displacement of the indicating element. 
+3.8.2 Self- or semi-self-indicating instruments 
+3.8.2.1 Analog indication 
+An extra load equivalent to the absolute value of  the maximum permissible e rror for the applied load, 
+but not less than 1 mg, when gently placed on or withdrawn from the instrument at equilibrium shall 
+cause a permanent displacement of the indicating element corresponding to not less than 0.7 times the 
+extra load. 
+3.8.2.2 Digital indication 
+An additional load equal to 1.4 times the actual scale interval, when gently placed on or withdrawn 
+from the instrument at equilibrium  shall change the indication unambiguously. This applies only to 
+instruments with d ≥ 5 mg. 
+ 
+ 
+ 
+32 
+ 
+
+OIML R 76-1: 2006 (E) 
+ 
+3.9 Variations due to influence quantities and time 
+An instrument shall comply, unless otherwise specified and as far as applicable, with 3.5, 3.6 and 3.8 
+under the conditions of 3.9. Tests shall not be combined unless otherwise specified,. 
+3.9.1 Tilting 
+3.9.1.1 Instruments liable to be tilted 
+For an instrument of class II, III or IIII liable to be  tilted, the influence of tilting shall be determined 
+under the effect of a lengthwise tilting and a transverse tilting equal to the limiting value of tilting as 
+defined in a) to d) below. 
+The absolute value of the difference between the indication of the instrument in its reference position 
+(not tilted) and the indication in the tilted position (= limiting value of tilting in any direction) shall not 
+exceed: 
+ at no load, two verification scale intervals (the in strument having first been adjusted to zero at 
+no load in its reference position) except instruments of class II; and 
+ at self indication capacity and at maximum capacity, the maximum permissible error (the 
+instrument having been adjusted to zero at no load both in the reference and in the tilted 
+position). 
+a) If the instrument is fitted with a leveling device and a level indicator, the limiting value of tilting 
+shall be defined by a marking (e.g. a ring) on the level indicator which shows that the maximum 
+permissible tilt has been exceeded when the bub ble is displaced from a central position and the 
+edge touches the marking. The limiting value of the level indicator shall be obvious, so that tilting 
+is easily noticed. The level indicator shall be fixed firmly on the instrument in a place clearly 
+visible to the user and representative for the tilt sensitive part. 
+Note: If, in exceptional circumstances, technical reasons  forbid the level indicator to be fixed in 
+a visible place this can be accepted only if th e level indicator is easily accessible to the 
+user without tools (e.g. below the removable load receptor), and if there is a legible notice 
+provided on the instrument in a clearly visibl e place that points the user to the level 
+indicator. 
+b) If the instrument is fitted with an automatic tilt sensor the limiting value of tilting is defined by the 
+manufacturer. The tilt sensor shall release a display switch-off or other appropriate alarm signal 
+(e.g. lamp, error signal) and shall inhibit the print out and data transmission if the limiting value of 
+tilting has been exceeded (see also 4.18). The automatic tilt sensor ma y also compensate the effect 
+of tilting. 
+c) If neither a) nor b) applies, the limiting value of tilting is 50/1000 in any direction. 
+d) Mobile instruments intended to be used outside in open locations (e.g. on roads) shall either be 
+fitted with an automatic tilt sensor or a Cardan ic (gimbal type) suspension of the tilt sensitive 
+part(s). In case of an automatic tilt sensor, b) applies, whereas in the case of a Cardanic suspension, 
+c) applies, but the manufacturer may define a li miting value of tilting larger than 50/1000 (see also 
+4.18). 
+3.9.1.2 Other instruments 
+The following instruments are regarded as being not liable to be tilted so that the tilting requirements 
+under 3.9.1.1 do not apply: 
+ Class I instruments must be fitted with a leveling device and a level indicator but these need 
+not be tested, because these instruments require special environmental and installation 
+conditions and skilled operating staff. 
+ Instruments installed in a fixed position. 
+ Freely suspended instruments, for example crane or hanging instruments. 
+ 
+33 
+ 

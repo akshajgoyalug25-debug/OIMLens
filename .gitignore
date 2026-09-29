@@ -1,0 +1,55 @@
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Virtual environments
+venv/
+.venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+
+# macOS
+.DS_Store
+
+# Generated/debug files
+debug_outputs/
+outputs/
+reports/
+
+# Logs
+*.log
+
+# IDE/editor
+.vscode/
+.idea/
+backend/ocr_uploads/
+backend/.env
+
+# Local virtual environments
+venv 2/
+
+# Python/backend virtual environment
+backend/venv/
+
+# Caches
+.pytest_cache/
+
+# OIMLense local backups
+frontend/src_sih26035_cleanup_backup/
+frontend/src/components/r76/*.backup*
+frontend/src/components/r76_backup_50tests/
+frontend/src/pages/*.backup.tsx
+oimlense/r76/*.backup
+
+# Local audit/archive artifacts
+r76-audit.zip
+
+# Additional local backups
+frontend/src/components/r76/R76TestForm.ui-backup.tsx
+frontend/src/index.css.before-r76-layout-fix
+frontend/src/pages/SIH26035DashboardPage.before-structure-refine.tsx
+frontend/src/pages/SIH26035DashboardPage.blue-theme-backup.tsx

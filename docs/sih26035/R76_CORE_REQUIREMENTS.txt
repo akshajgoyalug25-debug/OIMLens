@@ -1,0 +1,1067 @@
+
+
+=== 3_METROLOGICAL_REQUIREMENTS | PDF pages 30-36 ===
+
+OIML R 76-1: 2006 (E) 
+ 
+3.4.3 Minimum capacity 
+The minimum capacity of the instrument is determined in conformity with the requirements in 
+Table 3. However, in the last column of this Table, the verification scale interval, e, is replaced by the 
+actual scale interval, d. 
+3.4.4 Minimum number of verification scale intervals 
+For an instrument of class I with d < 0.1 mg, n may be less than 50 000. 
+3.5 Maximum permissible errors 
+3.5.1 Values of maximum permissible errors on initial verification 
+The maximum permissible errors for increasing or decreasing loads are given in Table 6. 
+Table 6 
+For loads, m, expressed in verification scale intervals, e 
+Maximum 
+permissible 
+errors on 
+initial 
+verification Class I Class II Class III Class IIII 
+± 0.5 e 0 ≤ m ≤ 50 000 0 ≤ m ≤ 5 000 0 ≤ m ≤ 500 0 ≤ m ≤ 50 
+± 1.0 e 50 000 < m ≤ 200 000 5 000 < m ≤ 20 000 500 < m ≤ 2 000 50 < m ≤ 200 
+± 1.5 e 200 000 < m 20 000 < m ≤ 100 000 2 000 < m ≤ 10 000 200 < m ≤ 1 000 
+Note: The absolute value of the maximum permissible error is 0.5 e, 1.0 e or 1.5 e, i.e. it is the 
+value of the maximum permissible error without the positive or negative sign. 
+Note: For multi-interval instruments, refe r to 3.3 (including the example). 
+3.5.2 Values of maximum perm issible errors in service 
+The maximum permissible errors in service shall be twice the maximum permissible errors on initial 
+verification (see 8.4.2). 
+3.5.3 Basic rules concerning the determination of errors 
+3.5.3.1 Influence factors 
+Errors shall be determined under normal test cond itions. When the effect of one factor is being 
+evaluated, all other factors are to be kept relatively constant, at a value close to normal. 
+3.5.3.2 Elimination of rounding error 
+The rounding error included in any digital indication sha ll be eliminated if the actual scale interval is 
+greater than 0.2 e. 
+3.5.3.3 Maximum permissible errors for net values 
+The maximum permissible errors apply to the net va lue for every possible tare load, except preset tare 
+values. 
+ 
+ 
+30 
+ 
+
+OIML R 76-1: 2006 (E) 
+ 
+3.5.3.4 Tare weighing device 
+The maximum permissible errors for a tare weighing device are the same, for any tare value, as those 
+of the instrument, for the same value of load. 
+3.6 Permissible differences between results 
+Regardless of what variation of results is permitted,  the error of any single weighing result shall by 
+itself not exceed the maximum permissible error for the given load. 
+3.6.1 Repeatability 
+The difference between the results of several weighings of the same load shall not be greater than the 
+absolute value of the maximum permissible error of the instrument for that load. 
+3.6.2 Eccentric loading 
+The indications for different positions of a load sh all meet the maximum permissible errors, when the 
+instrument is tested according to 3.6.2.1-3.6.2.4. 
+Note: If an instrument is designed in such a way th at loads may be applied in different manners, it 
+may be appropriate to apply more than one of the following tests. 
+3.6.2.1 Unless otherwise specified hereafter, a load corresponding to 1/3 of the sum of the maximum 
+capacity and the corresponding maximum additive tare effect shall be applied. 
+3.6.2.2 On an instrument with a load receptor having n  points of support, with n > 4, the fraction 
+1/(n – 1) of the sum of the maximum capacity and the maximum additive tare effect shall be applied to 
+each point of support. 
+3.6.2.3 On an instrument with a load receptor subj ect to minimal off-centre loading (e.g. tank, 
+hopper, etc.) a test load corresponding to 1/10 of th e sum of the maximum capacity and the maximum 
+additive tare effect shall be applied to each point of support. 
+3.6.2.4 On an instrument used for weighing rollin g loads (e.g. vehicle scale, rail suspension 
+instrument) a test load corresponding to the usual ro lling load, the heaviest and the most concentrated 
+one which may be weighed, but not exceeding 0.8 times the sum of the maximum capacity and the 
+maximum additive tare effect, shall be applied at different points on the load receptor. 
+3.6.3 Multiple indicating devices 
+For a given load the difference between the indica tions of multiple indicating devices including tare 
+weighing devices, shall be not greater than the abso lute value of the maximum permissible error, but 
+shall be zero between digital displaying and printing devices. 
+3.6.4 Different positions of equilibrium 
+The difference between two results obtained for the sa me load when the method of balancing the load 
+is changed (in the case of an instrument fitted with a device for extending the self-indication capacity) 
+in two consecutive tests, shall not exceed the abso lute value of the maximum permissible error for the 
+applied load. 
+ 
+31 
+ 
+
+OIML R 76-1: 2006 (E) 
+ 
+3.7 Test standards 
+3.7.1 Weights 
+In principle, the standard weights or standard mass es used for the type examination or verification of 
+an instrument shall meet the metrological requireme nts of OIML R 111. They shall not have an error 
+greater than 1/3 of the maximum permissible error of the instrument for the applied load. If they 
+belong to class E 2 or better, their uncertainty (rather than their error) is allowed to be not greater than 
+1/3 of the maximum permissible error of the instru ment for the applied load, provided that the actual 
+conventional mass and the estimated long-term stability is taken into account. 
+3.7.2 Auxiliary verification device 
+When an instrument is fitted with an auxiliary verification device, or when it is verified with a separate 
+auxiliary device, the maximum permissible errors  of this device shall be 1/3 of the maximum 
+permissible errors for the applied load. If weights ar e used, the effect of their errors shall not exceed 
+1/5 of the maximum permissible errors of the instrument to be verified for the same load. 
+3.7.3 Substitution of standard weights at verification 
+When testing instruments at the place of use (app lication), instead of standard weights any other 
+constant load may be used, provided that standard weights of at least 1/2 Max are used. 
+If the repeatability error is not greater than 0.3 e, the portion of standard weights may be reduced to 
+1/3 Max. 
+If the repeatability error is not greater than 0.2 e, this portion may be reduced to 1/5 Max. 
+The repeatability error has to be determined with a load (weights or any other load) of about the value 
+where the substitution is made, by placing it 3 times on the load receptor. 
+3.8 Discrimination 
+3.8.1 Non-self-indicating instruments 
+An extra load equivalent to 0.4 times the absolute  value of the maximum permissible error for the 
+applied load, but not less than 1 mg, when gently  placed on or withdrawn from the instrument at 
+equilibrium shall produce a visible displacement of the indicating element. 
+3.8.2 Self- or semi-self-indicating instruments 
+3.8.2.1 Analog indication 
+An extra load equivalent to the absolute value of  the maximum permissible e rror for the applied load, 
+but not less than 1 mg, when gently placed on or withdrawn from the instrument at equilibrium shall 
+cause a permanent displacement of the indicating element corresponding to not less than 0.7 times the 
+extra load. 
+3.8.2.2 Digital indication 
+An additional load equal to 1.4 times the actual scale interval, when gently placed on or withdrawn 
+from the instrument at equilibrium  shall change the indication unambiguously. This applies only to 
+instruments with d ≥ 5 mg. 
+ 
+ 
+ 
+32 
+ 
+
+OIML R 76-1: 2006 (E) 
+ 
+3.9 Variations due to influence quantities and time 
+An instrument shall comply, unless otherwise specified and as far as applicable, with 3.5, 3.6 and 3.8 
+under the conditions of 3.9. Tests shall not be combined unless otherwise specified,. 
+3.9.1 Tilting 
+3.9.1.1 Instruments liable to be tilted 
+For an instrument of class II, III or IIII liable to be  tilted, the influence of tilting shall be determined 
+under the effect of a lengthwise tilting and a transverse tilting equal to the limiting value of tilting as 
+defined in a) to d) below. 
+The absolute value of the difference between the indication of the instrument in its reference position 
+(not tilted) and the indication in the tilted position (= limiting value of tilting in any direction) shall not 
+exceed: 
+ at no load, two verification scale intervals (the in strument having first been adjusted to zero at 
+no load in its reference position) except instruments of class II; and 
+ at self indication capacity and at maximum capacity, the maximum permissible error (the 
+instrument having been adjusted to zero at no load both in the reference and in the tilted 
+position). 
+a) If the instrument is fitted with a leveling device and a level indicator, the limiting value of tilting 
+shall be defined by a marking (e.g. a ring) on the level indicator which shows that the maximum 
+permissible tilt has been exceeded when the bub ble is displaced from a central position and the 
+edge touches the marking. The limiting value of the level indicator shall be obvious, so that tilting 
+is easily noticed. The level indicator shall be fixed firmly on the instrument in a place clearly 
+visible to the user and representative for the tilt sensitive part. 
+Note: If, in exceptional circumstances, technical reasons  forbid the level indicator to be fixed in 
+a visible place this can be accepted only if th e level indicator is easily accessible to the 
+user without tools (e.g. below the removable load receptor), and if there is a legible notice 
+provided on the instrument in a clearly visibl e place that points the user to the level 
+indicator. 
+b) If the instrument is fitted with an automatic tilt sensor the limiting value of tilting is defined by the 
+manufacturer. The tilt sensor shall release a display switch-off or other appropriate alarm signal 
+(e.g. lamp, error signal) and shall inhibit the print out and data transmission if the limiting value of 
+tilting has been exceeded (see also 4.18). The automatic tilt sensor ma y also compensate the effect 
+of tilting. 
+c) If neither a) nor b) applies, the limiting value of tilting is 50/1000 in any direction. 
+d) Mobile instruments intended to be used outside in open locations (e.g. on roads) shall either be 
+fitted with an automatic tilt sensor or a Cardan ic (gimbal type) suspension of the tilt sensitive 
+part(s). In case of an automatic tilt sensor, b) applies, whereas in the case of a Cardanic suspension, 
+c) applies, but the manufacturer may define a li miting value of tilting larger than 50/1000 (see also 
+4.18). 
+3.9.1.2 Other instruments 
+The following instruments are regarded as being not liable to be tilted so that the tilting requirements 
+under 3.9.1.1 do not apply: 
+ Class I instruments must be fitted with a leveling device and a level indicator but these need 
+not be tested, because these instruments require special environmental and installation 
+conditions and skilled operating staff. 
+ Instruments installed in a fixed position. 
+ Freely suspended instruments, for example crane or hanging instruments. 
+ 
+33 
+ 
+
+OIML R 76-1: 2006 (E) 
+ 
+3.9.2 Temperature 
+3.9.2.1 Prescribed temperature limits 
+If no particular working temperature is stated in the descriptive markings of an instrument, this 
+instrument shall maintain its metrological properties within the following temperature limits: 
+– 10 °C / + 40 °C 
+3.9.2.2 Special temperature limits 
+An instrument for which particular limits of working temperature are stated in the descriptive 
+markings shall comply with the metrological requirements within those limits. 
+The limits may be chosen according to the application of the instrument. 
+The ranges within those limits shall be at least equal to: 
+ 5 °C for instruments of class I; 
+ 15 °C for instruments of class II; and 
+ 30 °C for instruments of classes III and IIII. 
+3.9.2.3 Temperature effect on no-load indication 
+The indication at zero or near zero shall not vary by more than one verification scale interval for a 
+difference in ambient temperature of 1 °C for instruments of class I and 5 °C for other classes. 
+For multi-interval instruments and for multiple ra nge instruments this a pplies to the smallest 
+verification scale interval of the instrument. 
+3.9.3 Power supply 
+An instrument shall comply with the metrological requirements, if the voltage of the power supply 
+differs from the nominal voltage, Unom, or from the voltage range, Umin, Umax, of the instrument, at: 
+ Public mains power (AC): 
+lower limit = 0.85 Unom or 0.85 Umin 
+upper limit = 1.10 Unom or 1.10 Umax 
+ External or plug-in power supply device (AC or DC), including rechargeable battery power 
+supply if (re)charge of batteries during the operation of the instrument is possible: 
+lower limit = minimum operating voltage 
+upper limit = 1.20 Unom or 1.20 Umax 
+ Non-rechargeable battery power supply (DC), in cluding rechargeable battery power supply if 
+(re)charge of batteries during the operation of the instrument is not possible: 
+lower limit = minimum operating voltage 
+upper limit = Unom or Umax 
+ 12 V or 24 V road vehicle battery power supply: 
+lower limit = minimum operating voltage 
+upper limit = 16 V (12 V battery) or 32 V (24 V battery) 
+Note: The minimum operating voltage is defined as the lowest possible operating voltage before 
+the instrument is automatically switched off. 
+Battery-powered electronic instruments and instrume nts with an external or plug-in power supply 
+device (AC or DC) shall either continue to function correctly or not indicate any weight values if the 
+voltage is below the manufacturer’s specified value, the latter being larger or equal to the minimum 
+operating voltage. 
+ 
+34 
+ 
+
+OIML R 76-1: 2006 (E) 
+ 
+3.9.4 Time 
+Under reasonably constant environmental conditions, an instrument of class II, III, or IIII shall meet 
+the following requirements. 
+3.9.4.1 Creep 
+When any load is kept on an instrument, the di fference between the indication obtained immediately 
+after placing a load and the indication observed during the following 30 mi nutes, shall not exceed 
+0.5 e. However, the difference between the indication obtained at 15 minutes and that at 30 minutes 
+shall not exceed 0.2 e. 
+If these conditions are not met, the difference betw een the indication obtained immediately after 
+placing a load on the instrument and the indicati on observed during the following four hours shall not 
+exceed the absolute value of the maximum permissible error at the load applied. 
+3.9.4.2 Zero return 
+The deviation on returning to zero as soon as the indication has stabilized, after the removal of any 
+load which has remained on the instrument for half an hour, shall not exceed 0.5 e. 
+For a multi-interval instrument, the deviation shall not exceed 0.5 e1. 
+On a multiple range instrument, the deviation on returning to zero from Max i shall not exceed 0.5 ei 
+Furthermore, after returning to zero from any load greater than Max 1 and immediately after switching 
+to the lowest weighing range, the indication near zero shall not vary by more than e1 during the 
+following 5 minutes. 
+3.9.4.3 Durability 
+The durability error due to wear and tear shall not be  greater than the absolute value of the maximum 
+permissible error. 
+Adherence to this requirement is assumed if the in strument has passed the endurance test specified in 
+A.6, which shall be performed only for instruments with Max ≤ 100 kg. 
+3.9.5 Other influence quantities and restraints 
+Where other influences and restraints, such as: 
+ vibrations; 
+ precipitations and draughts; and/or 
+ mechanical constraints and restrictions 
+are a normal feature of the intended operating envir onment of the instrument, the instrument shall 
+comply with the requirements of clauses 3 and 4 unde r those influences and restraints, either by being 
+designed to operate correctly in spite of these influences, or by being protected against their action. 
+Note: Instruments installed outdoors without suita ble protection against atmospheric conditions 
+may normally not comply with the requirements of clauses 3 and 4 if the number of 
+verification scale intervals, n, is relatively great. (In general, a value of n = 3 000 can only be 
+exceeded with very special measures. Furthe rmore, for road or rail weighbridges the 
+verification scale interval should not be less than 10 kg). These limits should also apply to 
+each weighing range of combinations of instrume nts or of multiple range instruments or to 
+each partial weighing range of multi-interval instruments. 
+ 
+35 
+ 
+
+OIML R 76-1: 2006 (E) 
+ 
+3.10 Type evaluation tests and examinations 
+3.10.1 Complete instruments 
+For type evaluation, the tests given in Annexes A a nd B shall be performed, to verify adherence to the 
+requirements in 3.5, 3.6, 3.8, 3.9, 4.5, 4.6, 5. 3, 5.4 and 6.1. The endurance test (A.6) shall be 
+performed after all the other tests in Annexes A and B. 
+For software-controlled instruments, the additional requirements in 5.5 and Annex G apply. 
+3.10.2 Modules 
+Subject to agreement with the approving authority, the manufacturer may define and submit modules 
+to be examined separately. This is particularly relevant in the following cases: 
+ where testing the instrument as a whole is difficult or impossible; 
+ where modules are manufactured and/or placed on the market as separate units to be 
+incorporated in a complete instrument; or 
+ where the applicant wants to have a variety of modules included in the approved type. 
+Where modules are examined separately in the proc ess of type approval, the following requirements 
+apply. 
+3.10.2.1 Apportioning of errors 
+The error limits applicable to a module, M i , which is examined separately are equal to a fraction pi of 
+the maximum permissible errors or the allowed variations of the indication of the complete instrument 
+as specified in 3.5. The fractions for any module have to be taken for at least the same accuracy class 
+and at least the same number of verification scale intervals, as for the complete instrument 
+incorporating the module. 
+The fractions pi shall satisfy the following equation: 
+222
+12 3 ... 1ppp+ ++ ≤  
+The fraction pi shall be chosen by the manufacturer of the module and shall be verified by an 
+appropriate test, taking into account the following conditions: 
+ For purely digital devices pi may be equal to 0. 
+ For weighing modules pi may be equal to 1. 
+ For all other modules (including digital load cells) the fraction shall not exceed 0.8 and shall 
+not be less than 0.3, when more than one module contributes to the effect in question. 
+Acceptable solution (see explanation in the introductory note to clause 4): 
+For mechanical structures such as weighbridges, load transmitting devices and mechanical or electrical 
+connecting elements evidently designed and manufactured according to sound engineering practice, an 
+overall fraction pi = 0.5 may be applied without any test, e.g. when levers are made of the same 
+material and when the chain of levers has two plan es of symmetry (longitudinal and transversal), or 
+when the stability characteristics of electrical connecting elements are appropriate for the signals 
+transmitted, such as load cell output, impedance, etc. 
+For instruments incorporating the typical modules (see T.2.2) the fractions pi may have the values 
+given in Table 7. Table 7 takes into account that  the modules are affected in a different manner 
+depending on the different performance criteria. 
+ 
+36 
+ 
+
+=== A4_PERFORMANCE_TESTS | PDF pages 85-94 ===
+
+OIML R 76-1: 2006 (E) 
+ 
+ANNEX A 
+(Mandatory) 
+Testing procedures for 
+non-automatic weighing instruments 
+A.1 Administrative examination (8.2.1) 
+Review the documentation that is submitted, incl uding necessary photographs, drawings, relevant 
+technical specifications of main components, etc., to  determine if it is adequa te and correct. Consider 
+the operating manual or equivalent user documentation. 
+Note: An “operating manual” may be a draft. 
+A.2 Compare construction with documentation (8.2.2) 
+Examine the various devices of the instrument to ensure compliance with the documentation. Consider 
+also 3.10. 
+A.3 Initial examination 
+A.3.1 Metrological characteristics 
+Note the metrological characteristics according to the Test Report Format (R 76-2). 
+A.3.2 Descriptive markings (7.1) 
+Check the descriptive markings according to the checklist given in the Test Report Format. 
+A.3.3 Stamping and securing (4.1.2.4 and 7.2) 
+Check the arrangements for stamping and securing accord ing to the checklist given in the Test Report 
+Format. 
+A.4 Performance tests 
+A.4.1 General conditions 
+A.4.1.l Normal test conditions (3.5.3.1) 
+Errors shall be determined under normal test cond itions. When the effect of one factor is being 
+evaluated, all other factors are to be held relatively constant, at a value close to normal. 
+For instruments of class I all necessary corrections in respect to influence factors due to the test load 
+shall be applied, i.e. influence of air buoyancy. 
+A.4.1.2 Temperature 
+The tests shall be performed at a steady ambient temperature, usually normal room temperature unless 
+otherwise specified. 
+The temperature is deemed to be steady when th e difference between the extreme temperatures noted 
+during the test does not exceed one-fifth of the temperature range of the given instrument without 
+ 
+85 
+ 
+
+OIML R 76-1: 2006 (E) 
+ 
+being greater than 5 °C (2 °C in the case of a creep test), and the rate of change does not exceed 5 °C 
+per hour. 
+A.4.1.3 Power supply 
+Instruments using electric power shall normally be  connected to the mains power or power supply 
+device and switched on throughout the tests. 
+A.4.1.4 Reference position before tests 
+For an instrument liable to be tilted, the instrument shall be leveled at its reference position. 
+A.4.1.5 Automatic zero-setting and zero-tracking 
+During the tests, the effect of the automatic zero-setting device or the zero-tracking device may be 
+switched off or suppressed by starting the test with a load equal to say 10 e. 
+In certain tests where the automatic zero-setting or zero-tracking must be in operation (or not), specific 
+mention of this is made in those test descriptions. 
+A.4.1.6 Indication with a scale interval smaller than e 
+If an instrument with digital indication has a device  for displaying the indication with a smaller scale 
+interval (not greater than 1/5 e), this device may be used to determ ine the error. If a device is used it 
+should be noted in the Test Report. 
+A.4.1.7 Using a simulator to test modules (3.10.2 and 3.7.1) 
+If a simulator is used to test a module, the repeatability and stability of the simulator should make it 
+possible to determine the performance of the modu le with at least the same accuracy as when a 
+complete instrument is tested with weights, the mp e to be considered being those applicable to the 
+module. If a simulator is used, this shall be not ed in the Test Report Format and its traceability 
+referenced. 
+A.4.1.8 Adjustment (4.1.2.5) 
+A semi-automatic span adjustment device shall be initiated only once before the first test. 
+An instrument of class I shall, if applicable, be adju sted prior to each test following the instructions in 
+the operating manual. 
+Note: The temperature test A.5.3.1 is considered as one test. 
+A.4.1.9 Recovery 
+After each test the instrument should be allowed to recover sufficiently before the following test. 
+A.4.1.10 Preloading 
+Before each weighing test the instrument shall be pre- loaded once to Max or to Lim if this is defined, 
+except for the tests in A.5.2 and A.5.3.2. 
+Where load cells are tested separately, the pre-loading shall follow OIML R 60. 
+A.4.1.11 Multiple range instruments 
+In principle, each range should be tested as a sep arate instrument. For instruments with automatic 
+change over, however, combined tests can be possible. 
+ 
+86 
+ 
+
+OIML R 76-1: 2006 (E) 
+ 
+A.4.2 Checking of zero 
+A.4.2.1 Range of zero-setting (4.5.1) 
+A.4.2.1.1 Initial zero-setting 
+With the load receptor empty, set the instrument to  zero. Place a test load on the load receptor and 
+switch the instrument off and then back on. Continue this process until, after placing a load on the load 
+receptor and switching the instrument off and on, it does not re-zero. The maximum load that can be 
+re-zeroed is the positive portion of the initial zero-setting range. 
+Remove any load from the load receptor and set the instrument to zero. Then remove the load receptor 
+(platform) from the instrument. If, at this point, th e instrument can be reset to zero by switching it off 
+and back on, the mass of the load receptor is used as the negative portion of the initial zero-setting 
+range. 
+If the instrument cannot be reset to zero with the lo ad receptor removed, add weights to any live part 
+of the scale (e.g. on the parts where the load receptor rests) until the instrument indicates zero again. 
+Then remove weights and, after each weight is re moved, switch the instrument off and back on. The 
+maximum load that can be removed while the instrument can still be reset to zero by switching it off 
+and on is the negative portion of the initial zero-setting range. 
+The initial zero-setting range is the sum of the positive and negative portions. If the load receptor 
+cannot readily be removed, only the positive part of the initial zero-setting range need be considered. 
+A.4.2.1.2 Non-automatic and semi-automatic zero-setting 
+This test is performed in the same manner as described in A.4.2.1.1, except that the zero-setting means 
+is used rather than switching the instrument off and on. 
+A.4.2.1.3 Automatic zero-setting 
+Remove the load receptor as described in A.4. 2.1.1 and place weights on the instrument until it 
+indicates zero. 
+Remove weights in small amounts and after each weight is removed allow time for the automatic zero-
+setting device to function so as to see if the instru ment is reset to zero automatically. Repeat this 
+procedure until the instrument will not reset to zero automatically. 
+The maximum load that can be removed so that the instrument can still be reset to zero is the zero-
+setting range. 
+If the load receptor cannot readily be removed, a practical approach can be to add weights to the 
+instrument and use another zero-setting device, if provided, to set the instrument to zero. Then remove 
+weights and check whether the automatic zero-setting still sets the instrument to zero. The maximum 
+load that can be removed so that the instrument can still be reset to zero is the zero-setting range. 
+A.4.2.2 Zero indicating device (4.5.5) 
+For instruments fitted with a zero indicating device and digital indication, adjust the instrument to 
+about one scale interval below zero; then by adding  weights equivalent, for example, to 1/10 of the 
+scale interval, determine the range over which the zero indicating device indicates the deviation from 
+zero. 
+A.4.2.3 Accuracy of zero-setting (4.5.2) 
+The test may be combined with A.4.4.1. 
+ 
+87 
+ 
+
+OIML R 76-1: 2006 (E) 
+ 
+A.4.2.3.1 Non-automatic and semi-automatic zero-setting 
+The accuracy of the zero-setting device is tested by first loading the instrume nt to an indication as 
+close as possible to a changeover point, and then by initiating the zero-setting device and determining 
+the additional load at which the indication chang es from zero to one scale interval above zero. The 
+error at zero is calculated according to the description in A.4.4.3. 
+A.4.2.3.2 Automatic zero-setting or zero-tracking 
+The indication is brought out of the automatic range (e.g. by loading with 10 e). Then the additional 
+load at which the indication changes from one scale in terval to the next above is determined and the 
+error is calculated according to the description in A. 4.4.3. It is assumed that the error at zero load 
+would be equal to the error at the load in question. 
+A.4.3 Setting to zero before loading 
+For instruments with digital indication, the adjustment to zero, or the determination of the zero point is 
+carried out as follows: 
+a) For instruments with non-automatic zero-setting,  weights equivalent to half a scale interval are 
+placed on the load receptor, and the instrument is  adjusted until the indi cation alternates between 
+zero and one scale interval. Then weights equivalent to half a scale interval are removed from the 
+load receptor to attain a centre of zero reference position. 
+b) For instruments with semi-autom atic or automatic zero-setting or zero-tracking, the deviation from 
+zero is determined as described in A.4.2.3. 
+A.4.4 Determination of weighing performance 
+A.4.4.1 Weighing test 
+Apply test loads from zero up to and including Max, a nd similarly remove the test loads back to zero. 
+When determining the initial intrinsic error, at l east 10 different test loads shall be selected, and for 
+other weighing tests at least 5 shall be selected. The test loads selected shall include Max and Min 
+(Min only if Min ≥ 100 mg) and values at or near those at which the maximum permissible error 
+(mpe) changes. 
+During type examination it should be noted that when  loading or unloading weights the load shall be 
+progressively increased or progressively decreased. It is recommended to apply the same procedure as 
+far as possible during initial verification (8.3) and subsequent metrological control (8.4). 
+If the instrument is provided with an automatic zero-setting or zero-tracking device, it may be in 
+operation during the tests, except for the temperature test. The error at zero point is then determined 
+according to A.4.2.3.2. 
+A.4.4.2 Supplementary weighing test (4.5.1) 
+For instruments with an initial zero-setting device with a range greater than 20 % of Max, a 
+supplementary weighing test shall be performed using the upper limit of the range as zero point. 
+A.4.4.3 Evaluation of error (A.4.1.6) 
+For instruments with digital indication and without  a device for displaying the indication with a 
+smaller scale interval (not greater than 1/5 e), the changeover points are to be used to determine the 
+indication of the instrument, prior to rounding, as follows. 
+At a certain load, L, the indicated value, I, is noted. Additional weights of say 1/10 e are successively 
+added until the indication of the instrument is increased unambiguously by one scale interval ( I + e ). 
+ 
+88 
+ 
+
+OIML R 76-1: 2006 (E) 
+ 
+The additional load ΔL added to the load receptor gives the indication P, prior to rounding by using 
+the following formula: 
+P = I + ½ e – ΔL 
+The error prior to rounding is: 
+E = P – L = I + ½ e – ΔL – L 
+The corrected error prior to rounding is: 
+Ec = E – E0 ≤ mpe 
+where E0 is the error calculated at zero or at a load close to zero (e.g. 10 e). 
+Example: An instrument with a verification scale interval, e, of 5 g is loaded with 1 kg and thereby 
+indicates 1 000 g. After adding successive weights of 0.5 g, the indication changes from 
+1 000 g to 1 005 g at an additional load of 1.5 g. Inserted in the above formula these 
+observations give: 
+P = (1 000 + 2.5 – 1.5) g = 1 001 g 
+Thus the true indication prior to rounding is 1 001 g, and the error is: 
+E = (1 001 – 1 000) g = + 1 g 
+If the changeover point at zero as calculated above was E 0 = +  0.5 g, the corrected error 
+is: 
+Ec = + 1 – (+ 0.5) = + 0.5 g 
+In the tests A.4.2.3 and A.4.11.1, the error shall be  determined with a sufficient accuracy in view of 
+the tolerance in question. 
+Note: The above description and formulae are also va lid for multi-interval instruments. Where the 
+load, L, and the indication, I, are in different partial weighing ranges: 
+ the additional weights ΔL are to be in steps of 1/10 ei, 
+ in the equation “ E = P  – L = ...” above, the term “½ e” is to be ½ e i or ½ ei + 1 
+according to the partial weighing range in which the indication (I + e) appears. 
+A.4.4.4 Testing of modules 
+When testing modules separately, it shall be possible to determine the errors with a sufficiently small 
+uncertainty considering the chosen fractions of th e mpe either by using a device for displaying the 
+indication with a scale inte rval smaller than (1/5) pi × e or by evaluating the changeover point of the 
+indication with an uncertainty better than (1/5) pi × e. 
+A.4.4.5 Weighing test using substitution material (3.7.3) 
+The test shall be carried out only during verifica tion and at the place of use taking A.4.4.1 into 
+account. 
+Determine the allowed number of substitutions according to 3.7.3. 
+Check the repeatability error at a load of about the value where the substitution is made, by placing it 
+three times on the load receptor. Th e results of the repeatability test (A .4.10) may be used if the test 
+loads have a comparable mass. 
+Apply test loads from zero up to and including the maximum quantity of standard weights. 
+Determine the error (A.4.4.3) and then remove the we ights so that the no-load indication, or, in the 
+case of an instrument with a zero-tracking device, the indication of say 10 e, is reached. 
+ 
+89 
+ 
+
+OIML R 76-1: 2006 (E) 
+ 
+Substitute the previous weights with substitution ma terial until the same changeover point, as used for 
+the determination of the error, is reached. Repeat the above procedure until Max of the instrument is 
+reached. 
+Unload in reverse order to zero, i.e. unload the weights and determine the changeover point. Place the 
+weights back and remove the substitution material until the same changeover point is reached. Repeat 
+this procedure until no-load indication. 
+Similar equivalent procedures may be applied. 
+A.4.5 Instruments with more than  one indicating device (3.6.3) 
+If the instrument has more than one indicating device, the indications of the various devices shall be 
+compared during the tests described in A.4.4. 
+A.4.6 Tare 
+A.4.6.1 Weighing test (3.5.3.3) 
+Weighing tests (loading and unloading according to A. 4.4.1) shall be performed with different tare 
+values. At least 5 load steps shall be selected. The steps shall include values close to Min (Min only if 
+Min ≥ 100 mg), values at or near those at which th e maximum permissible error (mpe) changes and 
+the value close to the maximum possible net load. 
+The weighing tests should be performed on instruments with: 
+ subtractive tare: with one tare value between 1/3 and 2/3 of maximum tare; 
+ additive tare: with two tare values of about 1/3 and 3/3 of maximum tare effect. 
+For 8.3 and 8.4, the practical test may be replaced by other appropriate procedures, e.g. by numerical 
+or graphical considerations; simulation of a tare-bal ancing operation by displacement (shifting) of the 
+error limits (mpe) to any points of the error curve (curve of weighing test results); or checking if the 
+error curve and hysteresis are inside the mpe at every point. 
+If the instrument is provided with automatic zero-setting or zero-tracking device it may be in operation 
+during the test, in which case the error at zero point shall be determined according to A.4.2.3.2. 
+A.4.6.2 Accuracy of tare setting (4.6.3) 
+The test may be combined with A.4.6.1. 
+The accuracy of the tare device shall be established in a manner similar to the test described in A.4.2.3 
+with the indication set to zero using the tare device. 
+A.4.6.3 Tare weighing device (3.5.3.4 and 3.6.3) 
+If the instrument has a tare weighing device, the resu lts obtained for the same load (tare), by the tare 
+weighing device and the indicating device, shall be compared. 
+A.4.7 Eccentricity tests (3.6.2) 
+Large weights should be used in preference to several small weights. Smaller weights shall be placed 
+on top of larger weights, but unnecessary stacking shoul d be avoided within the segment to be tested. 
+The load shall be applied centrally in the segment if a single weight is used, but applied uniformly 
+over the segment, if several small weights are used. It is sufficient to appl y the load only to the 
+eccentric segments, not to the centre of the load receptor. 
+Note: If an instrument is designed in such a way th at loads may be applied in different manners, it 
+may be appropriate to apply more than one of the tests described in A.4.7.1-A.4.7.5. 
+ 
+90 
+ 
+
+OIML R 76-1: 2006 (E) 
+ 
+The location of the load shall be marked on a sketch in the Test Report. 
+The error at each measurement is determined according to A.4.4.3. The zero error E0 used for the 
+correction is the value determined prior to each m easurement. Normally it is sufficient to determine 
+the zero error only at the beginning of the measureme nt, but on special instruments (accuracy class I, 
+high capacity, etc.) it is recommended that the zero error be determined prior to each eccentricity 
+loading. However, if the mpe is exceeded, the test with zero error prior to each loading is necessary. 
+If the instrument is provided with automatic zero-se tting or zero-tracking, it shall not be in operation 
+during the following tests. 
+Note: If operating conditions are such that no eccentricity  can occur, eccentricity tests need not be 
+performed. 
+A.4.7.1 Instruments with a load receptor havi ng not more than four points of support 
+The four quarter segments roughly equal to ¼ of the surface of the load receptor (as shown in the 
+sketches in Figure 9 or similar sketches) shall be loaded in turn. 
+Figure 9 
+ 
+Examples: A load receptor which transmits the force from the load: 
+ directly into 1 single point load cell has 1 point of support; 
+ directly into 3 load cells has 3 points of support; and 
+ with 4 mechanical connection elements into a lever works has 4 points of support. 
+A.4.7.2 Instruments with a load receptor h aving more than four points of support 
+The load shall be applied over each support on an ar ea of the same order of magnitude as the fraction 
+1/n of the surface area of the load receptor, where n is the number of points of support. 
+Where two points of support are too close together fo r the above-mentioned test load to be distributed 
+as indicated above, the load shall be doubled and distributed over twice the area on both sides of the 
+axis connecting the two points of support. 
+A.4.7.3 Instruments with special load receptors (tank, hopper, etc.) 
+The load shall be applied to each point of support. 
+A.4.7.4 Instruments used for we ighing rolling loads (3.6.2.4) 
+A load shall be applied at different positions on the load receptor. These positions shall be at the 
+beginning, the middle and at the end of the load recep tor in the normal driving direction. The positions 
+shall then be repeated in the reverse direction, if the application in both directions is possible. Before 
+changing direction zero has to be determined again.  If the load receptor consists of several sections, 
+the test shall be applied to each section. 
+ 
+91 
+ 
+
+OIML R 76-1: 2006 (E) 
+ 
+A.4.7.5 Eccentricity tests for mobile instruments 
+A.4.7 and A.4.7.1 to A.4.7.4 should be applied as far as these points are applicable. If not, the 
+positions of the test loads during this test have to be defined according to the operational conditions of 
+use. 
+A.4.8 Discrimination test (3.8) 
+The following tests shall be performed with three different loads, e.g. Min, ½ Max and Max. 
+A.4.8.1 Non-self-indication and analog indication 
+An extra load, but not less than 1 mg, shall be pl aced gently on or removed from the load receptor 
+while the instrument is at equilibrium. For certain extra load the equilibri um mechanism shall assume 
+a different position of equilibrium, as specified. 
+A.4.8.2 Digital indication 
+This test applies only to type examination and to instruments with d ≥ 5 mg. 
+A load plus sufficient additional weights (say 10 times 1/10 d) shall be placed on the load receptor. 
+The additional weights shall then be removed successively until the indication, I, is decreased 
+unambiguously by one actual scale interval, I – d . One of the additional weights shall be placed back 
+on the load receptor and a load equal to 1.4 d shall then be gently placed on the load receptor and give 
+a result increased by one actual scale interval above the initial indication, I + d . See example in 
+Figure 10. 
+Figure 10 – Instrument with d = 10 g 
+ 
+The indication at the start is I = 200 g. 
+Remove additional weights until the indication changes to I – d = 190 g. 
+Add 1/10 d = 1 g and thereafter 1.4 d = 14 g. 
+The indication shall then be I + d = 210 g. 
+A.4.9 Sensitivity of a non-self-indicating instrument (6.1) 
+During this test the instrument shall oscillate normally, and an extra load equal to the value of the mpe 
+for the applied load, but not less than 1 mg, shall be placed on the instrument while the load receptor is 
+still oscillating. For damped instruments the extra load shall be applied with a slight impact. The linear 
+distance between the middle points of this reading and the reading without the extra load shall be 
+taken as the permanent displacement of the indication. The test shall be performed with a minimum of 
+two different loads (e.g. zero and Max). 
+ 
+92 
+ 
+
+OIML R 76-1: 2006 (E) 
+ 
+A.4.10 Repeatability test (3.6.1) 
+For type approval two series of weighings shall be performed, one with a load of about 50 % and one 
+with a load close to 100 % of Max. For instru ments with Max less than 1 000 kg each series shall 
+consist of 10 weighings. In other cases each series shall consist of at least 3 weighings. Readings shall 
+be taken when the instrument is loaded, and when the unloaded instru ment has come to rest between 
+weighings. In the case of a zero deviation between th e weighings, the instrument shall be reset to zero, 
+without determining the error at zero. The true zero position need not be determined between the 
+weighings. 
+If the instrument is provided with automatic zero- setting or zero-tracking, it shall be in operation 
+during the test. 
+For verification one series of weighings with about 0.8 Max is sufficient. Three weighings on classes 
+III and IIII or six weighings on classes I and II are necessary. 
+A.4.11 Variation of indication with time (for instruments of classes II, III or IIII only) 
+A.4.11.1 Creep test (3.9.4.1) 
+Load the instrument close to Max. Take one read ing as soon as the indication has stabilized and then 
+note the indication while the load remains on the instrument for a period of four hours. During this test 
+the temperature should not vary more than 2 °C. 
+The test may be terminated after 30 minutes if the indication differs less than 0.5 e during the first 
+30 minutes and the difference between 15 and 30 minutes is less than 0.2 e. 
+A.4.11.2 Zero return test (3.9.4.2) 
+The deviation in the zero indication before and after a period of loading with a load close to Max for 
+half an hour, shall be determined. The reading shall be taken as soon as the indication has stabilized. 
+For multiple range instruments, continue to read  the zero indication during the following 5 minutes 
+after the indication has stabilized. 
+If the instrument is provided with automatic zero-setting or zero-tracking, it shall not be in operation. 
+A.4.12 Test for the stability of equilibrium (4.4.2) 
+Check the documentation of the manufacturer, whethe r the following stable equilibrium functions are 
+described in detail and sufficiently: 
+ the basic principle, the function and the criteria for stable equilibrium; 
+ all adjustable and not adjustable parameters of  the stable equilibrium function (time interval, 
+number of measuring cycles, etc.); 
+ securing of these parameters; and 
+ definition of the most critical adjustment of the stable equilibrium (worst case). This shall 
+cover all variants of a type. 
+Test the stable equilibrium with the most critical adjustment (worst case) and check that printing (or 
+storing) is not possible when stable equilibrium is not yet reached. 
+Check that, under continuous disturbance of the equilibrium, no functions can be performed which 
+require stable equilibrium, e.g. printing, storing, zero or tare operations. 
+Load the instrument up to 50 % of Max or up to a load included in the range of operation of the 
+relevant function. Manually disturb the equilibrium  by one single action and initiate the command for 
+printing, data storage, or other function, as soon as possible. In the case of printing or data storage, 
+read the indicated value over a period of 5 sec onds following print-out. Stable equilibrium is 
+considered to be achieved when no more than tw o adjacent values are indicated, one of which being 
+ 
+93 
+ 
+
+OIML R 76-1: 2006 (E) 
+ 
+the printed value. For instruments with differen tiated scale divisions, this paragraph applies to e rather 
+than to d. 
+In the case of zero-setting or tare balancing, check the accuracy according to A.4.2.3/A.4.6.2. Perform 
+the test 5 times. 
+In case of vehicle-mounted, vehicle-incorporated or mobile instruments, tests have to be performed 
+with a known operational test load, the instrument be ing in motion to ensure either that the stability 
+criteria inhibit any weighing operatio n or that the stable equilibrium criteria of 4.4.2 are met. In case 
+the instrument can be used to weigh liquid produ cts in a vehicle, tests should be performed in 
+conditions where the vehicle is stopped just before testing so that either the stability criteria inhibit any 
+weighing operation or that the stable equilibrium criteria of 4.4.2 are met. 
+A.4.13 Additional tests for portable weighbridges (4.19) 
+Note: Portable instruments have very different cons tructions for a large number of very different 
+applications so that it is principally not possibl e to define uniform test procedures. Different 
+requirements, conditions and specificati ons could be necessary depending on the 
+construction and application and, of course,  on the metrological demands (e.g. accuracy 
+class). These should be mentioned and describ ed in the respective Test Report. A.4.13 
+therefore only provides some general means for properly testing a portable instrument. 
+To be performed during type approval: 
+ At a site agreed with the manufacturer: 
+- examine the evenness of the reference area (all points of support of the bridge being at 
+the same level) and then perform an accuracy test and an eccentricity test; and 
+- realize several reference areas with some different faults in the evenness (the values of 
+these faults are to be equal to the limits given by the manufacturer) and then perform 
+an eccentricity test for each configuration. 
+ At a site where the instrument is used: 
+- examine the conformity to the requirements for the mounting surface; and 
+- examine the installation and perform tests to establish conformity with the 
+metrological requirements. 
+A.5 Influence factors 
+A.5.1 Tilting (only class II, I II and IIII instruments) (3.9.1.1) 
+The instrument shall be tilted both forwards and b ackwards longitudinally, and from side to side, 
+transversely. 
+In practice the tests (no-load and loaded) described  in A.5.1.1.1 and A.5.1.1.2 can be combined as 
+follows. 
+After zero-setting in the reference position, the indica tion (prior to rounding) is determined at no-load 
+and at the two test loads. The instrument is then  unloaded and tilted (without a new zero-setting), after 
+which the indications at no load and at the two test  loads are determined. This procedure is repeated 
+for each of the tilting directions. 
+In order to determine the influence of tilting on the loaded instrument, the indication obtained at each 
+tilt shall be corrected for the deviation from zero which the instrument had prior to loading. 
+If the instrument is provided with automatic zero-setting or zero-tracking, it shall not be in operation. 
+ 
+ 
+ 
+94 
+ 
+
+=== A5_INFLUENCE_FACTORS | PDF pages 94-97 ===
+
+OIML R 76-1: 2006 (E) 
+ 
+the printed value. For instruments with differen tiated scale divisions, this paragraph applies to e rather 
+than to d. 
+In the case of zero-setting or tare balancing, check the accuracy according to A.4.2.3/A.4.6.2. Perform 
+the test 5 times. 
+In case of vehicle-mounted, vehicle-incorporated or mobile instruments, tests have to be performed 
+with a known operational test load, the instrument be ing in motion to ensure either that the stability 
+criteria inhibit any weighing operatio n or that the stable equilibrium criteria of 4.4.2 are met. In case 
+the instrument can be used to weigh liquid produ cts in a vehicle, tests should be performed in 
+conditions where the vehicle is stopped just before testing so that either the stability criteria inhibit any 
+weighing operation or that the stable equilibrium criteria of 4.4.2 are met. 
+A.4.13 Additional tests for portable weighbridges (4.19) 
+Note: Portable instruments have very different cons tructions for a large number of very different 
+applications so that it is principally not possibl e to define uniform test procedures. Different 
+requirements, conditions and specificati ons could be necessary depending on the 
+construction and application and, of course,  on the metrological demands (e.g. accuracy 
+class). These should be mentioned and describ ed in the respective Test Report. A.4.13 
+therefore only provides some general means for properly testing a portable instrument. 
+To be performed during type approval: 
+ At a site agreed with the manufacturer: 
+- examine the evenness of the reference area (all points of support of the bridge being at 
+the same level) and then perform an accuracy test and an eccentricity test; and 
+- realize several reference areas with some different faults in the evenness (the values of 
+these faults are to be equal to the limits given by the manufacturer) and then perform 
+an eccentricity test for each configuration. 
+ At a site where the instrument is used: 
+- examine the conformity to the requirements for the mounting surface; and 
+- examine the installation and perform tests to establish conformity with the 
+metrological requirements. 
+A.5 Influence factors 
+A.5.1 Tilting (only class II, I II and IIII instruments) (3.9.1.1) 
+The instrument shall be tilted both forwards and b ackwards longitudinally, and from side to side, 
+transversely. 
+In practice the tests (no-load and loaded) described  in A.5.1.1.1 and A.5.1.1.2 can be combined as 
+follows. 
+After zero-setting in the reference position, the indica tion (prior to rounding) is determined at no-load 
+and at the two test loads. The instrument is then  unloaded and tilted (without a new zero-setting), after 
+which the indications at no load and at the two test  loads are determined. This procedure is repeated 
+for each of the tilting directions. 
+In order to determine the influence of tilting on the loaded instrument, the indication obtained at each 
+tilt shall be corrected for the deviation from zero which the instrument had prior to loading. 
+If the instrument is provided with automatic zero-setting or zero-tracking, it shall not be in operation. 
+ 
+ 
+ 
+94 
+ 
+
+OIML R 76-1: 2006 (E) 
+ 
+A.5.1.1 Tilting of instruments with a level indi cator or automatic tilt sensor (3.9.1.1a and b) 
+A.5.1.1.1 Tilting at no-load 
+The instrument shall be set to zero in its reference position (not tilted). The instrument shall then be 
+tilted longitudinally up to the limiting value of tilting. The zero indication is noted. The test shall be 
+repeated with transverse tilting. 
+A.5.1.1.2 Tilting when loaded 
+The instrument shall be set to zero in its referenc e position and two weighings shall be carried out at a 
+load close to the lowest load wh ere the maximum permissible error ch anges, and at a load close to 
+Max. The instrument is then unloaded and tilted lo ngitudinally and set to zero. The tilting shall be 
+equal to the limiting value of tilting. Weighing test s as described above shall be performed. The test 
+shall be repeated with transverse tilting. 
+A.5.1.2 Other instruments (3.9.1.1 c) 
+For instruments liable to be tilted and neither fitted with a level indicator nor with an automatic tilt 
+sensor the tests in A.5.1.1 shall be performed with a tilting of 50/1000 or, in case of an instrument with 
+automatic tilt sensor, with a tilting equal to the limiting value of tilting as defined by the manufacturer. 
+A.5.1.3 Tilt test for mobile instruments used outside in open locations (3.9.1.1d and 4.18.1) 
+Appropriate load receptors for applying the test loads are to be provided by the applicant. 
+The tilt test shall be performed with the limiting value of tilting. 
+The instrument shall be tilted both forwards and b ackwards longitudinally, and from side to side, 
+transversely. 
+Functional tests shall be performed to ensure that , if applicable, tilt sensors or inclination switches 
+function properly especially when generating the si gnal that the maximum permissible tilt is reached 
+or exceeded (e.g. display switch-off, error signal, lamp), and inhibiting transmission and printing of 
+weighing results. 
+The test shall be performed near the switching-off point (in the case of an automatic tilt sensor) or near 
+the tilt where the load receptor comes into contact with the surrounding frame construction (in the case 
+of a cardanic suspension). This is the limiting value of tilting. 
+If the instrument is provided with automatic zero-setting or zero-tracking, it shall not be in operation. 
+The instrument shall be tested according to A.5.1 and A.5.1.1 or A.5.1.2. 
+A.5.2 Warm-up time test (5.3.5) 
+An instrument using electric power shall be disco nnected from the supply for a period of at least 
+8 hours prior to the test. The instrument shall then be connected and switched on and as soon as the 
+indication has stabilized, the instrument shall be set to zero and the error at zero shall be determined. 
+Calculation of the error shall be made according to A.4.4.3. The instrument shall be loaded with a load 
+close to Max. These observations shall be repeat ed after 5, 15 and 30 minutes. Every individual 
+measurement performed after 5, 15, and 30 minutes, shall be corrected for the zero error at that time. 
+For instruments of class I, the provisions of the operating manual for the time following connection to 
+the mains shall be observed. 
+ 
+ 
+ 
+95 
+ 
+
+OIML R 76-1: 2006 (E) 
+ 
+A.5.3 Temperature tests 
+Note: See Figure 11 for a practical approach to performing the temperature tests. 
+A.5.3.1 Static temperatures (3.9.2.1 and 3.9.2.2) 
+The test consists of exposure of the equipment under test (EUT) to constant (see A.4.1.2) temperatures 
+within the range stated in 3.9.2, under free air conditions, for a 2 hour period after the EUT has 
+reached temperature stability. 
+The weighing tests (loading and unloading) shall be carried out according to A.4.4.l: 
+ at a reference temperature (normally 20 °C but for class I instruments the mean value of the 
+specified temperature limits); 
+ at the specified high temperature; 
+ at the specified low temperature; 
+ at a temperature of 5 °C, if the specified low temperature is ≤ 0 °C; and 
+ at the reference temperature. 
+The change of temperature shall not exceed 1 °C/min during heating and cooling down. 
+For class I instruments, changes in barometric pressure shall be taken into account. 
+For weighing tests at the specified high temperature the relative humidity shall not exceed 20 g/m3. 
+Note: An absolute humidity of 20 g/m 3 corresponds to a relative humidity of 39 % at 40 °C, of 
+50 % at 35 °C and of 66 % at 30 °C. These values are valid for an air pressure of 
+1 013.25 hPa [4]. 
+A.5.3.2 Temperature effect on the no-load indication (3.9.2.3) 
+The instrument shall be set to zero and then change d to the prescribed highest and lowest temperatures 
+as well as at 5 °C if applicable. After stabilization th e error of the zero indication shall be determined. 
+The change in zero indication per 1 °C (class I instru ments) or per 5 °C (other instruments) shall be 
+calculated. The changes of these errors per 1 °C (cla ss I instruments) or per 5 °C (other instruments) 
+shall be calculated for any two consecutive temperatures of this test. 
+This test may be performed together with the temperat ure test (A 5.3.1). The errors at zero shall then 
+be additionally determined immediately before changing to the next temperature and after the 2 hour 
+period after the instrument has reached stability at this temperature. 
+Note: Preloading is not allowed before these measurements. 
+If the instrument is provided with automatic zero-setting or zero-tracking, it shall not be in operation. 
+A.5.4 Voltage variations (3.9.3) 
+Stabilize the EUT under constant environmental conditions. 
+The test consists of subjecting the EUT to voltage va riations according to A.5.4. 1, A.5.4.2, A.5.4.3 or 
+A.5.4.4. 
+The test shall be performed with test loads of 10 e and a load between ½ Max and Max. 
+If the instrument is provided with an automatic zero-setting device or a zero-tracking device, it may be 
+in operation during the test, in which case the error at zero point shall be determined according to 
+A.4.2.3.2. 
+In the following Unom designates the nominal value marked on the instrument. In case a range is 
+specified Umin relates to the lowest value and Umax to the highest value of the range. 
+Reference: [4], [17] 
+ 
+96 
+ 
+
+OIML R 76-1: 2006 (E) 
+ 
+A.5.4.1 Variations of AC mains voltage 
+Test severity: Voltage variations: lower limit 0.85 Unom or 0.85 Umin 
+ upper limit 1.10 Unom or 1.10 Umax 
+Maximum allowable variations: All functions shall operate as designed. 
+All indications shall be within the maximum permissible errors. 
+Note: Where an instrument is powered by a three phase supply, the voltage variations shall apply 
+for each phase successively. 
+A.5.4.2 Variations of external or plug-in power supply device (AC or DC), including 
+rechargeable battery power supply if (re)charge of batteries during the operation of 
+the instrument is possible 
+Test severity: Voltage variations: lower limit minimum operating voltage 
+ (see 3.9.3) 
+ upper limit: 1.20 Unom or 1.20 Umax 
+Maximum allowable variations: All functions sh all operate as designed or the indication shall 
+switch off. 
+All indications shall be within the maximum permissible errors. 
+A.5.4.3 Variations of non-rechargeable ba ttery power supply, including rechargeable 
+battery power supply if (re)charge of batteries during the operation of the 
+instrument is not possible 
+Test severity: Voltage variations: lower limit: minimum operating voltage 
+ (see 3.9.3) 
+ upper limit: Unom or Umax 
+Maximum allowable variations: All functions sh all operate as designed or the indication shall 
+switch off. 
+All indications shall be within the maximum permissible errors. 
+A.5.4.4 Voltage variations of a 12 V or 24 V road vehicle battery 
+For specifications of the power supply used during the test to simulate the battery, refer to [21]. 
+Test severity: Voltage variations: lower limit: minimum operating voltage 
+ (see 3.9.3) 
+ upper limit 12 V battery: 16 V 
+ upper limit 24 V battery: 32 V 
+Maximum allowable variations: All functions sh all operate as designed or the indication shall 
+switch off. 
+All indications shall be within the maximum permissible errors. 
+A.6 Endurance test (3.9.4.3) 
+Note: Applicable only to instruments of classes II, III and IIII with Max ≤ 100 kg. 
+The endurance test shall be performed after all other tests. 
+Under normal conditions of use, the instrument shall be subjected to the repetitive loading and 
+unloading of a load approximately equal to 50 % of Max. The load shall be applied 100 000 times. 
+The frequency and speed of application shall be such that the instrument attains an equilibrium when 
+ 
+97 
+ 
+
+=== A6_ENDURANCE | PDF pages 97-100 ===
+
+OIML R 76-1: 2006 (E) 
+ 
+A.5.4.1 Variations of AC mains voltage 
+Test severity: Voltage variations: lower limit 0.85 Unom or 0.85 Umin 
+ upper limit 1.10 Unom or 1.10 Umax 
+Maximum allowable variations: All functions shall operate as designed. 
+All indications shall be within the maximum permissible errors. 
+Note: Where an instrument is powered by a three phase supply, the voltage variations shall apply 
+for each phase successively. 
+A.5.4.2 Variations of external or plug-in power supply device (AC or DC), including 
+rechargeable battery power supply if (re)charge of batteries during the operation of 
+the instrument is possible 
+Test severity: Voltage variations: lower limit minimum operating voltage 
+ (see 3.9.3) 
+ upper limit: 1.20 Unom or 1.20 Umax 
+Maximum allowable variations: All functions sh all operate as designed or the indication shall 
+switch off. 
+All indications shall be within the maximum permissible errors. 
+A.5.4.3 Variations of non-rechargeable ba ttery power supply, including rechargeable 
+battery power supply if (re)charge of batteries during the operation of the 
+instrument is not possible 
+Test severity: Voltage variations: lower limit: minimum operating voltage 
+ (see 3.9.3) 
+ upper limit: Unom or Umax 
+Maximum allowable variations: All functions sh all operate as designed or the indication shall 
+switch off. 
+All indications shall be within the maximum permissible errors. 
+A.5.4.4 Voltage variations of a 12 V or 24 V road vehicle battery 
+For specifications of the power supply used during the test to simulate the battery, refer to [21]. 
+Test severity: Voltage variations: lower limit: minimum operating voltage 
+ (see 3.9.3) 
+ upper limit 12 V battery: 16 V 
+ upper limit 24 V battery: 32 V 
+Maximum allowable variations: All functions sh all operate as designed or the indication shall 
+switch off. 
+All indications shall be within the maximum permissible errors. 
+A.6 Endurance test (3.9.4.3) 
+Note: Applicable only to instruments of classes II, III and IIII with Max ≤ 100 kg. 
+The endurance test shall be performed after all other tests. 
+Under normal conditions of use, the instrument shall be subjected to the repetitive loading and 
+unloading of a load approximately equal to 50 % of Max. The load shall be applied 100 000 times. 
+The frequency and speed of application shall be such that the instrument attains an equilibrium when 
+ 
+97 
+ 
+
+OIML R 76-1: 2006 (E) 
+ 
+loaded and when unloaded. The force of the load applied shall not exceed the force attained in a 
+normal loading operation. 
+A weighing test in accordance with the procedure in A.4.4.1 shall be performed before the endurance 
+test is started to obtain the intrinsic error. A wei ghing test shall be performed after the completion of 
+the loadings to determine the durability error due to wear and tear. 
+If the instrument is provided with an automatic zero-setting or zero-tracking device, it may be in 
+operation during the test, in which case the error at zero point shall be determined according to 
+A.4.2.3.2. 
+ 
+98 
+ 
+
+OIML R 76-1: 2006 (E) 
+ 
+Figure 11 
+Proposed test sequence for test A.5.3.1 combined with A.5.3.2 
+(temperature test where the temperature limits are + 40 °C / – 10 °C 
+ 
+99 
+ 
+
+OIML R 76-1: 2006 (E) 
+ 
+ANNEX B 
+(Mandatory) 
+Additional tests for electronic instruments 
+Preliminary note 1: The tests which are specific to electro nic instruments, as described in this 
+Annex, have been taken as far as possible from the work of the International 
+Electrotechnical Commission (IEC) also ta king into consideration the latest 
+edition of the OIML International Document D 11 [4]. 
+Preliminary note 2: Although references to curre nt versions of IEC publications have been made, all 
+EMC and other additional tests for electronic instruments should be conducted 
+on the basis of most recent versions valid at the time of testing. This should be 
+mentioned in the Test Report. The obj ective is to keep pace with future 
+technical developments. 
+B.1 General requirements for electronic instruments under test 
+Energize the equipment under test (EUT) for a time period equal to or greater than the warm-up time 
+specified by the manufacturer and maintain the EUT energized for the duration of the test. 
+Adjust the EUT as closely as practicable to zero prio r to each test, and do not readjust it at any time 
+during the test, except to reset it if a significant fau lt has been indicated. The deviation of the no-load 
+indication due to any test condition shall be reco rded, and any load indication shall be corrected 
+accordingly to obtain the weighing result. 
+The handling of the instrument shall be such that no condensation of water occurs on the instrument. 
+B.2 Damp heat, steady state 
+Note: Not applicable to class I instru ments or class II instruments where e is less than 1 g. 
+Test procedure in brief: The test consists of exposure of the EUT to a constant 
+temperature (see A.4.1.2) and a constant relative humidity The 
+EUT shall be tested with at least five different test loads (or 
+simulated loads): 
+ at the reference temperature (20 °C or the mean value of 
+the temperature range whenever 20 °C is outside this 
+range) and a relative humidity of 50 % following 
+conditioning; 
+ at the high temperature of the range specified in 3.9.2 and 
+a relative humidity of 85 %, two days following 
+temperature and humidity stabilization; and 
+ at the reference temperature and relative humidity of 
+50 %. 
+Maximum allowable variations: All functions shall operate as designed. 
+All indications shall be within maximum permissible errors. 
+Reference: [8], [10] 
+ 
+ 
+100 
+ 

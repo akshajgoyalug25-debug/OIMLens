@@ -1,0 +1,240 @@
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+14 
+ 
+4 DISCRIMINATION AND SENSITIVITY 
+4.1 Discrimination 
+4.1.1 Digital indication (A.4.8.2) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ……………………………………………… …. At start At max At end  
+Date: …………………………………… Temp.:    °C 
+Observer: …………………………………..… Rel. h.:    % 
+Verification scale interval, e: ……………………………..……… Time:     
+Scale interval, d: ……………………………..……… Bar. pres.:    hPa 
+ 
+ 
+Load, L Indication, 
+I1 
+Removed load 
+ΔL Add 1/10 d Extra load, 
+= 1.4 d 
+Indication, 
+I2 I2 – I1 
+       
+       
+       
+ 
+Check if I2 – I1 ≥ d 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+ 
+ 
+ 
+ 
+ 
+ 
+4.1.2 Analog indication (A.4.8.1) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ……………………………………………… …. At start At max At end  
+Date: …………………………………… Temp.:    °C 
+Observer: …………………………………..… Rel. h.:    % 
+Verification scale interval, e: ……………………………..……… Time:     
+Scale interval, d: ……………………………..……… Bar. pres.:    hPa 
+ 
+ 
+Load, L Indication, 
+I1 
+Extra load 
+= |mpe| 
+Indication, 
+I2 I2 – I1 
+     
+     
+     
+ 
+Check if I2 – I1 ≥ 0.7 mpe 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+15 
+ 
+4.1.3 Non-self-indicating instrument (A.4.8.1) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+  Rel. h.:    % 
+ ………………………………………… Time:     
+ ………………………………………… Bar. pres.:    hPa 
+ 
+ 
+Load, L Indication, 
+I 
+Extra load, 
+= 0.4 |mpe| 
+Visible 
+displacement* 
+    
+    
+    
+* Mark a visible displacement by “+” 
+ 
+Check if there is a visible displacement 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+ 
+ 
+ 
+ 
+ 
+4.2 Sensitivity (non-self-indicating instrument) (A.4.9) 
+ 
+Application No.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp:    °C 
+  Rel. h:    % 
+ ………………………………………… Time:     
+ ………………………………………… Bar. pres:    hPa 
+ 
+Load L Extra load 
+= |mpe| 
+Permanent displacement of 
+indicating element 
+   mm 
+   mm 
+   mm 
+ 
+Check if the permanent displacement is equal to or greater than: 
+1 mm for an instrument of accuracy class I or II 
+2 mm for an instrument of accuracy class III or IIII with Max ≤ 30 kg 
+5 mm for an instrument of accuracy class III or IIII with Max > 30 kg 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+16 
+ 
+5 REPEATABILITY (A.4.10) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e): ………………………………………… (only class I)    
+ 
+Automatic zero-setting and zero-tracking device is: 
+ 
+ Non-existent  In operation 
+ 
+Load (weighing 1-10)  Load (weighing 11-20)  
+ 
+ 
+E= I + 1/2 e – ΔL – L 
+ 
+ Indication 
+of load, I 
+Add. load, 
+ΔL E  Indication 
+of load, I 
+Add. load, 
+ΔL E 
+1    11    
+2    12    
+3    13    
+4    14    
+5    15    
+6    16    
+7    17    
+8    18    
+9    19    
+10    
+ 
+20    
+ 
+Emax – Emin (weighing 1-10)  Emax – Emin (weighing 11-20)  
+ 
+mpe  mpe  
+ 
+Check if a) E  ≤ mpe (3.6 of R 76-1) 
+ b) Emax – Emin  ≤ absolute value of mpe (3.6.1 of R 76-1) 
+ 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+17 
+ 
+6 TIME-DEPENDENCE 
+6.1 Zero return (A.4.11.2) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp:    °C 
+Verification  Rel. h:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres:    hPa 
+(smaller than e): …………………………………………  (only class I)    
+ 
+ 
+Automatic zero-setting and zero-tracking device is: 
+ Non-existent  Not in operation  Out of working range 
+ 
+ 
+P = I + ½ e – ΔL 
+ 
+Time of reading Load, 
+L0 
+Indication 
+of zero, I0 
+Add. load, 
+ΔL P   
+0 min    P0 =   
+       
+Load during 30 minutes =       
+    Change after 30 minutes: 
+30 min    P30 = |Δ(P30 – P0)| =  
+       
+For multiple range instruments keep instrument unloaded for further 5 minutes:  Change 5 minutes later: 
+35 min    P35 = |Δ(P35 – P30) | =  
+ 
+ 
+Check if a) |Δ(P30 – P0) | ≤ 0.5 e 
+ b) |Δ(P35 – P30) | ≤ e1 (for multiple range instruments only) 
+ 
+ Passed  Failed 
+ 
+Remarks: 

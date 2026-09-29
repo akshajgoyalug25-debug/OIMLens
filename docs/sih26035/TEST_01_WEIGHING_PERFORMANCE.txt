@@ -1,0 +1,187 @@
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+10 
+ 
+1 WEIGHING PERFORMANCE (A.4.4) (A.5.3.1) 
+(Calculation of the error) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e): …………………………………………  (only class I)    
+ 
+Automatic zero-setting and zero-tracking device is: 
+ Non-existent  Not in operation  Out of working range  In operation 
+ 
+Initial zero-setting > 20 % of Max:  Yes  No  (see R 76-1, A.4.4.2) 
+ 
+ 
+E  = I + ½ e – ΔL – L 
+Ec = E – E0 with E0 = error calculated at or near zero* 
+Indication, I Add. load, 
+ΔL Error, E Corrected error, Ec Load, L 
+↓ ↑ ↓ ↑ ↓ ↑ ↓ ↑ 
+mpe 
+ *    *     
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+ 
+Check if |Ec| ≤ |mpe| 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+11 
+ 
+2 TEMPERATURE EFFECT ON NO-LOAD INDICATION (A.5.3.2) 
+ 
+Application no.: ………………………………………………………………………………….. 
+Type designation: ………………………………………………………………………………….. 
+Date: ………………………………………… 
+Observer: ………………………………………… 
+Verification  
+scale interval, e: ………………………………………… 
+Resolution during test  
+(smaller than e): ………………………………………… 
+ 
+Automatic zero-setting and zero-tracking device is: 
+ Non-existent  Not in operation  Out of working range  In operation 
+ 
+ 
+P = I + ½ e – ΔL 
+ 
+Report 
+page* Date Time Temp 
+(°C) 
+Zero indication,
+I 
+Add. load,
+ΔL P ΔP ΔTemp. Zero-change
+per … °C 
+       
+         
+  
+      
+         
+  
+      
+         
+  
+      
+ 
+ 
+         
+ 
+ΔP = difference of P for two consecutive tests at different temperatures 
+ΔTemp. = difference of Temp. for two consecutive tests at different temperatures 
+ 
+Check if the zero-change per 5 °C is smaller than e (class II, III or IIII) 
+Check if the zero-change per 1 °C is smaller than e (class I) 
+ 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+* Give the report page of the relevant weighing test where wei ghing tests and temperature effect on no-load indication test are 
+conducted together (see R 76-1, Figure 11). 
+
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+12 
+ 
+3 ECCENTRICITY (A.4.7) 
+3.1 Eccentricity using weig hts (A.4.7.1, 2 and 3) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e): …………………………………………  (only class I)    
+ 
+1) Test(s) performed on a mobile instrument (A.4.7.5):  Yes  No 
+2) In case of “Yes” to 1): A.4.7 and A.4.7.1 to A.4.7.4 have been applied:  Yes  No 
+3) In case of “No” to 2): Description of eccentricity test(s) (see A.4.7.5) under “Remarks” 
+ 
+Location of test loads: mark on a sketch (see example below) the successive locations of test loads, using numbers 
+which shall be repeated in the table below. 
+ 
+1 2 
+4 3 
+ 
+Also indicate in the sketch the location of the display or of another perceptible part of the instrument. 
+ 
+Automatic zero-setting and zero-tracking device is: 
+ Non-existent  Not in operation  Out of working range 
+ 
+ 
+E  = I + ½ e – ΔL – L 
+Ec = E – E0 with E0 = error calculated at or near zero* determined prior to each measurement 
+Location Load, L Indication,  
+I 
+Add. load, 
+ΔL 
+Error, 
+E 
+Corrected 
+error, Ec mpe 
+ *   *   
+1       
+ *   *   
+2       
+ *   *   
+3       
+ *   *   
+4       
+       
+ 
+Check if |Ec| ≤ |mpe| 
+ 
+ Passed  Failed 
+ 
+Remarks: 

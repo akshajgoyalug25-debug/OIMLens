@@ -1,0 +1,1396 @@
+=== OIML R76-1:2006 ===
+
+Non-automatic weighing instruments
+Part 1: Metrological and technical requirements - Tests
+Instruments de pesage à fonctionnement non automatique
+Partie 1: Exigences métrologiques et techniques - Essais
+OIML R 76-1 Edition 2006 (E)
+OIML R 76-1
+Edition 2006 (E)
+ORGANISATION INTERNATIONALE
+DE MÉTROLOGIE LÉGALE
+INTERNATIONAL ORGANIZATION
+OF LEGAL METROLOGY
+INTERNATIONAL
+RECOMMENDATION
+
+OIML R 76-1: 2006 (E) 
+ 
+ 
+2 
+ 
+CONTENTS 
+Foreword .....................................................................................................................................................................................4 
+T Terminology ...................................................................................................................................................................5 
+T.1 General definitions........................................................................................................ ..................................................5 
+T.2 Construction of  an instrument.............................................................................................. ...........................................7 
+T.3 Metrological characteris tics of an instrument .............................................................................. .................................13 
+T.4 Metrological properti es of an instrument................................................................................... ...................................15 
+T.5 Indications  and errors..................................................................................................... ...............................................15 
+T.6 Influences and reference conditions..............................................................................................................................20 
+T.7 Perform ance test ........................................................................................................... ................................................20 
+T.8 Index of terms defined ..................................................................................................... .............................................21 
+T.9 Abbreviations  and symbols.................................................................................................. .........................................23 
+1 Scope ........................................................................................................................ ....................................................25 
+2 Principles of the Recommendation ............................................................................................. ..................................25 
+2.1 Units of measurement ...................................................................................................................................................25 
+2.2 Principles of the me trological requirements................................................................................ ..................................25 
+2.3 Principles of the technical requirements ................................................................................... ....................................25 
+2.4 Application of  requirements ................................................................................................ .........................................26 
+2.5 Termi nology .................................................................................................................................................................26 
+3 Metrological requirements............................................................................................................................................26 
+3.1 Principles of  classification ............................................................................................................................................26 
+3.2 Classification of instruments.............................................................................................. ...........................................27 
+3.3 Additional requirements for multi-interval instruments..................................................................... ...........................27 
+3.4 Auxiliary i ndicating devices .........................................................................................................................................28 
+3.5 Maximum perm issible errors ................................................................................................. .......................................30 
+3.6 Permissible differe nces between results.................................................................................... ....................................31 
+3.7 Test st andards ...............................................................................................................................................................32 
+3.8 Discrimination ............................................................................................................. .................................................32 
+3.9 Variations due to infl uence quantities and time ............................................................................ ................................33 
+3.10 Type evaluation te sts and examinations.................................................................................... ....................................36 
+4 Technical requirements for a self- or semi-self-indicating instrument........................................................ ..................41 
+4.1 General construc tion requirements .......................................................................................... .....................................41 
+4.2 Indication of weighing results............................................................................................. ..........................................43 
+4.3 Analog indi cating devices.................................................................................................. ...........................................45 
+4.4 Digital indi cating devices ................................................................................................. ............................................46 
+4.5 Zero-setting and zer o-tracking devices ..................................................................................... ....................................47 
+4.6 Tare devices............................................................................................................... ...................................................49 
+4.7 Preset ta re devices........................................................................................................ .................................................53 
+4.8 Lockin g positions.......................................................................................................... ................................................53 
+4.9 Auxiliary verification de vices (removable or fixed) ........................................................................ .............................54 
+4.10 Selection of weighing ranges  on a multiple range instrument............................................................... ........................54 
+4.11 Devices for selection (or switching) between va rious load receptors and/or load transmitting devices 
+and various load measuring devices............................................................................................. .................................54 
+4.12 “Plus and minus” co mparator instruments....................................................................................................................55 
+4.13 Instruments for dire ct sales to the public ................................................................................ ......................................55 
+4.14 Additional requirements for price-computi ng instruments for direct sales to the public ..............................................57 
+4.15 Instruments similar to those normall y used for direct sales to the public................................................. .....................59 
+4.16 Price-labeli ng instruments ................................................................................................ ............................................59 
+4.17 Mechanical counting instrume nts with unit-weight receptor ................................................................. .......................59 
+4.18 Additional technical requirem ents for mobile instruments .................................................................. .........................59 
+4.19 Portable instruments fo r weighing road vehicles ........................................................................... ...............................60 
+4.20 Modes of  operation ........................................................................................................ ...............................................61 
+5 Technical requirements fo r electronic instruments ............................................................................ ...........................61 
+5.1 General re quirements....................................................................................................................................................61 
+5.2 Acting upon sign ificant faults............................................................................................. ..........................................62 
+5.3 Functional requirements ...............................................................................................................................................62 
+5.4 Performance and span  stability tests ....................................................................................... ......................................63 
+5.5 Additional requirements for soft ware-controlled electronic devices......................................................... ....................64 
+6 Technical requirements for non-self-indicating instruments................................................................... ......................69 
+
+OIML R 76-1: 2006 (E) 
+ 
+6.1 Minimum sensitivity.....................................................................................................................................................70 
+6.2 Acceptable solutions for indicating devices................................................................................ ..................................70 
+6.3 Conditions of  construction................................................................................................. ...........................................71 
+6.4 Simple e qual arm beam...................................................................................................... ...........................................72 
+6.5 Simple 1/10 ratio beam..................................................................................................... ............................................72 
+6.6 Simple sliding poise instruments (steelyards).............................................................................. .................................73 
+6.7 Roberval and Bé ranger instruments.......................................................................................... ....................................74 
+6.8 Instruments with  ratio platforms...................................................................................................................................74 
+6.9 Instruments with a load-measuring device having  accessible sliding poises (of the steelyard type).......................... ...75 
+7 Marking of instru ments and modules............................................................................................................................76 
+7.1 Descriptiv e markings ....................................................................................................... .............................................76 
+7.2 Verification marks ......................................................................................................... ...............................................79 
+8 Metrological  controls........................................................................................................ ............................................80 
+8.1 Liability to me trological controls..................................................................................................................................80 
+8.2 Type approval .............................................................................................................. .................................................80 
+8.3 Initial ve rification .........................................................................................................................................................82 
+8.4 Subsequent metr ological control...................................................................................................................................83 
+Annex A  Testing procedures for non-automatic weighing instruments ...................................................................................85 
+A.1 Administrativ e examination................................................................................................. .........................................85 
+A.2 Compare construction with documentation.................................................................................... ...............................85 
+A.3 Initial ex amination ........................................................................................................ ................................................85 
+A.4 Performan ce tests.......................................................................................................... ................................................85 
+A.5 Influenc e factors .......................................................................................................... .................................................94 
+A.6 Enduran ce test...............................................................................................................................................................97 
+Annex B  Additional tests for electronic instruments........................................................................... ...................................100 
+B.1 General requirements for el ectronic instruments under test................................................................. .......................100 
+B.2 Damp heat, steady state ..............................................................................................................................................100 
+B.3 Performance tests for disturbances ......................................................................................... ....................................101 
+B.4 Span stability test........................................................................................................ ................................................106 
+Annex C  Testing and certification of indicators and analog data processing devices as modules 
+of non-automatic weighing instruments.......................................................................................... ............................108 
+C.1 Applicable requirements .................................................................................................... .........................................108 
+C.2 General principl es of testing .......................................................................................................................................109 
+C.3 Tests...................................................................................................................... ......................................................112 
+C.4 OIML Ce rtificates.......................................................................................................... .............................................116 
+Annex D  Testing and certification of digital data processing devices, terminals and digital displays 
+as modules of non-automatic weighing instruments ............................................................................... ....................118 
+D.1 Applicable requirements .................................................................................................... .........................................118 
+D.2 General principl es of testing .......................................................................................................................................119 
+D.3 Tests...................................................................................................................... ......................................................119 
+D.4 OIML Ce rtificates.......................................................................................................... .............................................120 
+Annex E  Testing and certification of weighing modules as modules of non-automatic weighing instruments......................12 2 
+E.1 Applicable requirements .................................................................................................... .........................................122 
+E.2 General principl es of testing .......................................................................................................................................123 
+E.3 Tests...................................................................................................................... ......................................................123 
+E.4 OIML Certificates.......................................................................................................... .............................................124 
+Annex F  Compatibility checking of modules of non-automatic weighing instruments............................................... ...........126 
+F.1 Weighing instrument........................................................................................................ ...........................................126 
+F.2 Separately tested load cells ............................................................................................... ..........................................127 
+F.3 Separately tested indicators a nd analog data processing devices ................................................................................129 
+F.4 Compatibility checks for m odules with analog output........................................................................ ........................130 
+F.5 Compatibility checks for m odules with digital output ....................................................................... .........................132 
+F.6 Examples of compatibility check s for modules with analog output............................................................ ................132 
+Annex G  Additional examinations and tests for software-controlled digital devices and instruments............................. ......137 
+G.1 Devices and instrument s with embedded software ............................................................................. ........................137 
+G.2 Personal computers and other devices wi th programmable or loadable software .......................................................137 
+G.3 Data stor age devices ....................................................................................................... ............................................138 
+G.4 Test Re port Format .....................................................................................................................................................139 
+Bibliography............................................................................................................................................................................140 
+ 
+3 
+ 
+
+OIML R 76-1: 2006 (E) 
+ 
+Foreword 
+The International Organization of Legal Metrolog y (OIML) is a worldwide, intergovernmental 
+organization whose primary aim is to harmonize the regulations and metrologi cal controls applied by 
+the national metrological services, or related organiza tions, of its Member States. The main categories 
+of OIML publications are: 
+ International Recommendations (OIML R), which are model regulations that establish the 
+metrological characteristics required of certa in measuring instruments and which specify 
+methods and equipment for checking their conf ormity. OIML Member States shall implement 
+these Recommendations to the greatest possible extent; 
+ International Documents (OIML D), which are informative in nature and which are 
+intended to harmonize and improve work in the field of legal metrology; 
+ International Guides (OIML G), which are also informative in nature and which are 
+intended to give guidelines for the application of certain requirements to legal metrology; and 
+ International Basic Publications (OIML B), which define the operating rules of the various 
+OIML structures and systems. 
+OIML Draft Recommendations, Documents and Guides are developed by Technical Committees or 
+Subcommittees which comprise representatives from the Member States. Certain international and 
+regional institutions also participate on a consultation basis. Cooperative agreements have been 
+established between the OIML and certain institutions, such as ISO and the IEC, with the objective of 
+avoiding contradictory requirements. Conseque ntly, manufacturers and users of measuring 
+instruments, test laboratories, etc. may simultane ously apply OIML publications and those of other 
+institutions. 
+International Recommendations, Documents, Guides a nd Basic Publications are published in English 
+(E) and translated into French (F) and are subject to periodic revision. 
+Additionally, the OIML publishes or participates in the publication of Vocabularies (OIML V)  and 
+periodically commissions legal metrology experts to write Expert Reports (OIML E) . Expert 
+Reports are intended to provide in formation and advice, and are written solely from the viewpoint of 
+their author, without the involvement of a Technical Committee or Subcommittee, nor that of the 
+International Committee of Legal Metrology. Thus, they do not necessarily represent the views of the 
+OIML. 
+This publication - reference OIML R 76-1, Edition 2006 - was developed by Technical Subcommittee 
+TC 9/SC 1 Non-automatic weighing instruments . It was approved for final publication by the 
+International Committee of Legal Metrology in 2 006 and will be submitted to the International 
+Conference of Legal Metrology in 2008 for formal  sanction. It supersedes the previous edition of 
+R 76-1 (1992). 
+OIML Publications may be downloaded from the OIML web site in the form of PDF files. Additional 
+information on OIML Publications may be obtained from the Organization’s headquarters: 
+Bureau International de Métrologie Légale 
+11, rue Turgot - 75009 Paris - France 
+Telephone: 33 (0)1 48 78 12 82 
+Fax: 33 (0)1 42 82 17 27 
+E-mail:  biml@oiml.org 
+Internet:  www.oiml.org 
+ 
+4 
+ 
+
+OIML R 76-1: 2006 (E) 
+ 
+TERMINOLOGY 
+(terms, definitions and references) 
+The terminology used in this Recommendation conf orms to the “International Vocabulary of Basic 
+and General Terms in Metrology” (VIM) [1], th e “International Vocabulary of Terms in Legal 
+Metrology” (VIML) [2], the “OIML Certificate System for Measuring Instruments” [3] and other 
+relevant OIML publications. In addition, for the purposes of this Recommendation, the following 
+definitions apply. An index of all the terms, definitions and references defined below can be found 
+under T.8. 
+T.1 General definitions 
+T.1.1 Weighing instrument 
+Measuring instrument that serves to determine the mass of a body by using the action of gravity on 
+this body. 
+Note: In this Recommendation “mass” (or “weight va lue”) is preferably used in the sense of 
+“conventional mass” or “conventional value of th e result of weighing in air” according to 
+R 111 and D 28, whereas “weight” is preferably used for an embodiment (i.e. material 
+measure) of mass that is regulated in regard to its physical and metrological characteristics. 
+The instrument may also be used to determin e other quantities, magnitudes, parameters or 
+characteristics related to the determined mass. 
+According to its method of operation, a weighing in strument is classified as an automatic weighing 
+instrument or a non-automatic weighing instrument. 
+T.1.2 Non-automatic weighing instrument 
+Instrument that requires the intervention of an operator during the weighing process to decide that the 
+weighing result is acceptable. 
+Note 1: Deciding that the weighing result is acceptable includes any intelligent action by the operator 
+that affects the result, such as taking an action when an indication is stable or adjusting the 
+mass of the weighed load, and to make a decision regarding the acceptance of each weighing 
+result on observing the indication or releasing a print out. A non-automatic weighing process 
+allows the operator to take an action (i.e. adjust the load, adjust the unit price, determine that 
+the load is acceptable, etc.) which influe nces the weighing result in the case where the 
+weighing result is not acceptable. 
+Note 2: In case of doubt as to whether an instrument is a non-automatic weighing instrument or an 
+automatic weighing instrument, the definitions for automatic weighing instruments given in 
+OIML Recommendations R 50, R 51, R 61, R 106, R 107 and R 134 have higher priority 
+than the criteria of Note 1 above. 
+A non-automatic weighing instrument may be: 
+ graduated or non-graduated; or 
+ self-indicating, semi-self-indicating or non-self-indicating. 
+Note: In this Recommendation a non-automatic weighi ng instrument is called an “instrument”. 
+T.1.2.1 Graduated instrument 
+Instrument allowing the direct reading of the complete or partial weighing result. 
+ 
+5 
+ 
+
+OIML R 76-1: 2006 (E) 
+ 
+T.1.2.2 Non-graduated instrument 
+Instrument not fitted with a scale numbered in units of mass. 
+T.1.2.3 Self-indicating instrument 
+Instrument in which the position of equilibrium is obtained without the intervention of an operator. 
+T.1.2.4 Semi-self-indicating instrument 
+Instrument with a self-indicating weighing range, in which the operator intervenes to alter the limits of 
+this range. 
+T.1.2.5 Non-self-indicating instrument 
+Instrument in which the position of equilibrium is obtained entirely by the operator. 
+T.1.2.6 Electronic instrument 
+Instrument equipped with electronic devices. 
+T.1.2.7 Instrument with price scales 
+Instrument that indicates the price to pay by means of price charts or scales related to a range of unit 
+prices. 
+T.1.2.8 Price-computing instrument 
+Instrument that calculates the price to pay on the basis of the indicated weight value and the unit price. 
+T.1.2.9 Price-labeling instrument 
+Price-computing instrument that prints the weight value, unit price and price to pay for prepackages. 
+T.1.2.10 Self-service instrument 
+Instrument that is intended to be operated by the customer. 
+T.1.2.11 Mobile instrument 
+Non-automatic weighing instrument mounted on or incorporated into a vehicle. 
+Note 1: A vehicle-mounted instrument is a complete weighing instrument which is firmly mounted 
+on a vehicle, and which is designed for that special purpose. 
+Example: Postal scale mounted on a vehicle (mobile post office). 
+Note 2: A vehicle-incorporated instrument uses parts of the vehicle for the weighing instrument. 
+Examples: Garbage weighers, patient lifters, pa llet lifters, fork lifters, wheel chair 
+weighers. 
+T.1.2.12 Portable instrument for weighing road vehicles 
+Non-automatic weighing instrument having a load receptor, in one or several parts, which determines 
+the total mass of road vehicles, and which is designed to be moved to other locations. 
+Examples: Portable weighbridge, group of associated no n-automatic axle (or wheel) load weighers. 
+ 
+6 
+ 
+
+OIML R 76-1: 2006 (E) 
+ 
+Note: This Recommendation covers only weighbridg es and groups of associated non-automatic 
+axle (or wheel) load weighers that determine si multaneously the total mass of a road vehicle 
+with all axles (or wheels) being simultaneously  supported by appropriate parts of a load 
+receptor. 
+T.1.2.13 Grading instrument 
+Instrument which assigns a weighing result to a predetermined range of mass to determine a tariff or 
+toll. 
+Examples: Postal scales, garbage weighers. 
+T.1.3 Indications of an instrument 
+Value of a quantity provided by a measuring instrument. 
+Note: “Indication”, “indicate” or “indicating” includes both displaying and/or printing. 
+T.1.3.1 Primary indications 
+Indications, signals and symbols that are subject to requirements of this Recommendation. 
+T.1.3.2 Secondary indications 
+Indications, signals and symbols that are not primary indications. 
+T.2 Construction of an instrument 
+In this Recommendation the term “device” is used  for any means by which a specific function is 
+performed, irrespective of the physical realizati on, e.g. by a mechanism or a key initiating an 
+operation. The device may be a small part or a major portion of an instrument. 
+T.2.1 Main devices 
+T.2.1.1 Load receptor 
+Part of the instrument intended to receive the load. 
+T.2.1.2 Load-transmitting device 
+Part of the instrument for transmitting the force produced by the load acting on the load receptor to the 
+load-measuring device. 
+T.2.1.3 Load-measuring device 
+Part of the instrument for measuring the mass of the load by means of an equilibrium device for 
+balancing the force coming from the load transmitting device, and an indicating or printing device. 
+T.2.2 Module 
+Identifiable part of an instrument that performs a specific function or functions, and that can be 
+separately evaluated according to specific metrological and technical performance requirements in the 
+relevant Recommendation. The modules of a weighing instrument are subject to specified partial error 
+limits. 
+Note: Typical modules of a weighing instrument are: load cell, indicator, analog or digital data 
+processing device, weighing module, terminal, primary display. 
+ 
+7 
+ 
+
+OIML R 76-1: 2006 (E) 
+ 
+Independent OIML Certificates according to R 76 can be issued for the modules mentioned in T.2.2.2-
+T.2.2.7. 
+Figure 1 
+Definition of typical modules according to T.2.2 and 3.10.2 
+(other combinations are possible) 
+ 
+Analog load cell (T.2.2.1)   2           
+Digital load cell (T.2.2.1)   2 + 3 + (4)*       
+Indicator (T.2.2.2)     (3) + 4 + (5) + (6) + 7 
+Analog data processing device (T.2.2.3)     3 + 4 + (5) + (6)   
+Digital data processing device (T.2.2.4)       (4) + 5 + (6)   
+Terminal (T.2.2.5)         (5) + 6 + 7 
+Primary display (T.2.2.6)             7 
+Weighing module (T.2.2.7) 1 + 2 + 3 + 4 + (5) + (6)   
+* Numbers in brackets  indicate options 
+T.2.2.1 Load cell [OIML R 60: 2000, 2.1.2] 
+Force transducer which, after taking into account th e effects of the acceleration of gravity and air 
+buoyancy at the location of its use, measures mass by converting the measured quantity (mass) into 
+another measured quantity (output). 
+Note: Load cells equipped with electronics including amplifier, analog-to-digital converter (ADC), 
+and data processing device (optionally) are called digital load cells (see Figure 1). 
+T.2.2.2 Indicator 
+Electronic device of an instrument that may perfo rm the analog-to-digital conversion of the output 
+signal of the load cell, and which further processes th e data, and displays the weighing result in units 
+of mass. 
+ 
+8 
+ 
+
+OIML R 76-1: 2006 (E) 
+ 
+T.2.2.3 Analog data processing device 
+Electronic device of an instrument that performs the analog-to-digital conversion of the output signal 
+of the load cell, further processes the data, and supplies the weighing result in a digital format via a 
+digital interface without displaying it. It may optionally have one or more keys (or mouse, touch-
+screen, etc.) to operate the instrument. 
+T.2.2.4 Digital data processing device 
+Electronic device of an instrument that further processes the data, and supplies the weighing result in a 
+digital format via a digital interface without displaying it. It may optionally have one or more keys (or 
+mouse, touch-screen, etc.) to operate the instrument. 
+T.2.2.5 Terminal 
+Digital device that has one or more keys (or mouse, touch-screen, etc.) to operate the instrument, and a 
+display to provide the weighing results transmitted via the digital interface of a weighing module or an 
+analog data processing device. 
+T.2.2.6 Digital display 
+A digital display can be realized as a primary display or as a secondary display: 
+a) Primary display: Either incorporated in the indicator housing or in the terminal housing or 
+realized as a display in a separate housing (i.e. terminal without keys), e.g. for 
+use in combination with a weighing module. 
+b) Secondary display: Additional peripheral device (optional) which repeats the weighing result and 
+any other primary indication, or provides further, non-metrological information. 
+Note: The terms “primary display” and “secondary disp lay” should not be confused with the terms 
+“primary indication” and “secondary indication” (T.1.3.1 and T.1.3.2) 
+T.2.2.7 Weighing module 
+Part of the weighing instrument that comprises all mechanical and electronic devices (i.e. load 
+receptor, load-transmitting device, load cell, and analog data processing device or digital data 
+processing device) but not having the means to disp lay the weighing result. It may optionally have 
+devices for further processing (digital) data and operating the instrument. 
+T.2.3 Electronic parts 
+T.2.3.1 Electronic device [OIML D 11: 2004, 3.2] 
+Device employing electronic sub-assemblies and performing a specific function. 
+Electronic devices are usually manufactured as sepa rate units and are capable of being tested 
+independently. 
+Note: An electronic device, as defined above, may be a complete instrument (e.g. an instrument for 
+direct sales to the public), a module (e.g. indicator, analog data processing device, weighing 
+module) or a peripheral device (e.g. printer, secondary display). 
+T.2.3.2 Electronic sub-assembly [OIML D 11: 2004, 3.3] 
+Part of an electronic device, employing electronic components and having a recognizable function of 
+its own. 
+Examples: A/D converter, display. 
+ 
+9 
+ 
+
+OIML R 76-1: 2006 (E) 
+ 
+T.2.3.3 Electronic component  [OIML D 11: 2004, 3.4] 
+Smallest physical entity that uses electron or ho le conduction in semi-conductors, gases or in a 
+vacuum. 
+Examples: Electronic tube, transistor, integrated circuit. 
+T.2.3.4 Digital device 
+Electronic device that only performs digital functions and provides a digitized output or display. 
+Examples: Printer, primary or secondary display, keyboard, terminal, data st orage device, personal 
+computer. 
+T.2.3.5 Peripheral device 
+Additional device which repeats or further pr ocesses the weighing result and other primary 
+indications. 
+Examples: Printer, secondary display, keyboard, terminal, data storage device, personal computer. 
+T.2.3.6 Protective interface 
+Interface (hardware and/or software) which only allows the introduction of such data into the data 
+processing device of an instrument, module or electronic component, which cannot: 
+ display data which are not clearly defined and which could be taken for a weighing result; 
+ falsify displayed, processed or stored weighing results or primary indications; or 
+ adjust the instrument or change any adjust ment factor, except releasing an adjustment 
+procedure with incorporated devices or, in th e case of class I instruments with external 
+adjustment weights as well. 
+T.2.4 Displaying device (of a weighing instrument) 
+Device providing the weighing result in visual form. 
+T.2.4.1 Displaying component 
+Component that displays the equilibrium and/or the result. 
+ On an instrument with one position of equilibrium it displays only the equilibrium. 
+ On an instrument with several positions of equilibrium it displays both the equilibrium and the 
+result. 
+T.2.4.2 Scale mark 
+Line or other mark on a displaying component corresponding to a specified value of mass. 
+T.2.5 Auxiliary indicating devices 
+T.2.5.1 Rider 
+Detachable poise of small mass that may be placed and moved either on a grad uated bar integral with 
+the beam or on the beam itself. 
+T.2.5.2 Device for interpolation of reading (vernier or nonius) 
+Device connected to the displaying component and sub-dividing the scale of an instrument, without 
+special adjustment. 
+ 
+10 
+ 
+
+OIML R 76-1: 2006 (E) 
+ 
+T.2.5.3 Complementary displaying device 
+Adjustable device by means of which it is possible to estimate, in units of mass, the value 
+corresponding to the distance between a scale mark and the displaying component. 
+T.2.5.4 Indicating device with a differentiated scale division 
+Digital indicating device of which the last figure after the decimal sign is clearly differentiated from 
+other figures. 
+T.2.6 Extended displaying device 
+Device temporarily changing the actual scale interval, d, to a value less than the verification scale 
+interval, e, following a manual command. 
+T.2.7 Supplementary devices 
+T.2.7.1 Leveling device 
+Device for setting an instrument to its reference (horizontal) position. 
+T.2.7.2 Zero-setting device 
+Device for setting the indication to zero when there is no load on the load receptor. 
+T.2.7.2.1 Non-automatic zero-setting device 
+Device for setting the indication to zero by an operator. 
+T.2.7.2.2 Semi-automatic zero-setting device 
+Device for setting the indication to zero automatically following a manual command. 
+T.2.7.2.3 Automatic zero-setting device 
+Device for setting the indication to zero automatically without the intervention of an operator. 
+T.2.7.2.4 Initial zero-setting device 
+Device for setting the indication to zero automatically  at the time the instrument is switched on and 
+before it is ready for use. 
+T.2.7.3 Zero-tracking device 
+Device for maintaining the zero indication within certain limits automatically. 
+T.2.7.4 Tare device 
+Device for setting the indication to zero when a load is on the load receptor: 
+ without altering the weighing range for net loads (additive tare device); or 
+ reducing the weighing range for net loads (subtractive tare device). 
+It may function as: 
+ a non-automatic device (load balanced by an operator); 
+ a semi-automatic device (load balanced auto matically following a single manual command); 
+or 
+ an automatic device (load balanced automatically without the intervention of an operator). 
+ 
+11 
+ 
+
+OIML R 76-1: 2006 (E) 
+ 
+T.2.7.4.1 Tare-balancing device 
+Tare device without indication of the tare value when the instrument is loaded. 
+T.2.7.4.2 Tare-weighing device 
+Tare device that stores the tare value and that is cap able of displaying or printing it whether or not the 
+instrument is loaded. 
+T.2.7.5 Preset tare device 
+Device for subtracting a preset tare value from a gross or net weight value and indicating the result of 
+the calculation. The weighing range for net loads is reduced accordingly. 
+T.2.7.6 Locking device 
+Device for immobilizing all or part of the mechanism of an instrument. 
+T.2.7.7 Auxiliary verification device 
+Device permitting separate verification of one or more main devices of an instrument. 
+T.2.7.8 Selection device for load receptors and load-measuring devices 
+Device for attaching one or more load receptors to one or more load-measuring devices, whatever 
+intermediate load-transmitting devices are used. 
+T.2.8 Software 
+T.2.8.1 Legally relevant software 
+Programs, data, type-specific and device-specific pa rameters that belong to the measuring instrument 
+or module, and define or fulfill functions which are subject to legal control. 
+Examples: Final results of the measurement, i.e. gross, net and tare / preset tare value (including 
+the decimal sign and the unit), identification of the weighing range and the load receptor 
+(if several load receptors have been used), software identification. 
+T.2.8.2 Legally relevant parameter 
+Parameter of a measuring instrument or a module subject to legal control. The following types of 
+legally relevant parameters can be distinguished: type-specific parameters and device-specific 
+parameters. 
+T.2.8.3 Type-specific parameter 
+Legally relevant parameter with a value that depe nds on the type of instrument only. Type-specific 
+parameters are part of the legally relevant software. They are fixed at type approval of the instrument. 
+Examples: Parameters used for mass calculation, stability analysis or price calculation and 
+rounding, software identification. 
+T.2.8.4 Device-specific parameter 
+Legally relevant parameter with a value that de pends on the individual instrument. Device-specific 
+parameters comprise calibration para meters (e.g. span adjustment or other adjustments or corrections) 
+and configuration parameters (e.g. maximum capacity, minimum capacity, units of measurement, etc.). 
+ 
+12 
+ 
+
+OIML R 76-1: 2006 (E) 
+ 
+They are adjustable or selectable only in a special operational mode of the instrument. Device-specific 
+parameters may be classified as those that should be secured (unalterable) and those that may be 
+accessed (settable parameters) by an authorized person. 
+T.2.8.5 Long-term storage of measurement data 
+Storage used for keeping measurement data ready after completion of the measurement for later 
+legally relevant purposes (e.g. conclusion of a trading transaction at a later date, when the customer is 
+not present for the determination of the amount, or for special applications identified and legislated by 
+the state). 
+T.2.8.6 Software identification 
+Sequence of readable characters of software that is inextricably linked to the software (e.g. version 
+number, checksum). 
+T.2.8.7 Software separation 
+Unambiguous separation of software into legally relevant software and non-legally relevant software. 
+If no software separation exists, the whole software is to be considered as legally relevant. 
+T.2.9 Metrologically relevant 
+Any device, module, part, component or function of  a weighing instrument that may influence the 
+weighing result or any other primary indication is considered as metrologically relevant. 
+T.3 Metrological characteristics of an instrument 
+T.3.1 Weighing capacity 
+T.3.1.1 Maximum capacity (Max) 
+Maximum weighing capacity, not taking into account the additive tare capacity. 
+T.3.1.2 Minimum capacity (Min) 
+Value of the load below which the weighing results may be subject to an excessive relative error. 
+T.3.1.3 Self-indication capacity 
+Weighing capacity within which equilibrium is obtained without the intervention of an operator. 
+T.3.1.4 Weighing range 
+Range between the minimum and maximum capacities. 
+T.3.1.5 Extension interval of self-indication 
+Value by which it is possible to extend the range of self-indication within the weighing range. 
+T.3.1.6 Maximum tare effect (T = + …, T = – …) 
+Maximum capacity of the additive tare device or the subtractive tare device. 
+ 
+ 
+13 
+ 
+
+OIML R 76-1: 2006 (E) 
+ 
+T.3.1.7 Maximum safe load (Lim) 
+Maximum static load that can be carried by the instrument without permanently altering its 
+metrological qualities. 
+T.3.2 Scale divisions 
+T.3.2.1 Scale spacing (instrument with analog indication) 
+Distance between any two consecutive scale marks. 
+T.3.2.2 Actual scale interval, d 
+Value, expressed in units of mass of: 
+ the difference between the values corresponding to two consecutive scale marks, for analog 
+indication; or 
+ the difference between two consecutive indicated values, for digital indication. 
+T.3.2.3 Verification scale interval, e 
+Value, expressed in units of mass, used for the classification and verification of an instrument. 
+T.3.2.4 Scale interval used for numbering 
+Value of the difference between two consecutive numbered scale marks. 
+T.3.2.5 Number of verification scale intervals, n 
+Quotient of the maximum capacity and the verification scale interval: 
+n = Max / e 
+T.3.2.6 Multi-interval instrument 
+Instrument having one weighing range which is divided into partial weighing ranges each with 
+different scale intervals, with the partial weighi ng range determined automatically according to the 
+load applied, both on increasing and decreasing loads. 
+T.3.2.7 Multiple range instrument 
+Instrument having two or more weighing ranges with different maximum capacities and different scale 
+intervals for the same load receptor, each range extending from zero to its maximum capacity. 
+T.3.3 Reduction ratio, R 
+The reduction ratio of a load transmitting device is: 
+R = FM / FL 
+where: FM = force acting on the load measuring device, 
+FL = force acting on the load receptor. 
+T.3.4 Type 
+Definitive model of a weighing instrument or module (including a family of instruments or modules) 
+of which all of the elements affecting its metrological properties are suitably defined. 
+ 
+14 
+ 
+
+OIML R 76-1: 2006 (E) 
+ 
+T.3.5 Family [adapted from OIML B 3: 2003, 2.3] 
+Identifiable group of weighing instruments or modules belonging to the same manufactured type that 
+have the same design features and metrological principles for measurement (for example the same 
+type of indicator, the same type of design of load cell and load transmitting device) but which may 
+differ in some metrological and technical performance characteristics (e.g. Max, Min, e , d, accuracy 
+class, etc.). 
+The concept of a “family” primarily aims to reduce the testing required at type examination. It does 
+not preclude the possibility of listing more than one family in one Certificate. 
+T.4 Metrological properties of an instrument 
+T.4.1 Sensitivity 
+For a given value of the measured mass, the quotient of the change, Δl , of the observed variable, l, and 
+the corresponding change, Δm, of the measured mass, m. 
+T.4.2 Discrimination 
+Ability of an instrument to react to small variations of load. 
+The discrimination threshold, for a given load, is th e value of the smallest additional load that, when 
+gently deposited on or removed from the load receptor, causes a perceptible change in the indication. 
+T.4.3 Repeatability 
+Ability of an instrument to provide results that agree one with the other when the same load is 
+deposited several times and in a practically identical way on the load receptor under reasonably 
+constant test conditions. 
+T.4.4 Durability 
+Ability of an instrument to maintain its performance characteristics over a period of use. 
+T.4.5 Warm-up time 
+Time between the moment power is applied to an in strument and the moment at which the instrument 
+is capable of complying with the requirements of this Recommendation. 
+T.4.6 Final weight value 
+Weight value that is achieved when the instrument  is completely at rest and balanced, with no 
+disturbances affecting the indication. 
+T.5 Indications and errors 
+T.5.1 Methods of indication 
+T.5.1.1 Balancing by weights 
+Value of metrologically controlled weights that ba lances the load (taking into account the reduction 
+ratio of the load). 
+T.5.1.2 Analog indication 
+Indication enabling the evaluation of the equilibrium position to a fraction of the scale interval. 
+ 
+15 
+ 
+
+=== OIML R76-2:2007 ===
+
+Non-automatic weighing instruments
+Part 2: Test report format
+Instruments de pesage à fonctionnement non automatique
+Partie 2: Format du rapport d'essai
+OIML R 76-2 Edition 2007 (E)
+OIML R 76-2
+Edition 2007 (E)
+ORGANISATION INTERNATIONALE
+DE MÉTROLOGIE LÉGALE
+INTERNATIONAL ORGANIZATION
+OF LEGAL METROLOGY
+INTERNATIONAL
+RECOMMENDATION
+
+OIML R 76-2: 2007 (E) 
+ 
+ 
+ 
+ 
+2 
+ 
+ 
+Contents 
+ 
+Foreword ...................................................................................................................... .......................................... 3 
+Introduction ................................................................................................................... .......................................... 4 
+Explanatory notes .................................................................................................................................................... 5 
+General information concerning the type ................................................................................................................ 6 
+Information concerning the test equipment used for type evaluation ...................................................................... 8 
+Summary of type evaluation..................................................................................................... ............................... 9 
+1 Weighing performance ............................................................................................................................ 10 
+2 Temperature effect on  no-load indication..................................................................................... ........... 11 
+3 Eccentr icity................................................................................................................. ............................. 12 
+3.1 Eccentricity using weights................................................................................................. ...................... 12 
+3.2 Eccentricity us ing a rolling load .............................................................................................................. 13 
+4 Discrimination and sensitivity ................................................................................................................. 14 
+4.1 Discri mination ......................................................................................................................................... 14 
+4.2 Sensitivity (non-self-i ndicating instrument) ............................................................................................ 15 
+5 Repeat ability................................................................................................................ ............................ 16 
+6 Time-dependence.............................................................................................................. ....................... 17 
+6.1 Zero return................................................................................................................ ............................... 17 
+6.2 Creep ...................................................................................................................... ................................. 18 
+7 Stability of equilibrium..................................................................................................... ....................... 19 
+8 Tiltin g ...................................................................................................................................................... 20 
+9 Tare (weighi ng test)......................................................................................................... ........................ 21 
+10 Warm-u p time................................................................................................................ .......................... 22 
+11 Voltage variations.......................................................................................................... .......................... 23 
+12 Electrical disturbances..................................................................................................... ........................ 24 
+12.1 AC mains voltage dips  and short interruptions............................................................................. ........... 24 
+12.2 Electri cal bursts ....................................................................................................................................... 25 
+12.3 Surges .................................................................................................................... .................................. 27 
+12.4 Electrosta tic discharges ........................................................................................................................... 29 
+12.5 Immunity to radiat ed electromagnetic fields ........................................................................................... 32 
+12.6 Immunity to conducted  radio-frequency fields.............................................................................. .......... 34 
+12.7 Disturbance tests for in struments powered from a road vehicle power supply........................................ 35 
+13 Damp heat, steady state ........................................................................................................................... 37 
+14 Span stability .............................................................................................................. ............................. 40 
+15 Endurance................................................................................................................... ............................. 46 
+16 Examination of the cons truction of the instrument........................................................................... ....... 48 
+17 Checklist................................................................................................................... ............................... 49 
+17.1 All types of weighing  instruments except non-self-indicating instruments............................................. 50 
+17.2 Instruments for direct sales to the public and price computing and labeling instruments ....................... 57 
+17.3 Electronic wei ghing instruments ............................................................................................................. 60 
+17.4 Software-controlled digita l devices and instruments....................................................................... ........ 61 
+
+OIML R 76-2: 2007 (E) 
+ 
+ 
+ 
+ 
+3 
+ 
+ 
+Foreword 
+The International Organization of Legal Metrology (OIM L) is a worldwide, intergovernmental organization 
+whose primary aim is to harmonize the regulations and metrological controls applied by the national 
+metrological services, or related organizations, of its Member States. The main categories of OIML 
+publications are: 
+ International Recommendations (OIML R), which are model regulations that establish the 
+metrological characteristics required of certain m easuring instruments and which specify methods 
+and equipment for checking their conformity. OIML Member States shall implement these 
+Recommendations to the greatest possible extent; 
+ International Documents (OIML D), which are informative in natu re and which are intended to 
+harmonize and improve work in the field of legal metrology; 
+ International Guides (OIML G), which are also informative in na ture and which are intended to 
+give guidelines for the application of certain requirements to legal metrology; and 
+ International Basic Publications (OIML B), which define the operating rules of the various OIML 
+structures and systems. 
+OIML Draft Recommendations, Documents and Guid es are developed by Technical Committees or 
+Subcommittees which comprise representatives from the Member States. Certain international and regional 
+institutions also participate on a consultation basis. Cooperative agreements have been established between 
+the OIML and certain institutions, such as ISO and the IEC, with the objective of avoiding contradictory 
+requirements. Consequently, manufacturers and users of measuring instruments, test laboratories, etc. may 
+simultaneously apply OIML publications and those of other institutions. 
+International Recommendations, Documents, Guides and Basic Publications are published in English (E) and 
+translated into French (F) and are subject to periodic revision. 
+Additionally, the OIML publishes or participates in the publication of Vocabularies (OIML V)  and 
+periodically commissions legal metrology experts to write Expert Reports (OIML E) . Expert Reports are 
+intended to provide information and advice, and are written solely from the viewpoint of their author, 
+without the involvement of a Technical Committee or Subcommittee, nor that of the International Committee 
+of Legal Metrology. Thus, they do not necessarily represent the views of the OIML. 
+This publication – reference OIML R 76-2, Edition  2007 – was developed by Technical Subcommittee 
+TC 9/SC 1 Non-automatic weighing instruments . It was approved for final publication by the International 
+Committee of Legal Metrology in 2007 and supersedes the previous edition of R 76-2 (1993). 
+OIML Publications may be downloaded from the OIML web site in the form of PDF files. Additional 
+information on OIML Publications may be obtained from the Organization’s headquarters: 
+Bureau International de Métrologie Légale 
+11, rue Turgot – 75009 Paris – France 
+Telephone: 33 (0)1 48 78 12 82 
+Fax: 33 (0)1 42 82 17 27 
+E-mail: biml@oiml.org 
+Internet: www.oiml.org 
+
+OIML R 76-2: 2007 (E) 
+ 
+ 
+ 
+ 
+4 
+ 
+ 
+Introduction 
+The “Type evaluation report”, the subject of R 76-2, aims at presenting, in a st andardized format, the results of the 
+various tests to which a type of a non-automatic weighing instrument shall be submitted with a view to its approval. 
+These tests are described in Annexes A and B of R 76-1. 
+All metrology services or laboratories evaluating types of non-automatic weighing instruments according to R 76-1 or 
+to national or regional regulations based on OIML R 76-1 are strongly advised to use this “Type evaluation report”, 
+directly or after translation into a language other than English or French. Its direct use in English or in French, or in both 
+languages, is even more strongly recommended whenever te st results may be transmitted by the country performing 
+these tests to the approving authorities of another country, under bi- or multi-lateral co-operation agreements. In the 
+framework of the OIML Certificate System for Measuring Instruments, and the OIML Mutual Acceptance Arrangement 
+(MAA), use of this report format is mandatory, in French a nd/or in English with translation into the national languages 
+of the countries issuing such certificates, if appropriate. 
+The “information concerning the test equipment used for type evaluation” shall cover all test equipment which has been 
+used in determining the test results given in a report. The information may be a short list containing only essential data 
+(name, type, reference number for purpose of traceability). For example: 
+ Verification standards (accuracy, or accuracy class, and no.); 
+ Simulator for testing of modules (name, type, traceability and no.); 
+ Climatic test and static temperature chamber (name, type and no.); 
+ Electrical tests, bursts (name of the instrument, type and no.); 
+ Description of the procedure of field calibration for the test of immunity to radiated electromagnetic fields. 
+Note concerning the numbering of the following pages 
+In addition to a sequential numbering: “R 76-2 page .....” at the bottom of the pages of this publication, a special place is 
+left at the top of each page (starting with the following page) for numbering th e pages of reports established following 
+this model; in particular, some tests (e .g. weighing performance) shall be re peated several times, each test being 
+reported individually on a separate page following the relevant format; in the same way, a multiple range instrument 
+shall be tested separately for each range and a separate form  (including the general information form) shall be filled out 
+for each range. For a given report, it is advisable to complete the sequential numbering of each page by the indication of 
+the total number of pages of the report. 
+
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+5 
+ 
+ 
+Non-automatic weighing instruments 
+ 
+Type evaluation report 
+ 
+ 
+EXPLANATORY NOTES 
+ 
+Meaning of symbols: 
+ 
+I = Indication 
+In = nth indication 
+L = Load 
+ΔL = Additional load to next changeover point 
+P = I + ½ e – ΔL = Indication prior to rounding (digital indication) 
+E = I – L    or    = P – L    or    = I + ½ e – ΔL – L   = Error 
+Ec = Corrected error 
+mpe = Maximum permissible error (absolute value) 
+EUT = Equipment under test 
+ 
+The name(s) or symbol(s) of the unit(s) used to express test results shall be specified in each form. 
+ 
+ 
+For each test, the “SUMMARY OF TYPE EVALUATION” and the 
+“CHECKLIST” shall be completed according to this example: 
+PASSED 
+FAILED 
+when the instrument has passed the test: X  
+when the instrument has failed the test:  X 
+when the test is not applicable: – – 
+ 
+ 
+The white spaces in boxes in the headings of the report should always be filled in according to the following example: 
+ 
+ At start At max At end  
+Temp.: 20.5  21.2 °C 
+Rel. h.:    % 
+Time:     
+Bar. pres.:    hPa 
+ 
+where: 
+Temp. = temperature 
+Rel. h. = relative humidity 
+Bar. pres. = barometric pressure (baromet ric pressure is necessary for the span st ability test and when specified by IEC 
+test provisions; in other cases it may be necessary only for class I instruments). 
+ 
+“Date” in the test report refers to the date on which the test was performed. 
+ 
+In the disturbance tests (12.1 through 12.7), faults greater than e are acceptable provided that they are detected and acted 
+upon, or that they result from circumstances such that these fa ults shall not be considered as significant (see T.5.5.6 in 
+R 76-1); an appropriate explanation shall be given in the column “Yes (remarks)”. 
+ 
+Numbers in brackets refer to the corresponding subclauses of OIML R 76-1. 
+
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+6 
+ 
+General information concerning the type 
+ 
+Application no.: ..…………………..………………..……………… 
+Type designation: ..…………………..………………..……………… 
+Manufacturer: ..…………………..………………..……………… 
+Applicant: ..…………………..………………..……………… 
+Instrument category: ..…………………..………………..……………… 
+ 
+ Complete instrument  Module 1 with error fraction pi =  
+ 
+Accuracy class2:  
+   
+   
+   
+  
+ 
+ Self-indicating  Semi-self-i ndicating  Non-self-indicating 
+ 
+Min =       
+       
+e =  Max =  d = n =  
+       
+e1 =  Max 1 =  d1 = n1 =  
+e2 =  Max 2 =  d2 = n2 =  
+e3 =  Max 3 =  d3 = n3 =  
+ 
+T = +  T = –  
+ 
+Unom =  V Umin = V  Umax = V f =  Hz Battery, Unom =  V 
+ 
+Zero-setting device: Tare device:   
+      
+ Non-automatic  Tare balancing  Combined zero/tare device 
+      
+ Semi-automatic  Tare weighing   
+      
+ Automatic zero-setting  Preset tare device   
+      
+ Initial zero-setting  Subtractive tare   
+      
+ Zero-tracking  Additive tare   
+ 
+Initial zero-setting range =  % of  Max Temperature range:  °C 
+ 
+Printer:  Built-in  Connected  Not present  No connection 
+      but connectable   
+ 
+Instrument submitted: …………………….……… Load cell: …...………………………....... 
+Identification no.: ………..…..………………. Manufacturer: …...………………………....... 
+Software version: ……………………………. Type: …...………………………....... 
+Connected equipment: ……………………………. Capacity: …...………………………....... 
+ ……………………………. Number: …...………………………....... 
+Interfaces (number, nature): ……………………………. Classification symbol: …...………………………....... 
+ ……………………………. 
+ ……………………………. Remarks: …...………………………....... 
+Evaluation period: …………………………….  …...………………………....... 
+Date of report: …………………………….  …...………………………....... 
+Observer: …………………………….  …...………………………....... 
+                                                           
+1 The test equipment (simulator or a part of a complete instrument) connected to the module shall be defined in the test form(s) used. 
+2 Please note that the class denominations used hereafter in th is Recommendation do not include the oval around the number for improved clarity 
+of the Test Report Format’s text. 
+
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+7 
+ 
+General information concerning the type 
+(continued) 
+ 
+Use this space to indicate additional remarks and/or info rmation: Connection equipment, interfaces and load cells, 
+choice of the manufacturer regarding protection against disturbances (5.1.1 a or 5.1.1 b of R 76-1), etc. 
+
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+8 
+ 
+ 
+Information concerning the test equipment 
+used for type evaluation 
+
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+9 
+ 
+ 
+Summary of type evaluation 
+ 
+Application no.: …………………………….....…………………………… 
+Type designation: ……………….…………………………………………… 
+ 
+ Tests  
+Report page 
+PASSED 
+FAILED 
+Remarks 
+1 Weighing performance Initial °C
+°C
+°C
+°C
+°C
+°C
+°C
+   
+ 
+2 Temperature effect on no-load indication     
+3.1 Eccentricity using weights     
+3.2 Eccentricity using a rolling load     
+4.1 Discrimination     
+4.2 Sensitivity     
+5 Repeatability     
+6.1 Zero return     
+6.2 Creep     
+Printing, storage     7 Stability of equilibrium Zero-setting, tare balancing     
+8 Tilting     
+9 Tare     
+10 Warm-up time     
+11 Voltage variations     
+12.1 AC mains voltage dips and short interruptions     
+a) Mains power supply lines     12.2 Electrical bursts b) I/O circuits and communication lines     
+a) AC mains power supply     12.3 Surges b) Any other kind of power supply lines     
+a) Direct application     12.4 Electrostatic discharges b) Indirect application (contact discharges only)     
+12.5 Immunity to radiated electromagnetic fields     
+12.6 Immunity to conducted radio-frequency fields     
+a) Conduction along supply lines of external 
+12 V and 24 V batteries     
+12.7 
+Electrical transients on 
+instruments powered from a 
+road vehicle power supply b) Capacitive and inductive coupling via lines 
+other than supply lines     
+a) Initial test (at reference temperature)     
+b) Test at high temperature and 85 % relative 
+humidity     13 Damp heat, 
+steady state 
+c) Final test (at reference temperature)     
+14 Span stability     
+a) Initial test     15 Endurance c) Final test     
+ EXAMINATIONS     
+16 Examination of the construction     
+17 Checklist     
+Remarks: 
+
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+10 
+ 
+1 WEIGHING PERFORMANCE (A.4.4) (A.5.3.1) 
+(Calculation of the error) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e): …………………………………………  (only class I)    
+ 
+Automatic zero-setting and zero-tracking device is: 
+ Non-existent  Not in operation  Out of working range  In operation 
+ 
+Initial zero-setting > 20 % of Max:  Yes  No  (see R 76-1, A.4.4.2) 
+ 
+ 
+E  = I + ½ e – ΔL – L 
+Ec = E – E0 with E0 = error calculated at or near zero* 
+Indication, I Add. load, 
+ΔL Error, E Corrected error, Ec Load, L 
+↓ ↑ ↓ ↑ ↓ ↑ ↓ ↑ 
+mpe 
+ *    *     
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+ 
+Check if |Ec| ≤ |mpe| 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+11 
+ 
+2 TEMPERATURE EFFECT ON NO-LOAD INDICATION (A.5.3.2) 
+ 
+Application no.: ………………………………………………………………………………….. 
+Type designation: ………………………………………………………………………………….. 
+Date: ………………………………………… 
+Observer: ………………………………………… 
+Verification  
+scale interval, e: ………………………………………… 
+Resolution during test  
+(smaller than e): ………………………………………… 
+ 
+Automatic zero-setting and zero-tracking device is: 
+ Non-existent  Not in operation  Out of working range  In operation 
+ 
+ 
+P = I + ½ e – ΔL 
+ 
+Report 
+page* Date Time Temp 
+(°C) 
+Zero indication,
+I 
+Add. load,
+ΔL P ΔP ΔTemp. Zero-change
+per … °C 
+       
+         
+  
+      
+         
+  
+      
+         
+  
+      
+ 
+ 
+         
+ 
+ΔP = difference of P for two consecutive tests at different temperatures 
+ΔTemp. = difference of Temp. for two consecutive tests at different temperatures 
+ 
+Check if the zero-change per 5 °C is smaller than e (class II, III or IIII) 
+Check if the zero-change per 1 °C is smaller than e (class I) 
+ 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+* Give the report page of the relevant weighing test where wei ghing tests and temperature effect on no-load indication test are 
+conducted together (see R 76-1, Figure 11). 
+
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+12 
+ 
+3 ECCENTRICITY (A.4.7) 
+3.1 Eccentricity using weig hts (A.4.7.1, 2 and 3) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e): …………………………………………  (only class I)    
+ 
+1) Test(s) performed on a mobile instrument (A.4.7.5):  Yes  No 
+2) In case of “Yes” to 1): A.4.7 and A.4.7.1 to A.4.7.4 have been applied:  Yes  No 
+3) In case of “No” to 2): Description of eccentricity test(s) (see A.4.7.5) under “Remarks” 
+ 
+Location of test loads: mark on a sketch (see example below) the successive locations of test loads, using numbers 
+which shall be repeated in the table below. 
+ 
+1 2 
+4 3 
+ 
+Also indicate in the sketch the location of the display or of another perceptible part of the instrument. 
+ 
+Automatic zero-setting and zero-tracking device is: 
+ Non-existent  Not in operation  Out of working range 
+ 
+ 
+E  = I + ½ e – ΔL – L 
+Ec = E – E0 with E0 = error calculated at or near zero* determined prior to each measurement 
+Location Load, L Indication,  
+I 
+Add. load, 
+ΔL 
+Error, 
+E 
+Corrected 
+error, Ec mpe 
+ *   *   
+1       
+ *   *   
+2       
+ *   *   
+3       
+ *   *   
+4       
+       
+ 
+Check if |Ec| ≤ |mpe| 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+13 
+ 
+3.2 Eccentricity using a rolling load (A.4.7.4) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+Verification  Rel. h.:    % 
+scale interval, e: ………………………………………… Time:     
+Resolution during test  Bar. pres.:    hPa 
+(smaller than e): …………………………………………  (only class I)    
+ 
+Number of sections of the divided load receptor    Undivided load receptor 
+ 
+Location of test loads for each section of the load receptor: mark on a sketch (see example below) the successive 
+locations of test loads, using numbers which shall be repeated in the table below. Also indicate in the sketch the location 
+of the display or of another perceptible part of the instrument. 
+ 
+1 2 3 
+ 
+ 
+Automatic zero-setting and zero-tracking device is: 
+ Non-existent  Not in operation  Out of working range 
+ 
+E  = I + ½ e – ΔL – L 
+Ec = E – E0 with E0 = error calculated at or near zero* 
+Section  Direction 
+(Å / Æ) Location Load, L Indication, 
+I 
+Add. load, 
+ΔL 
+Error, 
+E 
+Corrected 
+error, Ec mpe 
+ *   *   
+       
+       
+  
+       
+ *   *   
+       
+       
+  
+       
+ *   *   
+       
+         
+       
+ *   *   
+       
+       
+  
+       
+ 
+Check if |Ec| ≤ |mpe| 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+14 
+ 
+4 DISCRIMINATION AND SENSITIVITY 
+4.1 Discrimination 
+4.1.1 Digital indication (A.4.8.2) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ……………………………………………… …. At start At max At end  
+Date: …………………………………… Temp.:    °C 
+Observer: …………………………………..… Rel. h.:    % 
+Verification scale interval, e: ……………………………..……… Time:     
+Scale interval, d: ……………………………..……… Bar. pres.:    hPa 
+ 
+ 
+Load, L Indication, 
+I1 
+Removed load 
+ΔL Add 1/10 d Extra load, 
+= 1.4 d 
+Indication, 
+I2 I2 – I1 
+       
+       
+       
+ 
+Check if I2 – I1 ≥ d 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+ 
+ 
+ 
+ 
+ 
+ 
+4.1.2 Analog indication (A.4.8.1) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ……………………………………………… …. At start At max At end  
+Date: …………………………………… Temp.:    °C 
+Observer: …………………………………..… Rel. h.:    % 
+Verification scale interval, e: ……………………………..……… Time:     
+Scale interval, d: ……………………………..……… Bar. pres.:    hPa 
+ 
+ 
+Load, L Indication, 
+I1 
+Extra load 
+= |mpe| 
+Indication, 
+I2 I2 – I1 
+     
+     
+     
+ 
+Check if I2 – I1 ≥ 0.7 mpe 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+
+OIML R 76-2: 2007 (E) Report page …./…. 
+ 
+ 
+ 
+ 
+15 
+ 
+4.1.3 Non-self-indicating instrument (A.4.8.1) 
+ 
+Application no.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp.:    °C 
+  Rel. h.:    % 
+ ………………………………………… Time:     
+ ………………………………………… Bar. pres.:    hPa 
+ 
+ 
+Load, L Indication, 
+I 
+Extra load, 
+= 0.4 |mpe| 
+Visible 
+displacement* 
+    
+    
+    
+* Mark a visible displacement by “+” 
+ 
+Check if there is a visible displacement 
+ 
+ Passed  Failed 
+ 
+Remarks: 
+ 
+ 
+ 
+ 
+ 
+4.2 Sensitivity (non-self-indicating instrument) (A.4.9) 
+ 
+Application No.: ………………………………………………….     
+Type designation: ………………………………………………….     
+Date: …………………………………………  At start At max At end  
+Observer: ………………………………………… Temp:    °C 
+  Rel. h:    % 
+ ………………………………………… Time:     
+ ………………………………………… Bar. pres:    hPa 
+ 
+Load L Extra load 
+= |mpe| 
+Permanent displacement of 
+indicating element 
+   mm 
+   mm 
+   mm 
+ 
+Check if the permanent displacement is equal to or greater than: 
+1 mm for an instrument of accuracy class I or II 
+2 mm for an instrument of accuracy class III or IIII with Max ≤ 30 kg 
+5 mm for an instrument of accuracy class III or IIII with Max > 30 kg 
+ 
+ Passed  Failed 
+ 
+Remarks: 

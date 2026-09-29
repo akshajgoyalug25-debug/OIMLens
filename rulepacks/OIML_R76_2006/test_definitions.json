@@ -1,0 +1,141 @@
+{
+  "standard": "OIML R 76-1:2006",
+  "report_standard": "OIML R 76-2:2007",
+  "version": "2006",
+  "tests": [
+    {
+      "code": "ZERO_RANGE",
+      "name": "Range of zero-setting",
+      "source_clause": "A.4.2.1",
+      "category": "zero",
+      "applicability": "Applicable according to instrument zero-setting configuration"
+    },
+    {
+      "code": "ZERO_ACCURACY",
+      "name": "Accuracy of zero-setting",
+      "source_clause": "A.4.2.3",
+      "category": "zero",
+      "applicability": "Applicable according to zero-setting type"
+    },
+    {
+      "code": "WEIGHING_PERFORMANCE",
+      "name": "Weighing performance",
+      "source_clause": "A.4.4.1",
+      "report_clause": "R76-2 Section 1",
+      "category": "performance",
+      "applicability": "Core performance test"
+    },
+    {
+      "code": "ECCENTRIC_LOADING",
+      "name": "Eccentricity",
+      "source_clause": "A.4.7",
+      "report_clause": "R76-2 Section 3",
+      "category": "performance",
+      "applicability": "According to load receptor/support configuration"
+    },
+    {
+      "code": "DISCRIMINATION",
+      "name": "Discrimination",
+      "source_clause": "A.4.8",
+      "report_clause": "R76-2 Section 4.1",
+      "category": "performance",
+      "applicability": "According to indication type"
+    },
+    {
+      "code": "SENSITIVITY",
+      "name": "Sensitivity",
+      "source_clause": "A.4.9",
+      "report_clause": "R76-2 Section 4.2",
+      "category": "performance",
+      "applicability": "Non-self-indicating instruments"
+    },
+    {
+      "code": "REPEATABILITY",
+      "name": "Repeatability",
+      "source_clause": "A.4.10",
+      "report_clause": "R76-2 Section 5",
+      "category": "performance",
+      "applicability": "Applicable repeatability test"
+    },
+    {
+      "code": "CREEP",
+      "name": "Creep",
+      "source_clause": "A.4.11.1",
+      "category": "time_dependence",
+      "applicability": "Classes II, III and IIII according to R76"
+    },
+    {
+      "code": "ZERO_RETURN",
+      "name": "Zero return",
+      "source_clause": "A.4.11.2",
+      "report_clause": "R76-2 Section 6.1",
+      "category": "time_dependence",
+      "applicability": "Classes II, III and IIII according to R76"
+    },
+    {
+      "code": "TILTING_STATIC",
+      "name": "Tilting (static)",
+      "source_clause": "A.5.1.1",
+      "category": "influence_factor",
+      "applicability": "Classes II, III and IIII according to R76"
+    },
+    {
+      "code": "WARM_UP",
+      "name": "Warm-up time",
+      "source_clause": "A.5.2",
+      "category": "influence_factor",
+      "applicability": "Electronic instruments according to R76"
+    },
+    {
+      "code": "TEMPERATURE_STATIC",
+      "name": "Static temperatures",
+      "source_clause": "A.5.3.1",
+      "category": "influence_factor",
+      "applicability": "According to applicable temperature requirements"
+    },
+    {
+      "code": "TEMPERATURE_ZERO",
+      "name": "Temperature effect on no-load indication",
+      "source_clause": "A.5.3.2",
+      "report_clause": "R76-2 Section 2",
+      "category": "influence_factor",
+      "applicability": "According to accuracy class"
+    },
+    {
+      "code": "VOLTAGE_AC",
+      "name": "AC mains voltage variation",
+      "source_clause": "A.5.4.1",
+      "category": "influence_factor",
+      "applicability": "Instruments powered from AC mains"
+    },
+    {
+      "code": "VOLTAGE_EXTERNAL",
+      "name": "External or plug-in power supply variation",
+      "source_clause": "A.5.4.2",
+      "category": "influence_factor",
+      "applicability": "According to power supply configuration"
+    },
+    {
+      "code": "VOLTAGE_BATTERY",
+      "name": "Battery voltage variation",
+      "source_clause": "A.5.4.3",
+      "category": "influence_factor",
+      "applicability": "Battery-powered instruments"
+    },
+    {
+      "code": "VOLTAGE_VEHICLE",
+      "name": "12 V or 24 V vehicle battery variation",
+      "source_clause": "A.5.4.4",
+      "category": "influence_factor",
+      "applicability": "Road-vehicle battery powered instruments"
+    },
+    {
+      "code": "ENDURANCE",
+      "name": "Endurance test",
+      "source_clause": "A.6",
+      "report_clause": "R76-2 Section 15",
+      "category": "endurance",
+      "applicability": "According to instrument type and R76 requirements"
+    }
+  ]
+}
