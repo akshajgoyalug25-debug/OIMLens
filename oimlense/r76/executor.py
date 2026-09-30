@@ -37,6 +37,7 @@ from oimlense.r76.endurance import calculate_endurance
 from oimlense.r76.zero_setting import (
     calculate_zero_range,
     calculate_zero_accuracy,
+    calculate_zero_tracking,
 )
 from oimlense.r76.tilting import calculate_tilt
 from oimlense.r76.warm_up import calculate_warm_up
@@ -81,8 +82,33 @@ _IMPLEMENTED_CODES = {
 
 def _execute_inspection_test(code: str, inputs: dict[str, Any]) -> R76ExecutionResult:
     test = get_test_definition(code)
-    passed = bool(inputs.get("inspection_passed", inputs.get("passed", True)))
-    notes = str(inputs.get("notes", inputs.get("remarks", "Visual/technical inspection completed.")))
+
+    inspection_value = inputs.get("inspection_passed")
+
+    if inspection_value is None:
+        inspection_value = inputs.get("passed")
+
+    if inspection_value is None:
+        raise ValueError(
+            f"{code} requires inspection_passed=True or False."
+        )
+
+    if not isinstance(inspection_value, bool):
+        raise ValueError(
+            f"{code} inspection_passed must be a boolean."
+        )
+
+    notes = str(
+        inputs.get(
+            "notes",
+            inputs.get(
+                "remarks",
+                "Visual/technical inspection completed.",
+            ),
+        )
+    )
+
+    passed = inspection_value
 
     return R76ExecutionResult(
         code=code,
@@ -93,22 +119,59 @@ def _execute_inspection_test(code: str, inputs: dict[str, Any]) -> R76ExecutionR
         status="PASS" if passed else "FAIL",
         result={
             "passed": passed,
+            "inspection_passed": passed,
             "notes": notes,
             "test_code": code,
             "accuracy_class": str(inputs.get("accuracy_class", "III")),
-            "max_capacity": float(inputs.get("max_capacity", 30)) if inputs.get("max_capacity") is not None else None,
-            "e": float(inputs.get("e", 0.01)) if inputs.get("e") is not None else None,
+            "max_capacity": (
+                float(inputs["max_capacity"])
+                if inputs.get("max_capacity") is not None
+                else None
+            ),
+            "e": (
+                float(inputs["e"])
+                if inputs.get("e") is not None
+                else None
+            ),
         },
-        message=f"Inspection requirement for {test['name']} {'satisfied (PASS)' if passed else 'failed (FAIL)'}."
+        message=(
+            f"Inspection requirement for {test['name']} "
+            f"{'satisfied (PASS)' if passed else 'failed (FAIL)'}."
+        ),
     )
-
-
-def _execute_influence_test(code: str, inputs: dict[str, Any]) -> R76ExecutionResult:
+def _execute_influence_test(
+    code: str,
+    inputs: dict[str, Any],
+) -> R76ExecutionResult:
     test = get_test_definition(code)
-    e_val = float(inputs.get("e", 0.01)) if inputs.get("e") is not None else 0.01
-    mpe_val = float(inputs.get("mpe", 0.5 * e_val))
-    measured_err = float(inputs.get("measured_error", inputs.get("error", 0.0)))
-    passed = bool(inputs.get("passed", abs(measured_err) <= mpe_val))
+
+    e_value = inputs.get("e")
+
+    if e_value is None:
+        raise ValueError(
+            f"{code} requires e (verification scale interval)."
+        )
+
+    measured_error = inputs.get("measured_error")
+
+    if measured_error is None:
+        measured_error = inputs.get("error")
+
+    if measured_error is None:
+        raise ValueError(
+            f"{code} requires measured_error."
+        )
+
+    mpe_value = inputs.get("mpe")
+
+    if mpe_value is None:
+        mpe_value = 0.5 * float(e_value)
+
+    measured_error = float(measured_error)
+    mpe_value = float(mpe_value)
+    e_value = float(e_value)
+
+    passed = abs(measured_error) <= mpe_value
 
     return R76ExecutionResult(
         code=code,
@@ -119,20 +182,48 @@ def _execute_influence_test(code: str, inputs: dict[str, Any]) -> R76ExecutionRe
         status="PASS" if passed else "FAIL",
         result={
             "passed": passed,
-            "measured_error": measured_err,
-            "mpe": mpe_val,
-            "e": e_val,
+            "measured_error": measured_error,
+            "mpe": mpe_value,
+            "e": e_value,
+            "absolute_error": abs(measured_error),
+            "calculation": (
+                f"|{measured_error}| <= {mpe_value}"
+            ),
             "test_code": code,
         },
-        message=f"Influence test {test['name']} {'passed' if passed else 'failed'}; error={measured_err}, MPE=±{mpe_val}."
+        message=(
+            f"Influence test {test['name']} "
+            f"{'passed' if passed else 'failed'}; "
+            f"error={measured_error}, MPE=±{mpe_value}."
+        ),
     )
-
-
-def _execute_disturbance_test(code: str, inputs: dict[str, Any]) -> R76ExecutionResult:
+def _execute_disturbance_test(
+    code: str,
+    inputs: dict[str, Any],
+) -> R76ExecutionResult:
     test = get_test_definition(code)
-    significant_fault = bool(inputs.get("significant_fault", False))
-    passed = bool(inputs.get("passed", not significant_fault))
-    e_val = float(inputs.get("e", 0.01)) if inputs.get("e") is not None else 0.01
+
+    if "significant_fault" not in inputs:
+        raise ValueError(
+            f"{code} requires significant_fault=True or False."
+        )
+
+    significant_fault = inputs["significant_fault"]
+
+    if not isinstance(significant_fault, bool):
+        raise ValueError(
+            f"{code} significant_fault must be a boolean."
+        )
+
+    e_value = inputs.get("e")
+
+    if e_value is None:
+        raise ValueError(
+            f"{code} requires e (verification scale interval)."
+        )
+
+    e_value = float(e_value)
+    passed = not significant_fault
 
     return R76ExecutionResult(
         code=code,
@@ -144,19 +235,53 @@ def _execute_disturbance_test(code: str, inputs: dict[str, Any]) -> R76Execution
         result={
             "passed": passed,
             "significant_fault": significant_fault,
-            "mpe": 1.0 * e_val,
+            "e": e_value,
+            "mpe": e_value,
             "test_code": code,
+            "calculation": (
+                "PASS because no significant fault was detected"
+                if passed
+                else "FAIL because a significant fault was detected"
+            ),
         },
-        message=f"Disturbance test {test['name']} {'passed (no significant fault)' if passed else 'failed (significant fault detected)'}."
+        message=(
+            f"Disturbance test {test['name']} "
+            f"{'passed (no significant fault)' if passed else 'failed (significant fault detected)'}."
+        ),
     )
-
-
-def _execute_generic_metrological_test(code: str, inputs: dict[str, Any]) -> R76ExecutionResult:
+def _execute_generic_metrological_test(
+    code: str,
+    inputs: dict[str, Any],
+) -> R76ExecutionResult:
     test = get_test_definition(code)
-    e_val = float(inputs.get("e", 0.01)) if inputs.get("e") is not None else 0.01
-    mpe_val = float(inputs.get("mpe", 0.5 * e_val))
-    measured_err = float(inputs.get("measured_error", inputs.get("error", 0.0)))
-    passed = bool(inputs.get("passed", abs(measured_err) <= mpe_val))
+
+    e_value = inputs.get("e")
+
+    if e_value is None:
+        raise ValueError(
+            f"{code} requires e (verification scale interval)."
+        )
+
+    measured_error = inputs.get("measured_error")
+
+    if measured_error is None:
+        measured_error = inputs.get("error")
+
+    if measured_error is None:
+        raise ValueError(
+            f"{code} requires measured_error."
+        )
+
+    mpe_value = inputs.get("mpe")
+
+    if mpe_value is None:
+        mpe_value = 0.5 * float(e_value)
+
+    measured_error = float(measured_error)
+    mpe_value = float(mpe_value)
+    e_value = float(e_value)
+
+    passed = abs(measured_error) <= mpe_value
 
     return R76ExecutionResult(
         code=code,
@@ -167,15 +292,21 @@ def _execute_generic_metrological_test(code: str, inputs: dict[str, Any]) -> R76
         status="PASS" if passed else "FAIL",
         result={
             "passed": passed,
-            "measured_error": measured_err,
-            "mpe": mpe_val,
-            "e": e_val,
+            "measured_error": measured_error,
+            "mpe": mpe_value,
+            "e": e_value,
+            "absolute_error": abs(measured_error),
+            "calculation": (
+                f"|{measured_error}| <= {mpe_value}"
+            ),
             "test_code": code,
         },
-        message=f"Procedure {test['name']} {'passed' if passed else 'failed'}; error={measured_err}, MPE=±{mpe_val}."
+        message=(
+            f"Procedure {test['name']} "
+            f"{'passed' if passed else 'failed'}; "
+            f"error={measured_error}, MPE=±{mpe_value}."
+        ),
     )
-
-
 def _execute_weighing_performance(inputs: dict[str, Any]) -> R76ExecutionResult:
     required = {
         "accuracy_class",
@@ -652,6 +783,49 @@ def _execute_zero_accuracy(inputs: dict[str, Any]) -> R76ExecutionResult:
     )
 
 
+def _execute_zero_tracking(inputs: dict[str, Any]) -> R76ExecutionResult:
+    required = {
+        "load",
+        "indication",
+        "additional_load",
+        "e",
+        "correction_rate",
+        "equilibrium_stable",
+    }
+
+    missing = sorted(required - inputs.keys())
+
+    if missing:
+        raise ValueError(
+            "Missing ZERO_TRACKING inputs: " + ", ".join(missing)
+        )
+
+    result = calculate_zero_tracking(
+        load=Decimal(str(inputs["load"])),
+        indication=Decimal(str(inputs["indication"])),
+        additional_load=Decimal(str(inputs["additional_load"])),
+        e=Decimal(str(inputs["e"])),
+        correction_rate=Decimal(str(inputs["correction_rate"])),
+        equilibrium_stable=inputs["equilibrium_stable"],
+    )
+
+    test = get_test_definition("ZERO_TRACKING")
+
+    return R76ExecutionResult(
+        code=test["code"],
+        name=test["name"],
+        category=test["category"],
+        source_clause=test["source_clause"],
+        report_clause=test.get("report_clause"),
+        status="PASS" if result.passed else "FAIL",
+        result=result,
+        message=(
+            f"Zero-tracking test "
+            f"{'passed' if result.passed else 'failed'}."
+        ),
+    )
+
+
 def _execute_tilt(inputs: dict[str, Any], code: str = "TILT") -> R76ExecutionResult:
     required = {
         "accuracy_class",
@@ -1079,6 +1253,9 @@ def execute_test(code: str, **inputs: Any) -> R76ExecutionResult:
 
     if normalized_code == "ZERO_ACCURACY":
         return _execute_zero_accuracy(inputs)
+
+    if normalized_code == "ZERO_TRACKING":
+        return _execute_zero_tracking(inputs)
 
     if normalized_code in {"TILT", "TILTING_STATIC", "TILTING_MOBILE"}:
         return _execute_tilt(inputs, normalized_code)

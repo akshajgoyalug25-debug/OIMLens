@@ -4,6 +4,7 @@ import type {
   R76TestDefinition,
   R76TestResult,
 } from '../../services/r76Api'
+import { R76_TEST_WORKFLOW } from '../../data/r76TestWorkflowMap'
 
 type Props = {
   definition: R76TestDefinition & {
@@ -137,6 +138,7 @@ export function R76TestForm({
   const e = instrument?.e
   const d = instrument?.d
   const accuracyClass = instrument?.accuracy_class
+  const workflow = R76_TEST_WORKFLOW[definition.test_code] ?? 'metrological'
 
   const [values, setValues] = useState<Record<string, string>>({
     load: '10',
@@ -948,11 +950,54 @@ export function R76TestForm({
       return
     }
 
-    // Generic payload construction fallback for all other 78 procedure definitions
+    if (code === 'ZERO_TRACKING') {
+      onExecute({
+        accuracy_class: accuracyClass,
+        max_capacity: instrument?.max_capacity,
+        e,
+        load: numberOrZero(values.zero_tracking_load),
+        indication: numberOrZero(values.zero_tracking_indication),
+        additional_load: numberOrZero(
+          values.zero_tracking_additional_load,
+        ),
+        correction_rate: numberOrZero(values.zero_tracking_rate),
+        equilibrium_stable:
+          values.zero_tracking_equilibrium === 'true'
+            ? true
+            : values.zero_tracking_equilibrium === 'false'
+              ? false
+              : undefined,
+        notes: values.notes || undefined,
+      })
+      return
+    }
+
+    // Generic payload construction for the non-specialized workflows.
     const payload: Record<string, unknown> = {
       ...values,
-      inspection_passed: values.inspection_passed === 'false' ? false : true,
-      measured_error: values.measured_error !== undefined && values.measured_error !== '' ? numberOrZero(values.measured_error) : undefined,
+      accuracy_class: accuracyClass,
+      max_capacity: instrument?.max_capacity,
+      e,
+      measured_error:
+        values.measured_error !== undefined && values.measured_error !== ''
+          ? numberOrZero(values.measured_error)
+          : undefined,
+      inspection_passed:
+        workflow === 'inspection'
+          ? values.inspection_passed === 'true'
+            ? true
+            : values.inspection_passed === 'false'
+              ? false
+              : undefined
+          : undefined,
+      significant_fault:
+        workflow === 'disturbance'
+          ? values.significant_fault === 'true'
+            ? true
+            : values.significant_fault === 'false'
+              ? false
+              : undefined
+          : undefined,
       notes: values.notes || undefined,
     }
 
@@ -2671,7 +2716,7 @@ export function R76TestForm({
       )}
 
       {/* Dynamic schema inputs & NO MANUAL OBSERVATION REQUIRED box for procedures without custom hard-coded forms */}
-      {!['WEIGHING_PERFORMANCE', 'DISCRIMINATION', 'SENSITIVITY', 'REPEATABILITY', 'CREEP', 'ZERO_RETURN', 'TILT', 'WARM_UP', 'ZERO_RANGE', 'ZERO_ACCURACY', 'VOLTAGE_AC', 'VOLTAGE_EXTERNAL', 'VOLTAGE_BATTERY', 'VOLTAGE_VEHICLE', 'ENDURANCE', 'TEMPERATURE_STATIC', 'TEMPERATURE_ZERO'].includes(code) && (
+      {!['WEIGHING_PERFORMANCE', 'ECCENTRIC_LOADING', 'DISCRIMINATION', 'SENSITIVITY', 'REPEATABILITY', 'CREEP', 'ZERO_RETURN', 'TILTING_STATIC', 'TILTING_MOBILE', 'WARM_UP', 'ZERO_RANGE', 'ZERO_ACCURACY', 'VOLTAGE_AC', 'VOLTAGE_EXTERNAL', 'VOLTAGE_BATTERY', 'VOLTAGE_VEHICLE', 'ENDURANCE', 'TEMPERATURE_STATIC', 'TEMPERATURE_ZERO'].includes(code) && (
         definition.no_manual_observation_required ? (
           <div className="sih-no-manual-box">
             <div className="sih-no-manual-icon">ℹ️</div>
@@ -2685,36 +2730,136 @@ export function R76TestForm({
           </div>
         ) : (
           <div className="sih-generic-obs-form">
-            <div className="sih-input-grid">
-              <Field
-                label="Compliance Status"
-                value={values.inspection_passed || 'true'}
-                onChange={(v) => setValue('inspection_passed', v)}
-                type="select"
-                options={[
-                  { label: 'Pass (Satisfies OIML R 76 requirements)', value: 'true' },
-                  { label: 'Fail (Exceeds permissible limits / non-compliant)', value: 'false' },
-                ]}
-                helpText="Select overall technical/visual inspection compliance status."
-              />
+            {workflow === 'inspection' && (
+              <>
+                <div className="sih-input-grid">
+                  <Field
+                    label="Compliance Status"
+                    value={values.inspection_passed || ''}
+                    onChange={(v) => setValue('inspection_passed', v)}
+                    type="select"
+                    options={[
+                      { label: 'Pass (Satisfies OIML R 76 requirements)', value: 'true' },
+                      { label: 'Fail (Non-compliant)', value: 'false' },
+                    ]}
+                    helpText="Record the result of the visual, marking, software, or checklist inspection."
+                  />
+                </div>
+              </>
+            )}
 
-              <Field
-                label="Measured Error / Indication Drift (Optional)"
-                value={values.measured_error || ''}
-                onChange={(v) => setValue('measured_error', v)}
-                type="number"
-                step="any"
-                unit={instrument?.unit || 'kg'}
-                helpText="Enter observed indication error or drift value if applicable."
-              />
-            </div>
+            {code === 'ZERO_TRACKING' ? (
+              <div className="sih-input-grid">
+                <Field
+                  label="Test Load (L)"
+                  value={values.zero_tracking_load || ''}
+                  onChange={(v) => setValue('zero_tracking_load', v)}
+                  type="number"
+                  step="any"
+                  unit={instrument?.unit || 'kg'}
+                  helpText="Load used to bring the indication outside the automatic zero-tracking range."
+                />
+
+                <Field
+                  label="Indication (I)"
+                  value={values.zero_tracking_indication || ''}
+                  onChange={(v) => setValue('zero_tracking_indication', v)}
+                  type="number"
+                  step="any"
+                  unit={instrument?.unit || 'kg'}
+                  helpText="Indication observed at the test load before applying the additional load."
+                />
+
+                <Field
+                  label="Additional Load (ΔL)"
+                  value={values.zero_tracking_additional_load || ''}
+                  onChange={(v) => setValue('zero_tracking_additional_load', v)}
+                  type="number"
+                  step="any"
+                  unit={instrument?.unit || 'kg'}
+                  helpText="Additional load required to cause the indication to change by one scale interval."
+                />
+
+                <Field
+                  label="Zero-Tracking Correction Rate"
+                  value={values.zero_tracking_rate || ''}
+                  onChange={(v) => setValue('zero_tracking_rate', v)}
+                  type="number"
+                  step="any"
+                  unit={`${instrument?.d || instrument?.e || '1'} / second`}
+                  helpText="Observed zero-tracking correction rate. Maximum permitted rate is 0.5 d/s."
+                />
+
+                <Field
+                  label="Equilibrium Stable"
+                  value={values.zero_tracking_equilibrium || ''}
+                  onChange={(v) => setValue('zero_tracking_equilibrium', v)}
+                  type="select"
+                  options={[
+                    { label: 'Yes — stable equilibrium', value: 'true' },
+                    { label: 'No — unstable equilibrium', value: 'false' },
+                  ]}
+                  helpText="Confirm that stable equilibrium is reached before zero tracking operates."
+                />
+              </div>
+            ) : workflow === 'metrological' ? (
+              <div className="sih-input-grid">
+                <Field
+                  label="Measured Error"
+                  value={values.measured_error || ''}
+                  onChange={(v) => setValue('measured_error', v)}
+                  type="number"
+                  step="any"
+                  unit={instrument?.unit || 'kg'}
+                  helpText="Enter the observed measurement error. The backend calculates MPE compliance."
+                />
+              </div>
+            ) : null}
+
+            {workflow === 'influence' && (
+              <div className="sih-input-grid">
+                <Field
+                  label="Measured Error Under Influence"
+                  value={values.measured_error || ''}
+                  onChange={(v) => setValue('measured_error', v)}
+                  type="number"
+                  step="any"
+                  unit={instrument?.unit || 'kg'}
+                  helpText="Enter the measured error under the specified environmental influence condition."
+                />
+              </div>
+            )}
+
+            {workflow === 'disturbance' && (
+              <div className="sih-input-grid">
+                <Field
+                  label="Significant Fault Detected"
+                  value={values.significant_fault || ''}
+                  onChange={(v) => setValue('significant_fault', v)}
+                  type="select"
+                  options={[
+                    { label: 'No — immunity requirement satisfied', value: 'false' },
+                    { label: 'Yes — significant fault detected', value: 'true' },
+                  ]}
+                  helpText="Record whether the disturbance produced a significant fault."
+                />
+              </div>
+            )}
 
             <label className="sih-field-label" style={{ marginTop: '14px' }}>
-              <span>Technician Notes & Environmental Observations</span>
+              <span>
+                {workflow === 'inspection'
+                  ? 'Inspection Notes'
+                  : workflow === 'disturbance'
+                    ? 'Disturbance Observations'
+                    : workflow === 'influence'
+                      ? 'Environmental Observations'
+                      : 'Test Observations & Notes'}
+              </span>
               <textarea
                 value={values.notes || ''}
                 onChange={(e) => setValue('notes', e.target.value)}
-                placeholder="Enter verification remarks, serial numbers checked, or laboratory observations..."
+                placeholder="Enter test observations, conditions, or verification remarks..."
                 className="sih-input-field"
                 rows={3}
                 style={{ resize: 'vertical' }}

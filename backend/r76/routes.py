@@ -10,6 +10,8 @@ from pydantic import BaseModel, Field
 
 from backend.deps import get_current_user
 from backend.r76.db import get_db
+from backend.r76.report_generator import generate_r76_report
+from fastapi.responses import StreamingResponse
 
 from oimlense.r76.executor import execute_test
 from oimlense.r76.rulepack import get_test_definition, _ALL_78_PROCEDURE_CODES
@@ -22,6 +24,39 @@ router = APIRouter(
 
 
 # ============================================================
+# ============================================================
+# Audit Trail
+# ============================================================
+
+def _write_audit_log(
+    db,
+    *,
+    user_id: str | None,
+    action: str,
+    entity_type: str,
+    entity_id: str | None = None,
+    previous_value: dict | None = None,
+    new_value: dict | None = None,
+    metadata: dict | None = None,
+) -> None:
+    """Write an audit event without interrupting the main workflow."""
+    try:
+        db.table("audit_logs").insert(
+            {
+                "user_id": user_id,
+                "action": action,
+                "entity_type": entity_type,
+                "entity_id": entity_id,
+                "previous_value": previous_value,
+                "new_value": new_value,
+                "metadata": metadata,
+            }
+        ).execute()
+    except Exception:
+        # Audit failures must never break the R76 workflow.
+        pass
+
+
 # Helpers
 # ============================================================
 
@@ -302,14 +337,36 @@ def list_test_definitions(
 @router.get("/test-sessions")
 def list_test_sessions(
     request: Request,
+    search: str | None = None,
+    status: str | None = None,
+    test_type: str | None = None,
     current_user=Depends(get_current_user),
 ):
     access_token, refresh_token = _get_session_tokens(request)
     db = get_db(access_token, refresh_token)
 
-    response = (
+    query = (
         db.table("test_sessions")
         .select("*")
+    )
+
+    # Repository search across session number and test location.
+    if search and search.strip():
+        search_value = search.strip()
+        query = query.or_(
+            f"session_number.ilike.%{search_value}%,"
+            f"test_location.ilike.%{search_value}%"
+        )
+
+    # Optional repository filters.
+    if status and status.strip():
+        query = query.eq("status", status.strip().lower())
+
+    if test_type and test_type.strip():
+        query = query.eq("test_type", test_type.strip())
+
+    response = (
+        query
         .order("created_at", desc=True)
         .execute()
     )
@@ -378,7 +435,6 @@ def get_test_session(
         db.table("environmental_conditions")
         .select("*")
         .eq("test_session_id", session_id)
-        .order("created_at", desc=True)
         .limit(1)
         .execute()
     )
@@ -417,6 +473,69 @@ def update_test_session(
     access_token, refresh_token = _get_session_tokens(request)
     db = get_db(access_token, refresh_token)
 
+    # --------------------------------------------------------
+    # Controlled review / approval workflow
+    # --------------------------------------------------------
+
+    session_response = (
+        db.table("test_sessions")
+        .select("*")
+        .eq("id", session_id)
+        .limit(1)
+        .execute()
+    )
+
+    session = _first_or_404(
+        session_response,
+        "Test session not found",
+    )
+
+    current_status = str(session.get("status") or "draft").lower()
+    requested_status = payload.get("status")
+
+    allowed_transitions = {
+        "draft": {"submitted", "in_progress"},
+        "in_progress": {"submitted"},
+        "submitted": {"under_review"},
+        "under_review": {"approved", "rejected"},
+        "rejected": {"submitted"},
+        "approved": set(),
+        "completed": set(),
+    }
+
+    if requested_status is not None:
+        requested_status = str(requested_status).lower()
+
+        if requested_status != current_status:
+            allowed = allowed_transitions.get(current_status, set())
+
+            if requested_status not in allowed:
+                raise HTTPException(
+                    status_code=409,
+                    detail=(
+                        f"Invalid session status transition: "
+                        f"{current_status} -> {requested_status}"
+                    ),
+                )
+
+        # Review / approval metadata is assigned automatically.
+        if requested_status == "under_review":
+            payload["reviewer_user_id"] = current_user.id
+
+        if requested_status == "approved":
+            payload["approver_user_id"] = current_user.id
+
+        if requested_status == "rejected":
+            payload["reviewer_user_id"] = current_user.id
+
+    # Approved/completed sessions cannot be modified through
+    # this generic endpoint.
+    if current_status in {"approved", "completed"}:
+        raise HTTPException(
+            status_code=409,
+            detail=f"Session is locked because it is already {current_status}.",
+        )
+
     response = (
         db.table("test_sessions")
         .update(payload)
@@ -428,6 +547,25 @@ def update_test_session(
         response,
         "Test session not found",
     )
+
+    # Record important session lifecycle changes.
+    if requested_status is not None and requested_status != current_status:
+        _write_audit_log(
+            db,
+            user_id=str(current_user.id),
+            action=f"session_{requested_status}",
+            entity_type="test_session",
+            entity_id=session_id,
+            previous_value={
+                "status": current_status,
+            },
+            new_value={
+                "status": requested_status,
+            },
+            metadata={
+                "session_number": session.get("session_number"),
+            },
+        )
 
     return {
         "success": True,
@@ -701,6 +839,113 @@ def execute_r76_test(
     inputs.setdefault("n", n_val)
 
     # --------------------------------------------------------
+    # 4.5 Central input validation
+    # --------------------------------------------------------
+    # Reject incomplete or invalid test submissions before
+    # sending them to the deterministic OIML R76 engine.
+
+    normalized_test_code = str(payload.test_code).strip().upper()
+
+    if not normalized_test_code:
+        raise HTTPException(
+            status_code=422,
+            detail="Test code is required.",
+        )
+
+    if not definition:
+        raise HTTPException(
+            status_code=404,
+            detail=f"R76 test definition not found: {normalized_test_code}",
+        )
+
+    # Core instrument parameters required for deterministic
+    # compliance calculations.
+    for field_name in ("accuracy_class", "max_capacity", "e"):
+        value = inputs.get(field_name)
+
+        if value is None or value == "":
+            raise HTTPException(
+                status_code=422,
+                detail=(
+                    f"Missing required instrument parameter: "
+                    f"{field_name}"
+                ),
+            )
+
+    # Numeric sanity checks.
+    for field_name in (
+        "max_capacity",
+        "min_capacity",
+        "e",
+        "d",
+        "n",
+    ):
+        value = inputs.get(field_name)
+
+        if value is None or value == "":
+            continue
+
+        try:
+            numeric_value = float(value)
+        except (TypeError, ValueError):
+            raise HTTPException(
+                status_code=422,
+                detail=f"{field_name} must be numeric.",
+            )
+
+        if field_name in ("max_capacity", "e", "d", "n") and numeric_value <= 0:
+            raise HTTPException(
+                status_code=422,
+                detail=f"{field_name} must be greater than zero.",
+            )
+
+        if field_name == "min_capacity" and numeric_value < 0:
+            raise HTTPException(
+                status_code=422,
+                detail="min_capacity cannot be negative.",
+            )
+
+    # Boolean fields must be explicitly selected by the user.
+    boolean_fields = (
+        "inspection_passed",
+        "significant_fault",
+        "equilibrium_stable",
+        "zero_tracking_equilibrium",
+    )
+
+    for field_name in boolean_fields:
+        if field_name not in inputs:
+            continue
+
+        value = inputs[field_name]
+
+        if value is None:
+            raise HTTPException(
+                status_code=422,
+                detail=(
+                    f"{field_name} must be explicitly selected "
+                    f"as true or false."
+                ),
+            )
+
+        if not isinstance(value, bool):
+            raise HTTPException(
+                status_code=422,
+                detail=f"{field_name} must be a boolean.",
+            )
+
+    # Prevent accidental NaN / Infinity values from entering
+    # compliance calculations.
+    import math
+
+    for field_name, value in inputs.items():
+        if isinstance(value, float) and not math.isfinite(value):
+            raise HTTPException(
+                status_code=422,
+                detail=f"{field_name} must be a finite number.",
+            )
+
+    # --------------------------------------------------------
     # 5. Execute deterministic R76 engine
     # --------------------------------------------------------
 
@@ -710,6 +955,7 @@ def execute_r76_test(
             **inputs,
         )
 
+
     except Exception as exc:
         raise HTTPException(
             status_code=400,
@@ -717,6 +963,22 @@ def execute_r76_test(
         )
 
     # --------------------------------------------------------
+    # Record successful test execution.
+    _write_audit_log(
+        db,
+        user_id=str(current_user.id),
+        action="test_executed",
+        entity_type="test_session",
+        entity_id=session_id,
+        new_value={
+            "test_code": payload.test_code,
+            "status": execution.status,
+        },
+        metadata={
+            "test_name": getattr(execution, "name", None),
+        },
+    )
+
     # 6. Convert execution result
     # --------------------------------------------------------
 
@@ -1237,3 +1499,212 @@ def list_results(
         "success": True,
         "items": response.data or [],
     }
+
+# ============================================================
+# Public Report Verification
+# ============================================================
+
+@router.get("/verify/{report_id}")
+def verify_report(report_id: str):
+    """Public endpoint used by QR codes to verify an OIMLense report."""
+
+    report_id = report_id.strip()
+
+    if not report_id:
+        raise HTTPException(
+            status_code=400,
+            detail="Report ID is required.",
+        )
+
+    # IMPORTANT:
+    # Do not use _get_session_tokens() here.
+    # This endpoint is intentionally public.
+    db = get_db()
+
+    session_response = (
+        db.table("test_sessions")
+        .select(
+            "id, report_id, session_number, test_type, "
+            "status, final_result, created_at, instrument_id"
+        )
+        .eq("report_id", report_id)
+        .limit(1)
+        .execute()
+    )
+
+    if not session_response.data:
+        raise HTTPException(
+            status_code=404,
+            detail="Report not found or invalid.",
+        )
+
+    session = session_response.data[0]
+
+    # Fetch only information required for public verification.
+    instrument_response = (
+        db.table("instruments")
+        .select(
+            "id, instrument_type, manufacturer, model, "
+            "serial_number"
+        )
+        .eq("id", session["instrument_id"])
+        .limit(1)
+        .execute()
+    )
+
+    instrument = (
+        instrument_response.data[0]
+        if instrument_response.data
+        else {}
+    )
+
+    return {
+        "success": True,
+        "verified": True,
+        "report": {
+            "report_id": session.get("report_id"),
+            "session_number": session.get("session_number"),
+            "test_type": session.get("test_type"),
+            "status": session.get("status"),
+            "final_result": session.get("final_result"),
+            "created_at": session.get("created_at"),
+            "instrument": {
+                "instrument_type": instrument.get("instrument_type"),
+                "manufacturer": instrument.get("manufacturer"),
+                "model": instrument.get("model"),
+                "serial_number": instrument.get("serial_number"),
+            },
+        },
+    }
+
+@router.get("/test-sessions/{session_id}/report")
+def generate_report(
+    session_id: str,
+    request: Request,
+    current_user=Depends(get_current_user),
+):
+    access_token, refresh_token = _get_session_tokens(request)
+    db = get_db(access_token, refresh_token)
+
+    session_response = (
+        db.table("test_sessions")
+        .select("*")
+        .eq("id", session_id)
+        .limit(1)
+        .execute()
+    )
+    session = _first_or_404(session_response, "Test session not found")
+
+    # Assign and persist a stable report ID on first PDF generation.
+    report_id = session.get("report_id")
+    if not report_id:
+        report_id = f"R76-{session.get('session_number') or session_id}"
+        update_response = (
+            db.table("test_sessions")
+            .update({"report_id": report_id})
+            .eq("id", session_id)
+            .execute()
+        )
+        if update_response.data:
+            session = update_response.data[0]
+
+
+    instrument_response = (
+        db.table("instruments")
+        .select("*")
+        .eq("id", session["instrument_id"])
+        .limit(1)
+        .execute()
+    )
+    instrument = _first_or_404(instrument_response, "Instrument not found")
+
+    environment_response = (
+        db.table("environmental_conditions")
+        .select("*")
+        .eq("test_session_id", session_id)
+        .limit(1)
+        .execute()
+    )
+    environment = environment_response.data or []
+
+    equipment_links_response = (
+        db.table("test_session_equipment")
+        .select("*")
+        .eq("test_session_id", session_id)
+        .execute()
+    )
+
+    equipment = []
+
+    for link in equipment_links_response.data or []:
+        equipment_id = link.get("equipment_id")
+
+        if not equipment_id:
+            continue
+
+        equipment_response = (
+            db.table("test_equipment")
+            .select("*")
+            .eq("id", equipment_id)
+            .limit(1)
+            .execute()
+        )
+
+        if equipment_response.data:
+            equipment.append(equipment_response.data[0])
+
+    results_response = (
+        db.table("test_results")
+        .select("*")
+        .eq("test_session_id", session_id)
+        .order("created_at")
+        .execute()
+    )
+    results = results_response.data or []
+
+    observations_response = (
+        db.table("test_observations")
+        .select("*")
+        .eq("test_session_id", session_id)
+        .order("observation_index")
+        .execute()
+    )
+    observations = observations_response.data or []
+
+    pdf = generate_r76_report(
+        session=session,
+        instrument=instrument,
+        environment=environment,
+        equipment=equipment,
+        results=results,
+        observations=observations,
+    )
+
+    # Record successful PDF report generation.
+    _write_audit_log(
+        db,
+        user_id=str(current_user.id),
+        action="report_generated",
+        entity_type="test_session",
+        entity_id=session_id,
+        new_value={
+            "report_id": session.get("report_id"),
+            "status": session.get("status"),
+        },
+        metadata={
+            "session_number": session.get("session_number"),
+        },
+    )
+
+    report_id = session.get("report_id") or report_id
+
+    filename = f"{report_id}.pdf".replace("/", "-")
+
+    return StreamingResponse(
+        pdf,
+        media_type="application/pdf",
+        headers={
+            "Content-Disposition": f'attachment; filename="{filename}"'
+        },
+    )
+

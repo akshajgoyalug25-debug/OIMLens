@@ -1,0 +1,96 @@
+export type R76WorkflowType =
+  | 'specialized'
+  | 'metrological'
+  | 'inspection'
+  | 'influence'
+  | 'disturbance'
+
+export const R76_TEST_WORKFLOW: Record<string, R76WorkflowType> = {
+  // Specialized calculation workflows
+  ZERO_RANGE: 'specialized',
+  ZERO_ACCURACY: 'specialized',
+  WEIGHING_PERFORMANCE: 'specialized',
+  ECCENTRIC_LOADING: 'specialized',
+  DISCRIMINATION: 'specialized',
+  SENSITIVITY: 'specialized',
+  REPEATABILITY: 'specialized',
+  ZERO_RETURN: 'specialized',
+  CREEP: 'specialized',
+  TILTING_STATIC: 'specialized',
+  TILTING_MOBILE: 'specialized',
+  WARM_UP: 'specialized',
+  WARM_UP_ZERO_DRIFT: 'specialized',
+  TEMPERATURE_STATIC: 'specialized',
+  TEMPERATURE_ZERO: 'specialized',
+  LOW_TEMP_OPERATION: 'specialized',
+  HIGH_TEMP_OPERATION: 'specialized',
+  TEMP_RAMP_CYCLING: 'specialized',
+  VOLTAGE_AC: 'specialized',
+  VOLTAGE_EXTERNAL: 'specialized',
+  VOLTAGE_BATTERY: 'specialized',
+  VOLTAGE_VEHICLE: 'specialized',
+  ENDURANCE: 'specialized',
+
+  // Generic metrological / MPE-based workflows
+  ZERO_TRACKING: 'metrological',
+  INITIAL_ZERO_SETTING: 'metrological',
+  WEIGHING_REVERSE: 'metrological',
+  MULTI_INTERVAL_WEIGHING: 'metrological',
+  MULTIPLE_RANGE_WEIGHING: 'metrological',
+  TARE_WEIGHING: 'metrological',
+  PRESET_TARE: 'metrological',
+  SUBSTITUTION_TEST: 'metrological',
+  AUXILIARY_INDICATING: 'metrological',
+  TARE_ACCURACY: 'metrological',
+  TARE_RANGE: 'metrological',
+  EQUILIBRIUM_STABILITY: 'metrological',
+  ZERO_SETTING_LIMITS: 'metrological',
+  AUTO_ZERO_TRACKING: 'metrological',
+  PLUS_MINUS_COMPARATOR: 'metrological',
+  HYSTERESIS_TEST: 'metrological',
+  MINIMUM_CAPACITY_CHECK: 'metrological',
+  ECCENTRIC_ROLLING: 'metrological',
+  POWER_DC_SUPPLY: 'metrological',
+
+  // Inspection / checklist workflows
+  DESCRIPTIVE_MARKINGS: 'inspection',
+  VERIFICATION_MARKS: 'inspection',
+  SEALING_DEVICE: 'inspection',
+  SOFTWARE_IDENTIFICATION: 'inspection',
+  SOFTWARE_PROTECTION: 'inspection',
+  DATA_STORAGE_SECURITY: 'inspection',
+  PRICE_COMPUTING: 'inspection',
+  PRICE_LABELING: 'inspection',
+  DOCUMENTATION_CHECK: 'inspection',
+  CHECKLIST_EXAMINATION: 'inspection',
+  LOCKING_POSITIONS: 'inspection',
+  LEVEL_INDICATOR: 'inspection',
+  OVERLOAD_PROTECTION: 'inspection',
+  INDICATOR_DAMPING: 'inspection',
+  MULTI_LOAD_RECEPTOR: 'inspection',
+  COUNTING_INSTRUMENT: 'inspection',
+  MOBILE_WEIGHING: 'inspection',
+  PORTABLE_VEHICLE: 'inspection',
+  CORNER_LOAD_ADJUSTMENT: 'inspection',
+  VIBRATION_RESISTANCE: 'inspection',
+  BEAM_ROBERVAL_CHECK: 'inspection',
+  STEELYARD_POISE_LIMIT: 'inspection',
+
+  // Influence-factor workflows
+  DAMP_HEAT_STEADY: 'influence',
+  SPAN_STABILITY: 'influence',
+  BAROMETRIC_PRESSURE: 'influence',
+  HIGH_HUMIDITY_STORAGE: 'influence',
+  OPEN_AIR_WIND_EFFECT: 'influence',
+  SOLAR_RADIATION_SHIELD: 'influence',
+
+  // Disturbance / immunity workflows
+  MAINS_DIPS_INTERRUPTIONS: 'disturbance',
+  BURSTS_EFT: 'disturbance',
+  SURGES_IMMUNITY: 'disturbance',
+  ELECTROSTATIC_DISCHARGE: 'disturbance',
+  RADIATED_RF_IMMUNITY: 'disturbance',
+  CONDUCTED_RF_IMMUNITY: 'disturbance',
+  MAGNETIC_FIELD: 'disturbance',
+  POWER_FREQUENCY_VARIATION: 'disturbance',
+}

@@ -47,6 +47,9 @@ export interface R76TestSession {
   test_location?: string
   status?: string
   final_result?: boolean | null
+  report_id?: string | null
+  created_at?: string
+  updated_at?: string
   started_at?: string
   completed_at?: string
 }
@@ -269,6 +272,34 @@ function normalizeInstrument(
   }
 }
 
+
+
+export interface R76VerificationResponse {
+  success: boolean
+  verified: boolean
+  report: {
+    report_id?: string
+    session_number?: string
+    test_type?: string
+    status?: string
+    final_result?: boolean | null
+    created_at?: string
+    instrument?: {
+      instrument_type?: string
+      manufacturer?: string
+      model?: string
+      serial_number?: string
+    }
+  }
+}
+
+export async function verifyR76Report(
+  reportId: string,
+): Promise<R76VerificationResponse> {
+  return request<R76VerificationResponse>(
+    `/api/r76/verify/${encodeURIComponent(reportId)}`,
+  )
+}
 export async function getR76Health() {
   return request<{
     status: string
@@ -314,11 +345,33 @@ export async function getR76TestDefinitions(): Promise<R76TestDefinition[]> {
   return body.items || []
 }
 
-export async function getR76TestSessions(): Promise<R76TestSession[]> {
+export async function getR76TestSessions(
+  filters?: {
+    search?: string
+    status?: string
+    test_type?: string
+  },
+): Promise<R76TestSession[]> {
+  const params = new URLSearchParams()
+
+  if (filters?.search?.trim()) {
+    params.set('search', filters.search.trim())
+  }
+
+  if (filters?.status?.trim()) {
+    params.set('status', filters.status.trim())
+  }
+
+  if (filters?.test_type?.trim()) {
+    params.set('test_type', filters.test_type.trim())
+  }
+
+  const query = params.toString()
+
   const body = await request<{
     success?: boolean
     items?: R76TestSession[]
-  }>('/api/r76/test-sessions')
+  }>(`/api/r76/test-sessions${query ? `?${query}` : ''}`)
 
   return body.items || []
 }
@@ -341,6 +394,19 @@ export async function createR76TestSession(
   }
 
   return created
+}
+
+export async function updateR76Session(
+  sessionId: string,
+  updates: Record<string, unknown>,
+) {
+  return request<{
+    success?: boolean
+    session?: Record<string, unknown>
+  }>(`/api/r76/test-sessions/${sessionId}`, {
+    method: 'PATCH',
+    body: JSON.stringify(updates),
+  })
 }
 
 export async function addR76Environment(
@@ -435,4 +501,38 @@ export async function getR76Results(
   }>(`/api/r76/test-sessions/${sessionId}/results`)
 
   return body.items || []
+}
+
+export async function downloadR76Report(
+  sessionId: string,
+): Promise<Blob> {
+  const response = await fetch(
+    `/api/r76/test-sessions/${sessionId}/report`,
+    {
+      method: 'GET',
+      credentials: 'include',
+    },
+  )
+
+  if (!response.ok) {
+    const text = await response.text()
+
+    let message = `Report generation failed (${response.status})`
+
+    try {
+      const data = JSON.parse(text)
+
+      if (typeof data.detail === 'string') {
+        message = data.detail
+      }
+    } catch {
+      if (text) {
+        message = text
+      }
+    }
+
+    throw new Error(message)
+  }
+
+  return response.blob()
 }

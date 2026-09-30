@@ -127,3 +127,116 @@ def calculate_zero_accuracy(
         source="OIML R 76-1:2006",
         source_clause=source_clause,
     )
+
+
+@dataclass(frozen=True)
+class ZeroTrackingResult:
+    load: Decimal
+    indication: Decimal
+    additional_load: Decimal
+    e: Decimal
+    correction_rate: Decimal
+    maximum_correction_rate: Decimal
+    zero_error: Decimal
+    accuracy_limit: Decimal
+    equilibrium_stable: bool
+    accuracy_passed: bool
+    correction_rate_passed: bool
+    equilibrium_passed: bool
+    passed: bool
+    source: str
+    source_clause: str
+
+
+def calculate_zero_tracking(
+    load: Decimal,
+    indication: Decimal,
+    additional_load: Decimal,
+    e: Decimal,
+    correction_rate: Decimal,
+    equilibrium_stable: bool,
+) -> ZeroTrackingResult:
+    """
+    Evaluate automatic zero-tracking according to OIML R 76-1.
+
+    Accuracy calculation follows A.4.2.3.2 and A.4.4.3:
+        P = I + 1/2 e - ΔL
+        E = P - L
+
+    Automatic zero-setting / zero-tracking accuracy limit:
+        |E| <= 0.25 e
+
+    Zero-tracking correction rate requirement:
+        <= 0.5 d/second
+
+    The UI supplies the observed correction rate in d/second.
+    """
+    load = Decimal(str(load))
+    indication = Decimal(str(indication))
+    additional_load = Decimal(str(additional_load))
+    e = Decimal(str(e))
+    correction_rate = Decimal(str(correction_rate))
+
+    if load < 0:
+        raise ValueError("Test load cannot be negative.")
+
+    if e <= 0:
+        raise ValueError(
+            "Verification scale interval e must be greater than zero."
+        )
+
+    if additional_load < 0:
+        raise ValueError("Additional load cannot be negative.")
+
+    if correction_rate < 0:
+        raise ValueError("Zero-tracking correction rate cannot be negative.")
+
+    if not isinstance(equilibrium_stable, bool):
+        raise ValueError(
+            "equilibrium_stable must be a boolean."
+        )
+
+    # OIML R 76-1 A.4.4.3:
+    # P = I + 1/2 e - ΔL
+    indicated_load = (
+        indication
+        + (Decimal("0.5") * e)
+        - additional_load
+    )
+
+    # E = P - L
+    zero_error = indicated_load - load
+
+    # OIML R 76-1 4.5.2:
+    # automatic zero-setting / zero-tracking accuracy <= ±0.25e
+    accuracy_limit = Decimal("0.25") * e
+
+    # OIML R 76-1 4.5.7:
+    # zero-tracking corrections <= 0.5 d/second
+    maximum_correction_rate = Decimal("0.5")
+
+    accuracy_passed = abs(zero_error) <= accuracy_limit
+    correction_rate_passed = correction_rate <= maximum_correction_rate
+    equilibrium_passed = equilibrium_stable
+
+    return ZeroTrackingResult(
+        load=load,
+        indication=indication,
+        additional_load=additional_load,
+        e=e,
+        correction_rate=correction_rate,
+        maximum_correction_rate=maximum_correction_rate,
+        zero_error=zero_error,
+        accuracy_limit=accuracy_limit,
+        equilibrium_stable=equilibrium_stable,
+        accuracy_passed=accuracy_passed,
+        correction_rate_passed=correction_rate_passed,
+        equilibrium_passed=equilibrium_passed,
+        passed=(
+            accuracy_passed
+            and correction_rate_passed
+            and equilibrium_passed
+        ),
+        source="OIML R 76-1:2006",
+        source_clause="4.5.2 / 4.5.7 / A.4.2.3.2 / A.4.4.3",
+    )

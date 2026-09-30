@@ -5,10 +5,12 @@ import {
   createR76Instrument,
   createR76TestSession,
   executeR76Test,
+  downloadR76Report,
   getR76Results,
   getR76TestDefinitions,
   getR76TestSessions,
   getR76Instruments,
+  updateR76Session,
   type R76Instrument,
   type R76TestDefinition,
   type R76TestResult,
@@ -44,7 +46,9 @@ export function SIH26035DashboardPage({
 
   const [loading, setLoading] = useState(true)
   const [busy, setBusy] = useState(false)
+  const [busySessionId, setBusySessionId] = useState<string | null>(null)
   const [error, setError] = useState('')
+  const [previewPdfUrl, setPreviewPdfUrl] = useState<string | null>(null)
 
   const [showInstrumentForm, setShowInstrumentForm] = useState(false)
   const [activeView, setActiveView] = useState<'overview' | 'instruments' | 'sessions' | 'tests' | 'history' | 'reports'>('overview')
@@ -54,6 +58,141 @@ export function SIH26035DashboardPage({
   const [statusFilter, setStatusFilter] = useState<'all' | 'NOT_STARTED' | 'PASSED' | 'FAILED'>('all')
   const [searchQuery, setSearchQuery] = useState('')
   const [showMobileProcDropdown, setShowMobileProcDropdown] = useState(false)
+
+  const [reportSearch, setReportSearch] = useState('')
+  const [reportStatusFilter, setReportStatusFilter] = useState('')
+  const [reportTypeFilter, setReportTypeFilter] = useState('')
+
+  const filteredReportSessions = sessions.filter((session) => {
+    const search = reportSearch.trim().toLowerCase()
+
+    const matchesSearch =
+      !search ||
+      String(session.session_number || '').toLowerCase().includes(search) ||
+      String(session.test_location || '').toLowerCase().includes(search)
+
+    const matchesStatus =
+      !reportStatusFilter ||
+      String(session.status || '').toLowerCase() === reportStatusFilter.toLowerCase()
+
+    const matchesType =
+      !reportTypeFilter ||
+      String(session.test_type || '').toLowerCase() === reportTypeFilter.toLowerCase()
+
+    return matchesSearch && matchesStatus && matchesType
+  })
+
+  async function handleSessionWorkflow(
+    session: R76TestSession,
+    action: 'submit' | 'review' | 'approve' | 'reject',
+  ) {
+    try {
+      setBusySessionId(session.id)
+      setError('')
+
+      const updates: Record<string, unknown> = {}
+
+      if (action === 'submit') {
+        updates.status = 'submitted'
+      } else if (action === 'review') {
+        updates.status = 'under_review'
+        updates.reviewer_user_id = user?.id || undefined
+      } else if (action === 'approve') {
+        updates.status = 'approved'
+        updates.approver_user_id = user?.id || undefined
+      } else {
+        updates.status = 'rejected'
+        updates.reviewer_user_id = user?.id || undefined
+      }
+
+      const response = await updateR76Session(session.id, updates)
+
+      const updatedSession = response.session
+
+      if (updatedSession) {
+        setSessions((current) =>
+          current.map((item) =>
+            item.id === session.id
+              ? { ...item, ...updatedSession }
+              : item,
+          ),
+        )
+      } else {
+        const refreshed = await getR76TestSessions()
+        setSessions(refreshed)
+      }
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : 'Failed to update session workflow.',
+      )
+    } finally {
+      setBusySessionId(null)
+    }
+  }
+
+  async function handleDownloadReport(sessionId: string) {
+    try {
+      setBusySessionId(sessionId)
+      setError('')
+
+      const blob = await downloadR76Report(sessionId)
+
+      const url = window.URL.createObjectURL(blob)
+      const link = document.createElement('a')
+
+      link.href = url
+      link.download = `OIMLense-R76-${sessionId}.pdf`
+
+      document.body.appendChild(link)
+      link.click()
+      link.remove()
+
+      window.URL.revokeObjectURL(url)
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : 'Failed to generate the PDF report.',
+      )
+    } finally {
+      setBusySessionId(null)
+    }
+  }
+
+  async function handlePreviewReport(sessionId: string) {
+    try {
+      setBusySessionId(sessionId)
+      setError('')
+
+      if (previewPdfUrl) {
+        window.URL.revokeObjectURL(previewPdfUrl)
+        setPreviewPdfUrl(null)
+      }
+
+      const blob = await downloadR76Report(sessionId)
+      const url = window.URL.createObjectURL(blob)
+
+      setPreviewPdfUrl(url)
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : 'Failed to generate the PDF preview.',
+      )
+    } finally {
+      setBusySessionId(null)
+    }
+  }
+
+  function closePdfPreview() {
+    if (previewPdfUrl) {
+      window.URL.revokeObjectURL(previewPdfUrl)
+    }
+
+    setPreviewPdfUrl(null)
+  }
 
   const catalogProcedures = useMemo(() => {
     const apiMap = new Map(definitions.map((d) => [d.test_code, d]))
@@ -1351,49 +1490,270 @@ export function SIH26035DashboardPage({
           <section className="sih-panel">
             <div className="sih-panel-header">
               <div>
-                <span className="sih-eyebrow">REPORT CENTRE</span>
-                <h3>R76 test reports</h3>
-                <p>Review sessions and their stored deterministic test results.</p>
+                <span className="sih-eyebrow">REPORT REPOSITORY</span>
+                <h3>R76 Test Reports</h3>
+                <p>Search, filter and manage generated NAWI test reports.</p>
               </div>
             </div>
 
-            <div className="sih-report-notice">
-              <div className="sih-report-icon">▤</div>
-              <div>
-                <strong>Report workspace</strong>
-                <span>
-                  Completed session results are available below. PDF/export
-                  actions can be connected to the report generator endpoint
-                  without changing the R76 calculation engine.
-                </span>
-              </div>
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'minmax(220px, 1fr) 180px 180px',
+                gap: '12px',
+                marginBottom: '18px',
+              }}
+            >
+              <input
+                type="search"
+                className="sih-search-input"
+                placeholder="Search session number or location..."
+                value={reportSearch}
+                onChange={(event) => setReportSearch(event.target.value)}
+              />
+
+              <select
+                className="sih-search-input"
+                value={reportStatusFilter}
+                onChange={(event) => setReportStatusFilter(event.target.value)}
+              >
+                <option value="">All statuses</option>
+                <option value="draft">Draft</option>
+                <option value="in_progress">In progress</option>
+                <option value="submitted">Submitted</option>
+                <option value="under_review">Under review</option>
+                <option value="approved">Approved</option>
+                <option value="rejected">Rejected</option>
+                <option value="completed">Completed</option>
+              </select>
+
+              <select
+                className="sih-search-input"
+                value={reportTypeFilter}
+                onChange={(event) => setReportTypeFilter(event.target.value)}
+              >
+                <option value="">All test types</option>
+                <option value="type_evaluation">Type evaluation</option>
+                <option value="initial_verification">Initial verification</option>
+                <option value="in_service">In-service</option>
+              </select>
             </div>
 
-            {sessions.map((session) => (
-              <div className="sih-report-row" key={session.id}>
-                <div>
-                  <strong>{session.session_number || session.id}</strong>
-                  <span>{session.test_type || 'Verification'} · {session.verification_stage || '—'}</span>
-                </div>
-                <span className={`sih-status ${session.status || 'draft'}`}>{session.status || 'draft'}</span>
-                <button
-                  type="button"
-                  className="sih-secondary-action"
-                  onClick={() => {
-                    setSelectedSessionId(session.id)
-                    setActiveView('tests')
-                  }}
-                >
-                  View results
-                </button>
+            {filteredReportSessions.length === 0 ? (
+              <div className="sih-empty large">
+                No reports match the selected filters.
               </div>
-            ))}
+            ) : (
+              <div className="sih-report-repository">
+                {filteredReportSessions.map((session) => (
+                  <div className="sih-report-row" key={session.id}>
+                    <div style={{ minWidth: 0 }}>
+                      <strong>
+                        {session.session_number || session.id}
+                      </strong>
 
-            {sessions.length === 0 && (
-              <div className="sih-empty large">Reports will appear after test sessions are created.</div>
+                      <span>
+                        {session.test_type || 'Verification'}
+                        {' · '}
+                        {session.test_location || 'Location not recorded'}
+                      </span>
+
+                      <small style={{ display: 'block', marginTop: '4px', opacity: 0.7 }}>
+                        Report ID: {session.report_id || 'Generated on export'}
+                        {' · '}
+                        {session.created_at
+                          ? new Date(session.created_at).toLocaleDateString()
+                          : 'Date not recorded'}
+                      </small>
+                    </div>
+
+                    <span
+                      className={`sih-status ${session.status || 'draft'}`}
+                    >
+                      {session.status || 'draft'}
+                    </span>
+
+                    <div
+                      style={{
+                        display: 'flex',
+                        gap: '8px',
+                        flexWrap: 'wrap',
+                        justifyContent: 'flex-end',
+                      }}
+                    >
+                      <button
+                        type="button"
+                        className="sih-secondary-action"
+                        onClick={() => {
+                          setSelectedSessionId(session.id)
+                          setActiveView('tests')
+                        }}
+                      >
+                        View results
+                      </button>
+
+                      <button
+                        type="button"
+                        className="sih-secondary-action"
+                        disabled={busySessionId === session.id}
+                        onClick={() => handlePreviewReport(session.id)}
+                      >
+                        {busySessionId === session.id
+                          ? 'Generating...'
+                          : 'Preview PDF'}
+                      </button>
+
+                      <button
+                        type="button"
+                        className="sih-secondary-action"
+                        disabled={busySessionId === session.id}
+                        onClick={() => handleDownloadReport(session.id)}
+                      >
+                        Download PDF
+                      </button>
+
+                      {(session.status === 'draft' ||
+                        session.status === 'in_progress' ||
+                        session.status === 'rejected') && (
+                        <button
+                          type="button"
+                          className="sih-secondary-action"
+                          disabled={busySessionId === session.id}
+                          onClick={() =>
+                            handleSessionWorkflow(session, 'submit')
+                          }
+                        >
+                          Submit for Review
+                        </button>
+                      )}
+
+                      {session.status === 'submitted' && (
+                        <button
+                          type="button"
+                          className="sih-secondary-action"
+                          disabled={busySessionId === session.id}
+                          onClick={() =>
+                            handleSessionWorkflow(session, 'review')
+                          }
+                        >
+                          Start Review
+                        </button>
+                      )}
+
+                      {session.status === 'under_review' && (
+                        <>
+                          <button
+                            type="button"
+                            className="sih-secondary-action"
+                            disabled={busySessionId === session.id}
+                            onClick={() =>
+                              handleSessionWorkflow(session, 'approve')
+                            }
+                          >
+                            Approve
+                          </button>
+
+                          <button
+                            type="button"
+                            className="sih-secondary-action"
+                            disabled={busySessionId === session.id}
+                            onClick={() =>
+                              handleSessionWorkflow(session, 'reject')
+                            }
+                          >
+                            Reject
+                          </button>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
             )}
           </section>
         )}
+      {previewPdfUrl && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="PDF preview"
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 1000,
+            background: 'rgba(0, 0, 0, 0.65)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '24px',
+          }}
+          onClick={closePdfPreview}
+        >
+          <div
+            style={{
+              width: 'min(1100px, 96vw)',
+              height: 'min(850px, 92vh)',
+              background: '#ffffff',
+              borderRadius: '14px',
+              overflow: 'hidden',
+              display: 'flex',
+              flexDirection: 'column',
+              boxShadow: '0 24px 80px rgba(0, 0, 0, 0.35)',
+            }}
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div
+              style={{
+                minHeight: '56px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '0 18px',
+                borderBottom: '1px solid #e5e7eb',
+                background: '#f8fafc',
+              }}
+            >
+              <strong
+                style={{
+                  fontSize: '16px',
+                  color: '#111827',
+                }}
+              >
+                OIMLense — PDF Preview
+              </strong>
+
+              <button
+                type="button"
+                onClick={closePdfPreview}
+                style={{
+                  border: 'none',
+                  background: '#111827',
+                  color: '#ffffff',
+                  borderRadius: '8px',
+                  padding: '8px 14px',
+                  cursor: 'pointer',
+                  fontSize: '14px',
+                  fontWeight: 600,
+                }}
+              >
+                Close
+              </button>
+            </div>
+
+            <iframe
+              title="OIMLense PDF Preview"
+              src={previewPdfUrl}
+              style={{
+                flex: 1,
+                width: '100%',
+                border: 'none',
+                background: '#e5e7eb',
+              }}
+            />
+          </div>
+        </div>
+      )}
+
       </main>
     </div>
   )

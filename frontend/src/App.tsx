@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { AuthModal } from './components/auth/AuthModal'
 import { SIH26035DashboardPage } from './pages/SIH26035DashboardPage'
 import { SIH26035LandingPage } from './pages/SIH26035LandingPage'
+import { R76VerificationPage } from './pages/R76VerificationPage'
 import { getMe } from './services/auth'
 import { useI18n } from './i18n/I18nContext'
 import type { AuthMode, User } from './types/auth'
@@ -10,7 +11,7 @@ import type { AuthMode, User } from './types/auth'
 function App() {
   const { language, setLanguage } = useI18n()
 
-  const [mode, setMode] = useState<'landing' | 'auth' | 'workspace'>('landing')
+  const [mode, setMode] = useState<'landing' | 'auth' | 'workspace' | 'verification'>('landing')
   const [authInitialMode, setAuthInitialMode] = useState<AuthMode>('login')
   const [user, setUser] = useState<User | null>(null)
   const [authChecked, setAuthChecked] = useState(false)
@@ -24,7 +25,17 @@ function App() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  const verificationMatch = window.location.pathname.match(/^\/verify\/([^/]+)\/?$/)
+  const verificationReportId = verificationMatch ? decodeURIComponent(verificationMatch[1]) : ''
+
   useEffect(() => {
+    if (verificationReportId) {
+      document.title = 'OIMLense — Report Verification'
+      setMode('verification')
+      setAuthChecked(true)
+      return
+    }
+
     document.title = 'OIMLense — SIH26035'
     getMe().then((u) => {
       setUser(u)
@@ -72,6 +83,10 @@ function App() {
 
   if (!authChecked) {
     return null
+  }
+
+  if (mode === 'verification' && verificationReportId) {
+    return <R76VerificationPage reportId={verificationReportId} />
   }
 
   return (
