@@ -536,3 +536,37 @@ export async function downloadR76Report(
 
   return response.blob()
 }
+
+export async function downloadR76DocxReport(
+  sessionId: string,
+): Promise<Blob> {
+  const response = await fetch(
+    `/api/r76/test-sessions/${sessionId}/report-docx`,
+    {
+      method: 'GET',
+      credentials: 'include',
+    },
+  )
+
+  if (!response.ok) {
+    const text = await response.text()
+
+    let message = `DOCX report generation failed (${response.status})`
+
+    try {
+      const data = JSON.parse(text)
+
+      if (typeof data.detail === 'string') {
+        message = data.detail
+      }
+    } catch {
+      if (text) {
+        message = text
+      }
+    }
+
+    throw new Error(message)
+  }
+
+  return response.blob()
+}

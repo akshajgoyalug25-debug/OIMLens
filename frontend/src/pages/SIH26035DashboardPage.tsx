@@ -6,6 +6,7 @@ import {
   createR76TestSession,
   executeR76Test,
   downloadR76Report,
+  downloadR76DocxReport,
   getR76Results,
   getR76TestDefinitions,
   getR76TestSessions,
@@ -155,6 +156,37 @@ export function SIH26035DashboardPage({
         err instanceof Error
           ? err.message
           : 'Failed to generate the PDF report.',
+      )
+    } finally {
+      setBusySessionId(null)
+    }
+  }
+
+  async function handleDownloadDocxReport(sessionId: string) {
+    try {
+      setBusySessionId(sessionId)
+      setError('')
+
+      const blob = await downloadR76DocxReport(sessionId)
+
+      const url = window.URL.createObjectURL(blob)
+      const link = document.createElement('a')
+
+      link.href = url
+      link.download = `OIMLense-R76-${sessionId}.docx`
+
+      document.body.appendChild(link)
+      link.click()
+      link.remove()
+
+      setTimeout(() => {
+        window.URL.revokeObjectURL(url)
+      }, 1000)
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : 'Failed to generate the editable DOCX report.',
       )
     } finally {
       setBusySessionId(null)
@@ -1610,6 +1642,15 @@ export function SIH26035DashboardPage({
                         onClick={() => handleDownloadReport(session.id)}
                       >
                         Download PDF
+                      </button>
+
+                      <button
+                        type="button"
+                        className="sih-secondary-action"
+                        disabled={busySessionId === session.id}
+                        onClick={() => handleDownloadDocxReport(session.id)}
+                      >
+                        Download DOCX
                       </button>
 
                       {(session.status === 'draft' ||

@@ -8,9 +8,10 @@ import uuid
 from fastapi import APIRouter, Depends, HTTPException, Request
 from pydantic import BaseModel, Field
 
-from backend.deps import get_current_user
+from backend.deps import get_current_user, supabase_client
 from backend.r76.db import get_db
 from backend.r76.report_generator import generate_r76_report
+from backend.r76.docx_report_generator import generate_r76_docx_report
 from fastapi.responses import StreamingResponse
 
 from oimlense.r76.executor import execute_test
@@ -170,13 +171,38 @@ def _get_session_tokens(request: Request):
             bearer_token = auth_header.split(" ", 1)[1]
             return bearer_token, bearer_token
 
-    if not access_token or not refresh_token:
+    if not refresh_token:
         raise HTTPException(
             status_code=401,
             detail="Authentication cookies are missing",
         )
 
-    return access_token, refresh_token
+    # Refresh the access token when the browser's access token has expired.
+    if access_token:
+        try:
+            client = supabase_client()
+            refreshed = client.auth.refresh_session(refresh_token)
+            session = getattr(refreshed, "session", None)
+
+            refreshed_access_token = getattr(session, "access_token", None)
+            refreshed_refresh_token = (
+                getattr(session, "refresh_token", None)
+                or refresh_token
+            )
+
+            if refreshed_access_token:
+                return refreshed_access_token, refreshed_refresh_token
+
+        except Exception:
+            pass
+
+    if access_token:
+        return access_token, refresh_token
+
+    raise HTTPException(
+        status_code=401,
+        detail="Authentication cookies are missing",
+    )
 
 
 # ============================================================
@@ -1708,3 +1734,142 @@ def generate_report(
         },
     )
 
+
+
+@router.get("/test-sessions/{session_id}/report-docx")
+def generate_docx_report(
+    session_id: str,
+    request: Request,
+    current_user=Depends(get_current_user),
+):
+    access_token, refresh_token = _get_session_tokens(request)
+    db = get_db(access_token, refresh_token)
+
+    session_response = (
+        db.table("test_sessions")
+        .select("*")
+        .eq("id", session_id)
+        .limit(1)
+        .execute()
+    )
+    session = _first_or_404(session_response, "Test session not found")
+
+    # Keep the same stable report ID used by the PDF report.
+    report_id = session.get("report_id")
+    if not report_id:
+        report_id = f"R76-{session.get('session_number') or session_id}"
+
+        update_response = (
+            db.table("test_sessions")
+            .update({"report_id": report_id})
+            .eq("id", session_id)
+            .execute()
+        )
+
+        if update_response.data:
+            session = update_response.data[0]
+
+    instrument_response = (
+        db.table("instruments")
+        .select("*")
+        .eq("id", session["instrument_id"])
+        .limit(1)
+        .execute()
+    )
+    instrument = _first_or_404(
+        instrument_response,
+        "Instrument not found",
+    )
+
+    environment_response = (
+        db.table("environmental_conditions")
+        .select("*")
+        .eq("test_session_id", session_id)
+        .limit(1)
+        .execute()
+    )
+    environment = environment_response.data or []
+
+    equipment_links_response = (
+        db.table("test_session_equipment")
+        .select("*")
+        .eq("test_session_id", session_id)
+        .execute()
+    )
+
+    equipment = []
+
+    for link in equipment_links_response.data or []:
+        equipment_id = link.get("equipment_id")
+
+        if not equipment_id:
+            continue
+
+        equipment_response = (
+            db.table("test_equipment")
+            .select("*")
+            .eq("id", equipment_id)
+            .limit(1)
+            .execute()
+        )
+
+        if equipment_response.data:
+            equipment.append(equipment_response.data[0])
+
+    results_response = (
+        db.table("test_results")
+        .select("*")
+        .eq("test_session_id", session_id)
+        .order("created_at")
+        .execute()
+    )
+    results = results_response.data or []
+
+    observations_response = (
+        db.table("test_observations")
+        .select("*")
+        .eq("test_session_id", session_id)
+        .order("observation_index")
+        .execute()
+    )
+    observations = observations_response.data or []
+
+    docx = generate_r76_docx_report(
+        session=session,
+        instrument=instrument,
+        environment=environment,
+        equipment=equipment,
+        results=results,
+        observations=observations,
+    )
+
+    _write_audit_log(
+        db,
+        user_id=str(current_user.id),
+        action="report_docx_generated",
+        entity_type="test_session",
+        entity_id=session_id,
+        new_value={
+            "report_id": session.get("report_id"),
+            "status": session.get("status"),
+        },
+        metadata={
+            "session_number": session.get("session_number"),
+            "format": "docx",
+        },
+    )
+
+    report_id = session.get("report_id") or report_id
+
+    filename = f"{report_id}.docx".replace("/", "-")
+
+    return StreamingResponse(
+        docx,
+        media_type=(
+            "application/vnd.openxmlformats-officedocument."
+            "wordprocessingml.document"
+        ),
+        headers={
+            "Content-Disposition": f'attachment; filename="{filename}"'
+        },
+    )
