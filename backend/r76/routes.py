@@ -313,6 +313,41 @@ def create_instrument(
     }
 
 
+@router.patch("/instruments/{instrument_id}")
+def update_instrument(
+    instrument_id: str,
+    payload: dict[str, Any],
+    request: Request,
+    current_user=Depends(get_current_user),
+):
+    access_token, refresh_token = _get_session_tokens(request)
+    db = get_db(access_token, refresh_token)
+
+    payload = dict(payload)
+    payload.pop("id", None)
+    payload.pop("user_id", None)
+    payload.pop("created_at", None)
+    payload["updated_at"] = datetime.now(timezone.utc).isoformat()
+
+    response = (
+        db.table("instruments")
+        .update(payload)
+        .eq("id", instrument_id)
+        .execute()
+    )
+
+    row = _first_or_500(
+        response,
+        "Instrument could not be updated",
+    )
+
+    return {
+        "success": True,
+        "item": row,
+        "instrument": row,
+    }
+
+
 @router.get("/instruments/{instrument_id}/test-plan")
 def get_instrument_test_plan(
     instrument_id: str,
@@ -1250,28 +1285,69 @@ def execute_r76_test(
         # REPEATABILITY
         # -----------------------------
         elif code == "REPEATABILITY":
-            # Two repeatability series are returned by the calculator.
-            # Use the worst series error range for reporting.
+            # A.4.10 / 3.6.1 requires BOTH:
+            # 1. Every individual weighing error to remain within its MPE.
+            # 2. The difference between the results of repeated weighings
+            #    of the same load to remain within the applicable MPE.
+            #
+            # The summary "measured_error" represents the worst individual
+            # corrected error, NOT the repeatability error range.
+            # The full error_range remains available in calculated_values.
+
             series = calculated_values.get("series", [])
 
             valid_series = [
                 item for item in series
                 if isinstance(item, dict)
-                and item.get("error_range") is not None
+                and (
+                    item.get("max_error") is not None
+                    or item.get("min_error") is not None
+                )
             ]
 
             if valid_series:
+                def series_worst_error(item):
+                    candidates = []
+
+                    if item.get("max_error") is not None:
+                        candidates.append(abs(float(item["max_error"])))
+
+                    if item.get("min_error") is not None:
+                        candidates.append(abs(float(item["min_error"])))
+
+                    return max(candidates, default=0.0)
+
                 worst = max(
                     valid_series,
-                    key=lambda item: abs(float(item["error_range"]))
+                    key=series_worst_error,
                 )
-                measured_error = float(worst["error_range"])
-                mpe_value = float(worst["mpe"])
+
+                max_error = (
+                    abs(float(worst["max_error"]))
+                    if worst.get("max_error") is not None
+                    else 0.0
+                )
+                min_error = (
+                    abs(float(worst["min_error"]))
+                    if worst.get("min_error") is not None
+                    else 0.0
+                )
+
+                measured_error = max(max_error, min_error)
+
+                if worst.get("max_error") is not None and worst.get("min_error") is not None:
+                    if abs(float(worst["min_error"])) > abs(float(worst["max_error"])):
+                        measured_error = float(worst["min_error"])
+                    else:
+                        measured_error = float(worst["max_error"])
+
+                if worst.get("mpe") is not None:
+                    mpe_value = float(worst["mpe"])
 
             if measured_error is None:
                 measured_error = find_numeric(
                     calculated_values,
-                    ["max_error", "error_range"]
+                    ["max_error", "min_error"]
                 )
 
             if mpe_value is None:

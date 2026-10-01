@@ -9,6 +9,7 @@ from oimlense.r76.mpe_engine import calculate_mpe, calculate_weighing_error
 class RepeatabilitySeries:
     target_load: Decimal
     observations: tuple[Decimal, ...]
+    indications: tuple[Decimal, ...]
     errors: tuple[Decimal, ...]
     max_error: Decimal
     min_error: Decimal
@@ -36,6 +37,7 @@ def _calculate_series(
         raise ValueError("Repeatability series cannot be empty.")
 
     loads = []
+    indications = []
     errors = []
 
     for index, item in enumerate(observations, 1):
@@ -66,6 +68,7 @@ def _calculate_series(
         ).corrected_error
 
         loads.append(load)
+        indications.append(indication)
         errors.append(error)
 
     target_load = sum(loads) / Decimal(len(loads))
@@ -98,6 +101,7 @@ def _calculate_series(
     return RepeatabilitySeries(
         target_load=target_load,
         observations=tuple(loads),
+        indications=tuple(indications),
         errors=tuple(errors),
         max_error=max_error,
         min_error=min_error,

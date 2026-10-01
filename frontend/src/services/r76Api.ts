@@ -336,6 +336,27 @@ export async function createR76Instrument(
   return normalizeInstrument(rawItem)
 }
 
+export async function updateR76Instrument(
+  id: string,
+  instrument: Record<string, unknown>,
+): Promise<R76Instrument> {
+  const body = await request<{
+    success?: boolean
+    item?: Record<string, unknown>
+    instrument?: Record<string, unknown>
+  }>(`/api/r76/instruments/${id}`, {
+    method: 'PATCH',
+    body: JSON.stringify(instrument),
+  })
+
+  const rawItem = body.item || body.instrument
+  if (!rawItem) {
+    throw new Error('Instrument was not returned by the server.')
+  }
+
+  return normalizeInstrument(rawItem)
+}
+
 export interface R76TestPlanItem {
   test_code: string
   test_name: string

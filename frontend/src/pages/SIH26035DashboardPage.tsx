@@ -3,6 +3,7 @@ import { R76TestForm } from '../components/r76/R76TestForm'
 import { R76_78_TEST_PROCEDURES } from '../data/r76TestProceduresCatalog'
 import {
   createR76Instrument,
+  updateR76Instrument,
   createR76TestSession,
   executeR76Test,
   downloadR76Report,
@@ -55,6 +56,7 @@ export function SIH26035DashboardPage({
   const [previewPdfUrl, setPreviewPdfUrl] = useState<string | null>(null)
 
   const [showInstrumentForm, setShowInstrumentForm] = useState(false)
+  const [editingInstrumentId, setEditingInstrumentId] = useState<string | null>(null)
   const [activeView, setActiveView] = useState<'overview' | 'instruments' | 'sessions' | 'tests' | 'history' | 'reports'>('overview')
   const [showSessionForm, setShowSessionForm] = useState(false)
 
@@ -423,6 +425,94 @@ export function SIH26035DashboardPage({
       setResults([])
     }
   }, [selectedSessionId])
+
+  function handleEditInstrument(instrument: typeof instruments[number]) {
+    setEditingInstrumentId(instrument.id)
+
+    setInstrumentForm({
+      manufacturer: instrument.manufacturer || '',
+      model: instrument.model || '',
+      serial_number: instrument.serial_number || '',
+      instrument_type: instrument.instrument_type || '',
+      accuracy_class: instrument.accuracy_class || 'III',
+      indication_type: instrument.indication_type || '',
+      weighing_principle: instrument.weighing_principle || '',
+      max_capacity: String(instrument.max_capacity ?? ''),
+      min_capacity: String(instrument.min_capacity ?? ''),
+      e: String(instrument.e ?? ''),
+      d: String(instrument.d ?? ''),
+      tare_type: instrument.tare_type || '',
+      unit: instrument.unit || '',
+      type_approval_number: instrument.type_approval_number || '',
+      software_version: instrument.software_version || '',
+      year_of_manufacture: String(instrument.year_of_manufacture ?? ''),
+      markings: instrument.markings || '',
+      documentation_reference: instrument.documentation_reference || '',
+      remarks: instrument.remarks || '',
+    })
+
+    setShowInstrumentForm(true)
+    setError('')
+  }
+
+  async function handleUpdateInstrument() {
+    if (!editingInstrumentId) {
+      return
+    }
+
+    setBusy(true)
+    setError('')
+
+    try {
+      const eVal = Number(instrumentForm.e) || 0.01
+      const dVal = Number(instrumentForm.d) || 0.01
+      const maxVal = Number(instrumentForm.max_capacity) || 30
+      const nVal = eVal > 0 ? Math.round(maxVal / eVal) : 3000
+
+      const instrument = await updateR76Instrument(editingInstrumentId, {
+        manufacturer: instrumentForm.manufacturer,
+        model: instrumentForm.model,
+        serial_number: instrumentForm.serial_number || null,
+        instrument_type: instrumentForm.instrument_type,
+        accuracy_class: instrumentForm.accuracy_class,
+        indication_type: instrumentForm.indication_type,
+        weighing_principle: instrumentForm.weighing_principle,
+        max_capacity: maxVal,
+        min_capacity: Number(instrumentForm.min_capacity) || 0.2,
+        e: eVal,
+        d: dVal,
+        n: nVal,
+        verification_scale_interval_e: eVal,
+        actual_scale_interval_d: dVal,
+        number_of_verification_scale_intervals_n: nVal,
+        tare_type: instrumentForm.tare_type,
+        unit: instrumentForm.unit,
+        type_approval_number: instrumentForm.type_approval_number || null,
+        software_version: instrumentForm.software_version || null,
+        year_of_manufacture: Number(instrumentForm.year_of_manufacture) || 2026,
+        markings: instrumentForm.markings || null,
+        documentation_reference:
+          instrumentForm.documentation_reference || null,
+        remarks: instrumentForm.remarks || null,
+      })
+
+      setInstruments((current) =>
+        current.map((item) =>
+          item.id === instrument.id ? instrument : item,
+        ),
+      )
+
+      setSelectedInstrumentId(instrument.id)
+      setEditingInstrumentId(null)
+      setShowInstrumentForm(false)
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : 'Failed to update instrument.',
+      )
+    } finally {
+      setBusy(false)
+    }
+  }
 
   async function handleCreateInstrument() {
     setBusy(true)
@@ -1255,9 +1345,17 @@ export function SIH26035DashboardPage({
                     type="button"
                     className="sih-primary-action"
                     disabled={busy}
-                    onClick={handleCreateInstrument}
+                    onClick={
+                      editingInstrumentId
+                        ? handleUpdateInstrument
+                        : handleCreateInstrument
+                    }
                   >
-                    {busy ? 'Saving...' : 'Create Instrument'}
+                    {busy
+                      ? 'Saving...'
+                      : editingInstrumentId
+                        ? 'Save Changes'
+                        : 'Create Instrument'}
                   </button>
                 </div>
               </div>
@@ -1265,25 +1363,47 @@ export function SIH26035DashboardPage({
 
             <div className="sih-instrument-grid">
               {instruments.map((instrument) => (
-                <button
-                  type="button"
+                <div
                   key={instrument.id}
                   className={`sih-instrument-card ${selectedInstrumentId === instrument.id ? 'selected' : ''}`}
-                  onClick={() => setSelectedInstrumentId(instrument.id)}
                 >
-                  <div className="sih-instrument-top">
-                    <span className="sih-instrument-icon">⚖</span>
-                    <span>NAWI</span>
+                  <button
+                    type="button"
+                    className="sih-instrument-card-main"
+                    onClick={() => setSelectedInstrumentId(instrument.id)}
+                  >
+                    <div className="sih-instrument-top">
+                      <span className="sih-instrument-icon">⚖</span>
+                      <span>NAWI</span>
+                    </div>
+                    <h4>{instrument.manufacturer} {instrument.model}</h4>
+                    <p>{instrument.serial_number || 'Serial number not recorded'}</p>
+                    <div className="sih-instrument-meta">
+                      <span>Class <strong>{instrument.accuracy_class || '—'}</strong></span>
+                      <span>Max <strong>{instrument.max_capacity ?? '—'} {instrument.unit || ''}</strong></span>
+                      <span>e <strong>{instrument.e ?? '—'}</strong></span>
+                      <span>d <strong>{instrument.d ?? '—'}</strong></span>
+                      <span>n <strong>{instrument.n ?? '—'}</strong></span>
+                    </div>
+                  </button>
+
+                  <div className="sih-instrument-actions">
+                    <button
+                      type="button"
+                      className="sih-row-action"
+                      onClick={() => setSelectedInstrumentId(instrument.id)}
+                    >
+                      Select
+                    </button>
+                    <button
+                      type="button"
+                      className="sih-row-action"
+                      onClick={() => handleEditInstrument(instrument)}
+                    >
+                      Edit
+                    </button>
                   </div>
-                  <h4>{instrument.manufacturer} {instrument.model}</h4>
-                  <p>{instrument.serial_number || 'Serial number not recorded'}</p>
-                  <div className="sih-instrument-meta">
-                    <span>Class <strong>{instrument.accuracy_class || '—'}</strong></span>
-                    <span>Max <strong>{instrument.max_capacity ?? '—'} {instrument.unit || ''}</strong></span>
-                    <span>e <strong>{instrument.e ?? '—'}</strong></span>
-                    <span>n <strong>{instrument.n ?? '—'}</strong></span>
-                  </div>
-                </button>
+                </div>
               ))}
               {instruments.length === 0 && (
                 <div className="sih-empty">No instruments registered yet.</div>

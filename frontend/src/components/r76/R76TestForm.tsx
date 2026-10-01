@@ -1068,22 +1068,184 @@ export function R76TestForm({
             )}
           </div>
 
-          <div className="sih-result-details-row">
-            <div className="sih-result-metric">
-              <span>MEASURED ERROR</span>
-              <strong>{result.measured_error !== undefined && result.measured_error !== null ? `${Number(result.measured_error).toFixed(4)} ${instrument?.unit || 'kg'}` : '0.0000 kg'}</strong>
+          {code === 'REPEATABILITY' ? (
+            (() => {
+              const repeatability = (result.calculated_values || {}) as {
+                series?: Array<{
+                  target_load?: number
+                  observations?: number[]
+                  indications?: number[]
+                  errors?: number[]
+                  max_error?: number
+                  min_error?: number
+                  error_range?: number
+                  mpe?: number
+                  passed?: boolean
+                }>
+              }
+
+              const series = Array.isArray(repeatability.series)
+                ? repeatability.series
+                : []
+
+              const unit = instrument?.unit || 'kg'
+
+              return (
+                <div className="sih-repeatability-result">
+                  <div className="sih-result-details-row">
+                    <div className="sih-result-metric">
+                      <span>WORST INDIVIDUAL ERROR</span>
+                      <strong>
+                        {result.measured_error !== undefined && result.measured_error !== null
+                          ? `${Number(result.measured_error) >= 0 ? '+' : ''}${Number(result.measured_error).toFixed(4)} ${unit}`
+                          : '—'}
+                      </strong>
+                    </div>
+
+                    <div className="sih-result-metric">
+                      <span>APPLICABLE MPE</span>
+                      <strong>
+                        {result.mpe_value !== undefined && result.mpe_value !== null
+                          ? `±${Number(result.mpe_value).toFixed(4)} ${unit}`
+                          : '—'}
+                      </strong>
+                    </div>
+
+                    <div className="sih-result-metric evaluation">
+                      <span>EVALUATION</span>
+                      <strong className="sih-result-reason">
+                        {result.failure_reason ||
+                          (result.pass_fail
+                            ? 'All repeatability series comply with the applicable limits.'
+                            : 'One or more individual errors or repeatability ranges exceed the applicable limits.')}
+                      </strong>
+                    </div>
+                  </div>
+
+                  {series.map((item, seriesIndex) => {
+                    const observations = Array.isArray(item.observations)
+                      ? item.observations
+                      : []
+
+                    const errors = Array.isArray(item.errors)
+                      ? item.errors
+                      : []
+
+                    return (
+                      <div className="sih-repeatability-series" key={seriesIndex}>
+                        <div className="sih-repeatability-series-header">
+                          <div>
+                            <span className="sih-repeatability-series-label">
+                              SERIES {seriesIndex + 1}
+                            </span>
+                            <strong>
+                              Target Load: {item.target_load !== undefined
+                                ? `${Number(item.target_load).toFixed(3)} ${unit}`
+                                : '—'}
+                            </strong>
+                          </div>
+
+                          <span
+                            className={`sih-repeatability-series-status ${
+                              item.passed ? 'pass' : 'fail'
+                            }`}
+                          >
+                            {item.passed ? 'PASS ✓' : 'FAIL ✕'}
+                          </span>
+                        </div>
+
+                        <div className="sih-repeatability-summary">
+                          <div>
+                            <span>MAX ERROR</span>
+                            <strong>
+                              {item.max_error !== undefined
+                                ? `${Number(item.max_error) >= 0 ? '+' : ''}${Number(item.max_error).toFixed(4)} ${unit}`
+                                : '—'}
+                            </strong>
+                          </div>
+
+                          <div>
+                            <span>MIN ERROR</span>
+                            <strong>
+                              {item.min_error !== undefined
+                                ? `${Number(item.min_error) >= 0 ? '+' : ''}${Number(item.min_error).toFixed(4)} ${unit}`
+                                : '—'}
+                            </strong>
+                          </div>
+
+                          <div>
+                            <span>ERROR RANGE</span>
+                            <strong>
+                              {item.error_range !== undefined
+                                ? `${Number(item.error_range).toFixed(4)} ${unit}`
+                                : '—'}
+                            </strong>
+                          </div>
+
+                          <div>
+                            <span>MPE</span>
+                            <strong>
+                              {item.mpe !== undefined
+                                ? `±${Number(item.mpe).toFixed(4)} ${unit}`
+                                : '—'}
+                            </strong>
+                          </div>
+                        </div>
+
+                        <div className="sih-repeatability-table-wrap">
+                          <table className="sih-repeatability-table">
+                            <thead>
+                              <tr>
+                                <th>#</th>
+                                <th>TEST LOAD</th>
+                                <th>INDICATION</th>
+                                <th>CALCULATED ERROR</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {observations.map((load, index) => (
+                                <tr key={index}>
+                                  <td>{index + 1}</td>
+                                  <td>{Number(load).toFixed(3)} {unit}</td>
+                                  <td>
+                                    {item.indications?.[index] !== undefined
+                                      ? `${Number(item.indications[index]).toFixed(3)} ${unit}`
+                                      : '—'}
+                                  </td>
+                                  <td>
+                                    {errors[index] !== undefined
+                                      ? `${Number(errors[index]) >= 0 ? '+' : ''}${Number(errors[index]).toFixed(4)} ${unit}`
+                                      : '—'}
+                                  </td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              )
+            })()
+          ) : (
+            <div className="sih-result-details-row">
+              <div className="sih-result-metric">
+                <span>MEASURED ERROR</span>
+                <strong>{result.measured_error !== undefined && result.measured_error !== null ? `${Number(result.measured_error).toFixed(4)} ${instrument?.unit || 'kg'}` : '0.0000 kg'}</strong>
+              </div>
+              <div className="sih-result-metric">
+                <span>MPE LIMIT</span>
+                <strong>{result.mpe_value !== undefined && result.mpe_value !== null ? `±${Number(result.mpe_value).toFixed(4)} ${instrument?.unit || 'kg'}` : '±0.0050 kg'}</strong>
+              </div>
+              <div className="sih-result-metric evaluation">
+                <span>EVALUATION</span>
+                <strong className="sih-result-reason">
+                  {result.failure_reason || (result.pass_fail ? 'Within permitted error limits.' : 'Exceeds maximum permissible error limits.')}
+                </strong>
+              </div>
             </div>
-            <div className="sih-result-metric">
-              <span>MPE LIMIT</span>
-              <strong>{result.mpe_value !== undefined && result.mpe_value !== null ? `±${Number(result.mpe_value).toFixed(4)} ${instrument?.unit || 'kg'}` : '±0.0050 kg'}</strong>
-            </div>
-            <div className="sih-result-metric evaluation">
-              <span>EVALUATION</span>
-              <strong className="sih-result-reason">
-                {result.failure_reason || (result.pass_fail ? 'Within permitted error limits.' : 'Exceeds maximum permissible error limits.')}
-              </strong>
-            </div>
-          </div>
+          )}
         </div>
       )}
 
