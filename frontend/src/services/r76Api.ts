@@ -336,6 +336,57 @@ export async function createR76Instrument(
   return normalizeInstrument(rawItem)
 }
 
+export interface R76TestPlanItem {
+  test_code: string
+  test_name: string
+  category?: string
+  source_clause?: string
+  report_clause?: string
+  source_document?: string
+  status: 'required' | 'conditional' | 'review_required' | 'not_applicable'
+  reason?: string
+}
+
+export interface R76TestPlan {
+  standard: string
+  report_standard: string
+  instrument: {
+    manufacturer?: string
+    model?: string
+    serial_number?: string
+    instrument_type?: string
+    accuracy_class?: string
+    indication_type?: string
+    max_capacity?: number
+    min_capacity?: number
+    e?: number
+    d?: number
+  }
+  counts: {
+    required: number
+    conditional: number
+    review_required: number
+    not_applicable: number
+  }
+  tests: R76TestPlanItem[]
+}
+
+export async function getR76InstrumentTestPlan(
+  instrumentId: string,
+): Promise<R76TestPlan> {
+  const body = await request<{
+    success?: boolean
+    instrument_id?: string
+    plan?: R76TestPlan
+  }>(`/api/r76/instruments/${encodeURIComponent(instrumentId)}/test-plan`)
+
+  if (!body.plan) {
+    throw new Error('Test plan was not returned by the server.')
+  }
+
+  return body.plan
+}
+
 export async function getR76TestDefinitions(): Promise<R76TestDefinition[]> {
   const body = await request<{
     success?: boolean

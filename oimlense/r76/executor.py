@@ -328,6 +328,7 @@ def _execute_weighing_performance(inputs: dict[str, Any]) -> R76ExecutionResult:
         e=inputs["e"],
         observations=inputs["observations"],
         minimum_observations=10,
+        in_service=bool(inputs.get("in_service", False)),
     )
 
     test = get_test_definition("WEIGHING_PERFORMANCE")

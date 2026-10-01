@@ -15,6 +15,7 @@ from backend.r76.docx_report_generator import generate_r76_docx_report
 from fastapi.responses import StreamingResponse
 
 from oimlense.r76.executor import execute_test
+from oimlense.r76.test_plan import generate_test_plan
 from oimlense.r76.rulepack import get_test_definition, _ALL_78_PROCEDURE_CODES
 
 
@@ -178,7 +179,7 @@ def _get_session_tokens(request: Request):
         )
 
     # Refresh the access token when the browser's access token has expired.
-    if access_token:
+    if refresh_token:
         try:
             client = supabase_client()
             refreshed = client.auth.refresh_session(refresh_token)
@@ -309,6 +310,43 @@ def create_instrument(
         "success": True,
         "item": row,
         "instrument": row,
+    }
+
+
+@router.get("/instruments/{instrument_id}/test-plan")
+def get_instrument_test_plan(
+    instrument_id: str,
+    request: Request,
+    current_user=Depends(get_current_user),
+):
+    access_token, refresh_token = _get_session_tokens(request)
+    db = get_db(access_token, refresh_token)
+
+    response = (
+        db.table("instruments")
+        .select("*")
+        .eq("id", instrument_id)
+        .limit(1)
+        .execute()
+    )
+
+    instrument = _first_or_500(
+        response,
+        "Instrument could not be loaded",
+    )
+
+    if not instrument:
+        raise HTTPException(
+            status_code=404,
+            detail="Instrument not found.",
+        )
+
+    plan = generate_test_plan(instrument)
+
+    return {
+        "success": True,
+        "instrument_id": instrument_id,
+        "plan": plan,
     }
 
 
@@ -863,6 +901,14 @@ def execute_r76_test(
     if n_val is None:
         n_val = instrument.get("n")
     inputs.setdefault("n", n_val)
+
+    # Derive the OIML MPE mode from the test session.
+    # In-service verification uses the in-service MPE multiplier;
+    # type evaluation and initial verification use initial-verification MPE.
+    inputs.setdefault(
+        "in_service",
+        str(session.get("test_type", "")).strip().lower() == "in_service",
+    )
 
     # --------------------------------------------------------
     # 4.5 Central input validation

@@ -11,6 +11,7 @@ import {
   getR76TestDefinitions,
   getR76TestSessions,
   getR76Instruments,
+  getR76InstrumentTestPlan,
   updateR76Session,
   type R76Instrument,
   type R76TestDefinition,
@@ -44,6 +45,8 @@ export function SIH26035DashboardPage({
   const [selectedTestCode, setSelectedTestCode] = useState('')
 
   const [results, setResults] = useState<R76TestResult[]>([])
+  const [testPlan, setTestPlan] = useState<Awaited<ReturnType<typeof getR76InstrumentTestPlan>> | null>(null)
+  const [testPlanLoading, setTestPlanLoading] = useState(false)
 
   const [loading, setLoading] = useState(true)
   const [busy, setBusy] = useState(false)
@@ -82,6 +85,31 @@ export function SIH26035DashboardPage({
 
     return matchesSearch && matchesStatus && matchesType
   })
+
+  useEffect(() => {
+    void loadTestPlan(selectedInstrumentId)
+  }, [selectedInstrumentId])
+
+  async function loadTestPlan(instrumentId: string) {
+    if (!instrumentId) {
+      setTestPlan(null)
+      return
+    }
+
+    setTestPlanLoading(true)
+
+    try {
+      const plan = await getR76InstrumentTestPlan(instrumentId)
+      setTestPlan(plan)
+    } catch (err) {
+      setTestPlan(null)
+      setError(
+        err instanceof Error ? err.message : 'Failed to load test plan.',
+      )
+    } finally {
+      setTestPlanLoading(false)
+    }
+  }
 
   async function handleSessionWorkflow(
     session: R76TestSession,
@@ -556,6 +584,90 @@ export function SIH26035DashboardPage({
   const passedTests = results.filter((item) => item.pass_fail === true).length
   const failedTests = results.filter((item) => item.pass_fail === false).length
 
+  const passRate = completedTests > 0
+    ? Math.round((passedTests / completedTests) * 100)
+    : 0
+
+  const coverageRate = Math.round((completedTests / 78) * 100)
+
+  const measuredErrors = results
+    .map((item) => Number(item.measured_error))
+    .filter((value) => Number.isFinite(value))
+
+  const averageMeasuredError = measuredErrors.length > 0
+    ? measuredErrors.reduce((sum, value) => sum + Math.abs(value), 0) / measuredErrors.length
+    : 0
+
+  const maximumMeasuredError = measuredErrors.length > 0
+    ? Math.max(...measuredErrors.map((value) => Math.abs(value)))
+    : 0
+
+  const mpeUtilizations = results
+    .map((item) => {
+      const measuredError = Number(item.measured_error)
+      const mpe = Number(item.mpe_value)
+
+      if (!Number.isFinite(measuredError) || !Number.isFinite(mpe) || mpe <= 0) {
+        return null
+      }
+
+      return (Math.abs(measuredError) / mpe) * 100
+    })
+    .filter((value): value is number => value !== null)
+
+  const maximumMpeUtilization = mpeUtilizations.length > 0
+    ? Math.max(...mpeUtilizations)
+    : 0
+
+  const averageMpeUtilization = mpeUtilizations.length > 0
+    ? mpeUtilizations.reduce((sum, value) => sum + value, 0) / mpeUtilizations.length
+    : 0
+
+  const resultStatusCounts = results.reduce<Record<string, number>>((counts, item) => {
+    const status = String(item.result_status || 'UNKNOWN').toUpperCase()
+    counts[status] = (counts[status] || 0) + 1
+    return counts
+  }, {})
+
+  const testDefinitionById = new Map(
+    definitions.map((definition) => [definition.id, definition]),
+  )
+
+  const categoryAnalytics = results.reduce<Record<string, {
+    total: number
+    passed: number
+    failed: number
+  }>>((categories, result) => {
+    const definition = testDefinitionById.get(result.test_definition_id)
+    const catalogItem = definition
+      ? R76_78_TEST_PROCEDURES.find(
+          (procedure) => procedure.test_code === definition.test_code,
+        )
+      : undefined
+
+    const category = catalogItem?.category || 'other'
+
+    if (!categories[category]) {
+      categories[category] = {
+        total: 0,
+        passed: 0,
+        failed: 0,
+      }
+    }
+
+    categories[category].total += 1
+
+    if (result.pass_fail === true) {
+      categories[category].passed += 1
+    }
+
+    if (result.pass_fail === false) {
+      categories[category].failed += 1
+    }
+
+    return categories
+  }, {})
+
   const navItems = [
     { id: 'overview', label: 'Overview', icon: '⌂' },
     { id: 'instruments', label: 'Instruments', icon: '▣' },
@@ -748,6 +860,208 @@ export function SIH26035DashboardPage({
                 <span>TEST RUNS</span>
                 <strong>{results.length} recorded</strong>
                 <small>Test runs in current session</small>
+              </div>
+            </section>
+
+            <section className="sih-panel" style={{ marginTop: '18px' }}>
+              <div className="sih-panel-header">
+                <div>
+                  <span className="sih-eyebrow">ADVANCED ANALYTICS</span>
+                  <h3>OIML R 76 Compliance Analytics</h3>
+                </div>
+                <span className="sih-status completed">LIVE SESSION DATA</span>
+              </div>
+
+              <div className="sih-stat-grid">
+                <div className="sih-stat-card accent">
+                  <span>PASS RATE</span>
+                  <strong>{passRate}%</strong>
+                  <small>{passedTests} of {completedTests} completed tests passed</small>
+                </div>
+
+                <div className="sih-stat-card">
+                  <span>TEST COVERAGE</span>
+                  <strong>{coverageRate}%</strong>
+                  <small>{completedTests} of 78 procedures completed</small>
+                </div>
+
+                <div className="sih-stat-card">
+                  <span>AVG. MEASURED ERROR</span>
+                  <strong>{averageMeasuredError.toFixed(4)}</strong>
+                  <small>Absolute error across recorded results</small>
+                </div>
+
+                <div className="sih-stat-card">
+                  <span>MAX MPE UTILIZATION</span>
+                  <strong>{Math.round(maximumMpeUtilization)}%</strong>
+                  <small>Highest error-to-MPE ratio recorded</small>
+                </div>
+              </div>
+
+              <div className="sih-dashboard-grid" style={{ marginTop: '18px' }}>
+                <div className="sih-panel">
+                  <div className="sih-panel-header">
+                    <div>
+                      <span className="sih-eyebrow">TEST PROGRESS</span>
+                      <h3>Verification coverage</h3>
+                    </div>
+                  </div>
+
+                  <div className="sih-session-breakdown">
+                    <div className="sih-breakdown-row">
+                      <span className="sih-tag-pass">
+                        Passed: <strong>{passedTests}</strong>
+                      </span>
+                      <span className="sih-tag-fail">
+                        Failed: <strong>{failedTests}</strong>
+                      </span>
+                      <span className="sih-tag-pending">
+                        Pending: <strong>{Math.max(0, 78 - completedTests)}</strong>
+                      </span>
+                    </div>
+                  </div>
+
+                  <div style={{ marginTop: '18px' }}>
+                    <div style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      marginBottom: '8px',
+                    }}>
+                      <span>Overall procedure coverage</span>
+                      <strong>{coverageRate}%</strong>
+                    </div>
+
+                    <div style={{
+                      height: '8px',
+                      borderRadius: '999px',
+                      background: 'rgba(255,255,255,0.08)',
+                      overflow: 'hidden',
+                    }}>
+                      <div style={{
+                        width: `${Math.min(coverageRate, 100)}%`,
+                        height: '100%',
+                        background: '#d6b36a',
+                        borderRadius: '999px',
+                        transition: 'width 0.3s ease',
+                      }} />
+                    </div>
+                  </div>
+
+                  <div style={{ marginTop: '18px' }}>
+                    <div style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      marginBottom: '8px',
+                    }}>
+                      <span>Pass rate of completed tests</span>
+                      <strong>{passRate}%</strong>
+                    </div>
+
+                    <div style={{
+                      height: '8px',
+                      borderRadius: '999px',
+                      background: 'rgba(255,255,255,0.08)',
+                      overflow: 'hidden',
+                    }}>
+                      <div style={{
+                        width: `${Math.min(passRate, 100)}%`,
+                        height: '100%',
+                        background: '#d6b36a',
+                        borderRadius: '999px',
+                        transition: 'width 0.3s ease',
+                      }} />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="sih-panel">
+                  <div className="sih-panel-header">
+                    <div>
+                      <span className="sih-eyebrow">RESULT STATUS</span>
+                      <h3>Execution status breakdown</h3>
+                    </div>
+                  </div>
+
+                  {Object.keys(resultStatusCounts).length > 0 ? (
+                    <div className="sih-session-card">
+                      {Object.entries(resultStatusCounts).map(([status, count]) => (
+                        <div key={status}>
+                          <span>{status.replace(/_/g, ' ')}</span>
+                          <strong>{count}</strong>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="sih-empty">
+                      <strong>No test results yet</strong>
+                      <span>Execution analytics will appear after tests are completed.</span>
+                    </div>
+                  )}
+
+                  <div style={{
+                    marginTop: '18px',
+                    paddingTop: '18px',
+                    borderTop: '1px solid rgba(255,255,255,0.08)',
+                  }}>
+                    <span className="sih-eyebrow">ERROR PROFILE</span>
+                    <div className="sih-session-card" style={{ marginTop: '10px' }}>
+                      <div>
+                        <span>Average absolute error</span>
+                        <strong>{averageMeasuredError.toFixed(4)}</strong>
+                      </div>
+                      <div>
+                        <span>Maximum absolute error</span>
+                        <strong>{maximumMeasuredError.toFixed(4)}</strong>
+                      </div>
+                      <div>
+                        <span>Average MPE utilization</span>
+                        <strong>{Math.round(averageMpeUtilization)}%</strong>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div style={{
+                    marginTop: '18px',
+                    paddingTop: '18px',
+                    borderTop: '1px solid rgba(255,255,255,0.08)',
+                  }}>
+                    <span className="sih-eyebrow">CATEGORY ANALYTICS</span>
+                    <h4 style={{ margin: '6px 0 14px' }}>
+                      Test performance by category
+                    </h4>
+
+                    {Object.keys(categoryAnalytics).length > 0 ? (
+                      <div className="sih-session-card">
+                        {Object.entries(categoryAnalytics).map(([category, stats]) => {
+                          const categoryPassRate = stats.total > 0
+                            ? Math.round((stats.passed / stats.total) * 100)
+                            : 0
+
+                          return (
+                            <div key={category}>
+                              <span style={{ textTransform: 'capitalize' }}>
+                                {category}
+                              </span>
+                              <strong>
+                                {stats.passed}/{stats.total}
+                              </strong>
+                              <small>
+                                {categoryPassRate}% pass · {stats.failed} failed
+                              </small>
+                            </div>
+                          )
+                        })}
+                      </div>
+                    ) : (
+                      <div className="sih-empty">
+                        <strong>No category data yet</strong>
+                        <span>
+                          Category analytics will appear after test execution.
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                </div>
               </div>
             </section>
 
@@ -1181,6 +1495,92 @@ export function SIH26035DashboardPage({
                       {(selectedSession?.status || 'ACTIVE').toUpperCase()}
                     </span>
                   </div>
+                </div>
+
+                {/* Automatic OIML R 76 Test Plan */}
+                <div className="sih-panel" style={{ marginTop: '18px' }}>
+                  <div className="sih-panel-header">
+                    <div>
+                      <span className="sih-eyebrow">AUTOMATIC COMPLIANCE PLANNING</span>
+                      <h3>Generated OIML R 76 Test Plan</h3>
+                      <p>
+                        Procedures are selected automatically from the instrument configuration and OIML R 76 rulepack.
+                      </p>
+                    </div>
+                    <div className="sih-context">
+                      <span>Standard</span>
+                      <strong>{testPlan?.standard || 'OIML R 76-1:2006'}</strong>
+                    </div>
+                  </div>
+
+                  {testPlanLoading ? (
+                    <div className="sih-empty">
+                      <strong>Generating test plan...</strong>
+                      <span>Evaluating instrument parameters against the OIML R 76 procedure rules.</span>
+                    </div>
+                  ) : testPlan ? (
+                    <>
+                      <div className="sih-session-metrics-row">
+                        <div className="sih-metric-card completed">
+                          <span className="sih-metric-label">REQUIRED</span>
+                          <strong className="sih-metric-val">{testPlan.counts.required}</strong>
+                          <small>Must be performed</small>
+                        </div>
+                        <div className="sih-metric-card pending">
+                          <span className="sih-metric-label">CONDITIONAL</span>
+                          <strong className="sih-metric-val">{testPlan.counts.conditional}</strong>
+                          <small>Depends on configuration</small>
+                        </div>
+                        <div className="sih-metric-card failed">
+                          <span className="sih-metric-label">REVIEW REQUIRED</span>
+                          <strong className="sih-metric-val">{testPlan.counts.review_required}</strong>
+                          <small>Needs officer confirmation</small>
+                        </div>
+                        <div className="sih-metric-card total">
+                          <span className="sih-metric-label">NOT APPLICABLE</span>
+                          <strong className="sih-metric-val">{testPlan.counts.not_applicable}</strong>
+                          <small>Excluded automatically</small>
+                        </div>
+                      </div>
+
+                      <div className="sih-table-wrap" style={{ marginTop: '18px' }}>
+                        <table className="sih-table">
+                          <thead>
+                            <tr>
+                              <th>Procedure</th>
+                              <th>Category</th>
+                              <th>Clause</th>
+                              <th>Status</th>
+                              <th>Reason</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {testPlan.tests.map((test) => (
+                              <tr key={test.test_code}>
+                                <td>
+                                  <strong>{test.test_name}</strong>
+                                  <small style={{ display: 'block', opacity: 0.65 }}>{test.test_code}</small>
+                                </td>
+                                <td>{test.category || '—'}</td>
+                                <td>{test.source_clause || '—'}</td>
+                                <td>
+                                  <span className={`sih-status-pill ${test.status}`}>
+                                    {test.status.replace('_', ' ').toUpperCase()}
+                                  </span>
+                                </td>
+                                <td>{test.reason || '—'}</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    </>
+                  ) : (
+                    <div className="sih-empty">
+                      <strong>No automatic test plan available.</strong>
+                      <span>Select an instrument to generate the OIML R 76 test plan.</span>
+                    </div>
+                  )}
                 </div>
 
                 {/* Session Progress Breakdown Cards */}

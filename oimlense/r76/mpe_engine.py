@@ -16,6 +16,9 @@ class MPECalculation:
     load_intervals: Decimal
     mpe_multiplier: Decimal
     mpe: Decimal
+    base_mpe: Decimal
+    in_service: bool
+    formula: str
     source: str
     source_clause: str
 
@@ -160,6 +163,9 @@ def calculate_mpe(
         load_intervals=load_intervals,
         mpe_multiplier=multiplier,
         mpe=mpe,
+        base_mpe=base_mpe,
+        in_service=in_service,
+        formula="MPE = multiplier × e",
         source="OIML R 76-1:2006",
         source_clause="Table 6 / 3.5.1" + (" / 3.5.2" if in_service else ""),
     )
