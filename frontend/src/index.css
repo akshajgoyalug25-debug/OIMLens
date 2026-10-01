@@ -11963,3 +11963,1368 @@ textarea {
     text-align: center;
   }
 }
+
+/* =========================================================
+   OIMLENSE R76 — FINAL MOCKUP UI
+   Based on existing SIH26035 workspace structure
+   ========================================================= */
+
+/* ---------- MAIN WORKSPACE ---------- */
+
+.sih-test-workspace {
+  width: 100%;
+}
+
+.sih-test-layout {
+  display: grid !important;
+  grid-template-columns: 300px minmax(0, 1fr) !important;
+  gap: 0 !important;
+  align-items: stretch !important;
+  border: 1px solid #d8d3c8 !important;
+  background: #f7f3ea !important;
+  overflow: hidden !important;
+}
+
+/* ---------- PROCEDURE SIDEBAR ---------- */
+
+.sih-test-sidebar {
+  width: auto !important;
+  min-width: 0 !important;
+  background: #f8f5ed !important;
+  border-right: 1px solid #d5d0c5 !important;
+  padding: 14px !important;
+}
+
+.sih-test-progress {
+  padding: 14px 12px !important;
+  margin-bottom: 10px !important;
+  background: #ffffff !important;
+  border: 1px solid #e0dbd0 !important;
+  border-radius: 8px !important;
+}
+
+.sih-test-progress span {
+  display: block !important;
+  color: #687080 !important;
+  font-size: 8px !important;
+  font-weight: 800 !important;
+  letter-spacing: .09em !important;
+  line-height: 1.5 !important;
+}
+
+.sih-test-progress strong {
+  display: block !important;
+  margin-top: 9px !important;
+  color: #171717 !important;
+  font-size: 10px !important;
+}
+
+/* Procedure buttons */
+
+.sih-procedure-list {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1px !important;
+}
+
+.sih-test-nav-item {
+  position: relative !important;
+  display: grid !important;
+  grid-template-columns: 32px minmax(0, 1fr) !important;
+  column-gap: 9px !important;
+  align-items: start !important;
+  width: 100% !important;
+  min-height: 66px !important;
+  padding: 10px 9px !important;
+  border: 0 !important;
+  border-bottom: 1px solid #e2ded5 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: #202020 !important;
+  text-align: left !important;
+}
+
+.sih-test-nav-item:hover {
+  background: #eeeae1 !important;
+}
+
+.sih-test-nav-item.active {
+  background: #181817 !important;
+  color: #ffffff !important;
+  border-radius: 7px !important;
+  border-bottom-color: #181817 !important;
+}
+
+.sih-proc-num {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 27px !important;
+  height: 27px !important;
+  border-radius: 7px !important;
+  background: #eeece6 !important;
+  color: #333333 !important;
+  font-size: 9px !important;
+  font-weight: 800 !important;
+}
+
+.sih-test-nav-item.active .sih-proc-num {
+  background: #c8b36e !important;
+  color: #181817 !important;
+}
+
+.sih-test-nav-meta {
+  min-width: 0 !important;
+}
+
+.sih-test-nav-meta strong {
+  display: block !important;
+  overflow: hidden !important;
+  color: inherit !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  line-height: 1.35 !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+.sih-test-nav-meta small {
+  display: block !important;
+  margin-top: 3px !important;
+  overflow: hidden !important;
+  color: #697386 !important;
+  font-size: 8px !important;
+  line-height: 1.3 !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+.sih-test-nav-item.active .sih-test-nav-meta small {
+  color: #aaa79e !important;
+}
+
+.sih-proc-badge {
+  grid-column: 2 !important;
+  justify-self: start !important;
+  margin-top: 5px !important;
+  padding: 3px 6px !important;
+  border-radius: 4px !important;
+  background: #efeee9 !important;
+  color: #697080 !important;
+  font-size: 7px !important;
+  font-weight: 800 !important;
+  letter-spacing: .04em !important;
+}
+
+.sih-test-nav-item.active .sih-proc-badge {
+  background: #292824 !important;
+  color: #ddd8ca !important;
+}
+
+/* ---------- MAIN TEST AREA ---------- */
+
+.sih-test-main {
+  min-width: 0 !important;
+  background: #f8f5ed !important;
+}
+
+/* Test heading */
+
+.sih-test-heading {
+  padding: 26px 34px 22px !important;
+  border-bottom: 1px solid #ddd8ce !important;
+  background: #f8f5ed !important;
+}
+
+.sih-test-heading-top {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 20px !important;
+}
+
+.sih-test-heading .sih-eyebrow {
+  color: #77766f !important;
+  font-size: 8px !important;
+  letter-spacing: .12em !important;
+  font-weight: 800 !important;
+}
+
+.sih-test-pos-tag {
+  flex: 0 0 auto !important;
+  padding: 6px 9px !important;
+  border-radius: 5px !important;
+  background: #171716 !important;
+  color: #ffffff !important;
+  font-size: 8px !important;
+  font-weight: 800 !important;
+}
+
+.sih-test-heading h4 {
+  max-width: 850px !important;
+  margin: 16px 0 8px !important;
+  color: #111111 !important;
+  font-size: clamp(25px, 3vw, 42px) !important;
+  line-height: .98 !important;
+  letter-spacing: -.035em !important;
+  font-weight: 750 !important;
+}
+
+.sih-test-heading > p {
+  max-width: 720px !important;
+  margin: 0 !important;
+  color: #77766f !important;
+  font-size: 11px !important;
+  line-height: 1.5 !important;
+}
+
+.sih-source-row {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 24px !important;
+  margin-top: 20px !important;
+  padding-top: 13px !important;
+  border-top: 1px solid #ddd8ce !important;
+}
+
+.sih-source-row span {
+  color: #77766f !important;
+  font-size: 8px !important;
+}
+
+.sih-source-row strong {
+  margin-right: 5px !important;
+  color: #242424 !important;
+  font-size: 7px !important;
+  letter-spacing: .08em !important;
+  text-transform: uppercase !important;
+}
+
+.sih-status-inline.pending {
+  padding: 4px 7px !important;
+  border-radius: 4px !important;
+  background: #eee8de !important;
+  color: #7d6850 !important;
+  font-size: 7px !important;
+  font-weight: 800 !important;
+}
+
+/* ---------- TEST FORM ---------- */
+
+.sih-test-runner-container {
+  display: grid !important;
+  grid-template-columns: 270px minmax(0, 1fr) !important;
+  gap: 20px !important;
+  align-items: start !important;
+  padding: 22px 34px 28px !important;
+  background: #f8f5ed !important;
+}
+
+/* Every direct child defaults to observation side */
+
+.sih-test-runner-container > * {
+  grid-column: 2 !important;
+  min-width: 0 !important;
+}
+
+/* Instrument card */
+
+.sih-test-runner-container > .sih-instrument-params-bar {
+  grid-column: 1 !important;
+  grid-row: 1 / span 4 !important;
+  align-self: start !important;
+
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0 !important;
+
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+
+  border: 0 !important;
+  border-radius: 9px !important;
+  overflow: hidden !important;
+
+  background: #171716 !important;
+}
+
+/* Individual instrument values */
+
+.sih-test-runner-container .sih-param-item {
+  padding: 15px 15px !important;
+  background: #171716 !important;
+  border-bottom: 1px solid #302f2b !important;
+}
+
+.sih-test-runner-container .sih-param-item:last-child {
+  border-bottom: 0 !important;
+}
+
+.sih-test-runner-container .sih-param-label {
+  margin-bottom: 6px !important;
+  color: #817f77 !important;
+  font-size: 7px !important;
+  font-weight: 800 !important;
+  letter-spacing: .11em !important;
+}
+
+.sih-test-runner-container .sih-param-val {
+  color: #eeeeea !important;
+  font-size: 12px !important;
+  font-weight: 650 !important;
+}
+
+/* ---------- OBSERVATION HEADER ---------- */
+
+.sih-observations-header {
+  grid-column: 2 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  min-height: 45px !important;
+  margin: 0 !important;
+  padding: 0 0 9px !important;
+  border-bottom: 2px solid #171716 !important;
+}
+
+.sih-obs-title-group {
+  display: flex !important;
+  align-items: center !important;
+  gap: 9px !important;
+}
+
+.sih-obs-badge {
+  height: 25px !important;
+  padding: 0 9px !important;
+  border-radius: 5px !important;
+  background: #29261d !important;
+  color: #c8b36e !important;
+  font-size: 7px !important;
+  font-weight: 800 !important;
+  letter-spacing: .08em !important;
+}
+
+.sih-obs-title-group h4 {
+  color: #b1aea5 !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+}
+
+.sih-unit-hint {
+  color: #77756e !important;
+  font-size: 8px !important;
+}
+
+/* ---------- TEST INPUT CARDS ---------- */
+
+.sih-test-runner-container .r76-test-subsection,
+.sih-test-runner-container .r76-special-test,
+.sih-test-runner-container .sih-generic-obs-form {
+  grid-column: 2 !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 17px !important;
+
+  border: 1px solid #ded9cf !important;
+  border-radius: 9px !important;
+  background: #ffffff !important;
+  box-shadow: none !important;
+}
+
+.sih-test-runner-container .r76-section-title {
+  color: #202020 !important;
+}
+
+.sih-test-runner-container .r76-form-help,
+.sih-test-runner-container .sih-field-help {
+  color: #77766f !important;
+}
+
+/* Inputs */
+
+.sih-test-runner-container .sih-input-field {
+  min-height: 39px !important;
+  border: 1px solid #d4d0c6 !important;
+  border-radius: 6px !important;
+  background: #faf9f5 !important;
+  color: #171717 !important;
+  font-size: 11px !important;
+}
+
+.sih-test-runner-container .sih-input-field:focus {
+  border-color: #bca45c !important;
+  box-shadow: 0 0 0 2px rgba(188, 164, 92, .12) !important;
+}
+
+.sih-test-runner-container .sih-field-label {
+  color: #333333 !important;
+  font-size: 9px !important;
+}
+
+/* ---------- RESULT CARD ---------- */
+
+.sih-test-runner-container .sih-result-card {
+  grid-column: 1 / -1 !important;
+  margin: 0 !important;
+  border-radius: 9px !important;
+}
+
+/* ---------- ERROR ---------- */
+
+.sih-test-runner-container .sih-form-error-banner {
+  grid-column: 1 / -1 !important;
+}
+
+/* ---------- ACTION BAR ---------- */
+
+.sih-test-runner-container .sih-form-execute-bar {
+  grid-column: 1 / -1 !important;
+
+  display: grid !important;
+  grid-template-columns: 1fr 1.4fr 1fr !important;
+  align-items: center !important;
+  gap: 14px !important;
+
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 10px !important;
+
+  border: 0 !important;
+  border-radius: 9px !important;
+  background: #171716 !important;
+  box-shadow: 0 7px 20px rgba(0,0,0,.12) !important;
+
+  position: static !important;
+}
+
+.sih-test-runner-container .sih-bar-left,
+.sih-test-runner-container .sih-bar-center,
+.sih-test-runner-container .sih-bar-right {
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+.sih-test-runner-container .sih-bar-left {
+  justify-content: flex-start !important;
+}
+
+.sih-test-runner-container .sih-bar-center {
+  justify-content: center !important;
+}
+
+.sih-test-runner-container .sih-bar-right {
+  justify-content: flex-end !important;
+}
+
+/* Hide Back to Procedures from the primary 3-button navigation */
+
+.sih-test-runner-container .sih-bar-left .sih-back-btn {
+  display: none !important;
+}
+
+.sih-test-runner-container .sih-form-execute-bar .sih-next-test-btn,
+.sih-test-runner-container .sih-form-execute-bar .sih-back-btn {
+  width: 100% !important;
+  min-width: 0 !important;
+  height: 38px !important;
+
+  border: 1px solid #3b3932 !important;
+  border-radius: 6px !important;
+  background: #1e1e1c !important;
+  color: #e6e1d6 !important;
+
+  font-size: 8px !important;
+  font-weight: 800 !important;
+  letter-spacing: .04em !important;
+}
+
+.sih-test-runner-container .sih-execute-button {
+  width: 100% !important;
+  min-width: 0 !important;
+  height: 38px !important;
+
+  border: 0 !important;
+  border-radius: 6px !important;
+  background: #c9b46c !important;
+  color: #171716 !important;
+
+  font-size: 9px !important;
+  font-weight: 900 !important;
+  letter-spacing: .05em !important;
+}
+
+/* Don't show another NEXT TEST inside result card */
+
+.sih-result-card-header > .sih-next-test-btn {
+  display: none !important;
+}
+
+/* ---------- TOP PANEL / METRICS ---------- */
+
+.sih-panel {
+  background: #f8f5ed !important;
+  border-color: #d9d4c9 !important;
+}
+
+.sih-panel-header {
+  padding: 30px 34px 22px !important;
+  background: #f8f5ed !important;
+  border-bottom: 0 !important;
+}
+
+.sih-panel-header h3 {
+  margin: 10px 0 8px !important;
+  color: #121212 !important;
+  font-size: clamp(32px, 4vw, 50px) !important;
+  line-height: .98 !important;
+  letter-spacing: -.045em !important;
+  font-weight: 750 !important;
+}
+
+.sih-panel-header p {
+  color: #77766f !important;
+  font-size: 11px !important;
+}
+
+.sih-context {
+  border-left-color: #ddd8ce !important;
+}
+
+.sih-context span {
+  color: #88857c !important;
+  font-size: 7px !important;
+  letter-spacing: .1em !important;
+}
+
+.sih-context strong {
+  color: #191919 !important;
+  font-size: 13px !important;
+}
+
+/* Black active context strip */
+
+.sih-active-verification-bar {
+  margin: 0 !important;
+  border-radius: 8px !important;
+  background: #171716 !important;
+  border: 0 !important;
+  color: #ffffff !important;
+}
+
+.sih-vbar-badge {
+  color: #8f8c84 !important;
+  font-size: 7px !important;
+  letter-spacing: .11em !important;
+}
+
+.sih-vbar-details strong {
+  color: #f1eee6 !important;
+  font-size: 11px !important;
+}
+
+.sih-vbar-details span {
+  color: #9c9990 !important;
+  font-size: 8px !important;
+}
+
+.sih-status-pill {
+  border-color: #66635a !important;
+}
+
+/* Metrics */
+
+.sih-session-metrics-row {
+  display: grid !important;
+  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  gap: 10px !important;
+  margin: 18px 0 !important;
+}
+
+.sih-metric-card {
+  min-width: 0 !important;
+  padding: 13px 14px !important;
+  border: 1px solid #ddd8ce !important;
+  border-radius: 7px !important;
+  background: #ffffff !important;
+  box-shadow: 0 1px 2px rgba(0,0,0,.03) !important;
+}
+
+.sih-metric-label {
+  color: #6d7280 !important;
+  font-size: 7px !important;
+  letter-spacing: .1em !important;
+}
+
+.sih-metric-val {
+  display: block !important;
+  margin: 4px 0 !important;
+  color: #171717 !important;
+  font-size: 25px !important;
+  line-height: 1 !important;
+}
+
+.sih-metric-card small {
+  color: #7b7b78 !important;
+  font-size: 7px !important;
+}
+
+/* ---------- SEARCH / FILTERS ---------- */
+
+.sih-proc-filter-bar {
+  padding: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+}
+
+.sih-search-box {
+  min-height: 41px !important;
+  border: 1px solid #d4d0c6 !important;
+  border-radius: 6px !important;
+  background: #faf9f5 !important;
+}
+
+.sih-search-input {
+  color: #242424 !important;
+  font-size: 10px !important;
+}
+
+.sih-category-tabs {
+  gap: 7px !important;
+  margin-top: 9px !important;
+}
+
+.sih-category-tab {
+  min-height: 31px !important;
+  padding: 0 11px !important;
+  border: 1px solid #d8d3c8 !important;
+  border-radius: 5px !important;
+  background: #eeece5 !important;
+  color: #566174 !important;
+  font-size: 8px !important;
+  font-weight: 800 !important;
+}
+
+.sih-category-tab.active {
+  background: #171716 !important;
+  border-color: #171716 !important;
+  color: #ffffff !important;
+}
+
+/* ---------- RESPONSIVE ---------- */
+
+@media (max-width: 1050px) {
+  .sih-test-layout {
+    grid-template-columns: 250px minmax(0, 1fr) !important;
+  }
+
+  .sih-test-runner-container {
+    grid-template-columns: 220px minmax(0, 1fr) !important;
+    padding: 18px 22px 24px !important;
+  }
+
+  .sih-session-metrics-row {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+}
+
+@media (max-width: 800px) {
+  .sih-test-layout {
+    display: block !important;
+  }
+
+  .sih-test-sidebar {
+    display: none !important;
+  }
+
+  .sih-test-runner-container {
+    grid-template-columns: 1fr !important;
+  }
+
+  .sih-test-runner-container > * {
+    grid-column: 1 !important;
+  }
+
+  .sih-test-runner-container > .sih-instrument-params-bar {
+    grid-column: 1 !important;
+    grid-row: auto !important;
+  }
+
+  .sih-test-runner-container .sih-form-execute-bar {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  .sih-test-runner-container .sih-bar-center {
+    grid-column: 1 / -1 !important;
+    grid-row: 1 !important;
+  }
+
+  .sih-test-runner-container .sih-bar-left {
+    grid-column: 1 !important;
+    grid-row: 2 !important;
+  }
+
+  .sih-test-runner-container .sih-bar-right {
+    grid-column: 2 !important;
+    grid-row: 2 !important;
+  }
+
+  .sih-session-metrics-row {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (max-width: 520px) {
+  .sih-panel-header,
+  .sih-test-heading {
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+  }
+
+  .sih-test-runner-container {
+    padding: 15px !important;
+  }
+
+  .sih-session-metrics-row {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  .sih-test-heading h4 {
+    font-size: 27px !important;
+  }
+
+  .sih-test-runner-container .sih-form-execute-bar {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+
+
+/* =========================================================
+   OIMLENSE R76 — TYPOGRAPHY / READABILITY PASS
+   ========================================================= */
+
+/* ---------- LEFT PROCEDURE SIDEBAR ---------- */
+
+.sih-test-nav-item {
+  min-height: 76px !important;
+  padding: 12px 10px !important;
+}
+
+.sih-test-nav-meta strong {
+  font-size: 12px !important;
+  line-height: 1.35 !important;
+  color: #171717 !important;
+}
+
+.sih-test-nav-item.active .sih-test-nav-meta strong {
+  color: #ffffff !important;
+}
+
+.sih-test-nav-meta small {
+  margin-top: 5px !important;
+  font-size: 10px !important;
+  line-height: 1.35 !important;
+  color: #535b69 !important;
+}
+
+.sih-test-nav-item.active .sih-test-nav-meta small {
+  color: #c2beb4 !important;
+}
+
+.sih-proc-badge {
+  margin-top: 7px !important;
+  padding: 4px 7px !important;
+  font-size: 8px !important;
+  color: #4f5662 !important;
+}
+
+.sih-test-nav-item.active .sih-proc-badge {
+  color: #e5dfd1 !important;
+}
+
+/* Procedure numbers */
+
+.sih-proc-num {
+  width: 29px !important;
+  height: 29px !important;
+  font-size: 10px !important;
+}
+
+/* Sidebar summary */
+
+.sih-test-progress span {
+  font-size: 9px !important;
+  color: #4f5662 !important;
+}
+
+.sih-test-progress strong {
+  font-size: 12px !important;
+  color: #171717 !important;
+}
+
+/* ---------- MAIN TEST HEADER ---------- */
+
+.sih-test-heading .sih-eyebrow {
+  font-size: 9px !important;
+  color: #5f5e59 !important;
+}
+
+.sih-test-pos-tag {
+  font-size: 9px !important;
+  padding: 7px 10px !important;
+}
+
+.sih-test-heading h4 {
+  font-size: clamp(30px, 3.4vw, 48px) !important;
+  line-height: 1.02 !important;
+  color: #0d0d0d !important;
+  font-weight: 760 !important;
+}
+
+.sih-test-heading > p {
+  font-size: 13px !important;
+  color: #5f5e59 !important;
+  line-height: 1.55 !important;
+}
+
+.sih-source-row {
+  gap: 28px !important;
+}
+
+.sih-source-row span {
+  font-size: 10px !important;
+  color: #5b5a55 !important;
+}
+
+.sih-source-row strong {
+  font-size: 8px !important;
+  color: #202020 !important;
+}
+
+.sih-status-inline.pending {
+  font-size: 9px !important;
+}
+
+/* ---------- INSTRUMENT PARAMETERS ---------- */
+
+.sih-test-runner-container .sih-param-item {
+  padding: 18px 16px !important;
+}
+
+.sih-test-runner-container .sih-param-label {
+  margin-bottom: 7px !important;
+  font-size: 9px !important;
+  color: #a4a198 !important;
+  letter-spacing: .12em !important;
+}
+
+.sih-test-runner-container .sih-param-val {
+  font-size: 14px !important;
+  color: #f3f1eb !important;
+  font-weight: 650 !important;
+}
+
+/* ---------- OBSERVATION HEADER ---------- */
+
+.sih-obs-badge {
+  height: 28px !important;
+  padding: 0 10px !important;
+  font-size: 9px !important;
+  color: #d3bd73 !important;
+}
+
+.sih-obs-title-group {
+  gap: 11px !important;
+}
+
+.sih-obs-title-group h4 {
+  font-size: 16px !important;
+  color: #4b4a46 !important;
+  font-weight: 650 !important;
+}
+
+.sih-unit-hint {
+  font-size: 10px !important;
+  color: #55544f !important;
+}
+
+/* ---------- TEST FORM LABELS ---------- */
+
+.sih-test-runner-container .sih-field-label {
+  font-size: 11px !important;
+  font-weight: 650 !important;
+  color: #292929 !important;
+}
+
+.sih-test-runner-container .sih-field-help {
+  font-size: 10px !important;
+  line-height: 1.5 !important;
+  color: #5d626b !important;
+}
+
+/* ---------- INPUTS ---------- */
+
+.sih-test-runner-container .sih-input-field {
+  min-height: 46px !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: #161616 !important;
+  background: #ffffff !important;
+  border-color: #c7c3b9 !important;
+}
+
+.sih-test-runner-container .sih-input-field::placeholder {
+  color: #77766f !important;
+  opacity: 1 !important;
+}
+
+/* Input unit */
+
+.sih-test-runner-container .sih-unit-tag {
+  font-size: 10px !important;
+  color: #55544e !important;
+}
+
+/* ---------- TEST SECTION HEADINGS ---------- */
+
+.sih-test-runner-container .r76-section-title {
+  font-size: 17px !important;
+  color: #171717 !important;
+  font-weight: 700 !important;
+}
+
+.sih-test-runner-container .r76-form-help {
+  font-size: 12px !important;
+  line-height: 1.6 !important;
+  color: #555a63 !important;
+}
+
+/* ---------- TEST-SPECIFIC TEXT ---------- */
+
+.sih-test-runner-container .r76-test-subsection label,
+.sih-test-runner-container .r76-special-test label,
+.sih-test-runner-container .sih-generic-obs-form label {
+  color: #282828 !important;
+}
+
+/* ---------- SEARCH / FILTERS ---------- */
+
+.sih-search-input {
+  font-size: 12px !important;
+  color: #292929 !important;
+}
+
+.sih-search-input::placeholder {
+  color: #666761 !important;
+  opacity: 1 !important;
+}
+
+.sih-category-tab {
+  font-size: 9px !important;
+}
+
+/* ---------- METRIC CARDS ---------- */
+
+.sih-metric-label {
+  font-size: 8px !important;
+  color: #555d69 !important;
+}
+
+.sih-metric-val {
+  font-size: 28px !important;
+  color: #111111 !important;
+}
+
+.sih-metric-card small {
+  font-size: 9px !important;
+  color: #5e5e5a !important;
+}
+
+/* ---------- ACTIVE SESSION STRIP ---------- */
+
+.sih-vbar-badge {
+  font-size: 8px !important;
+  color: #aaa79f !important;
+}
+
+.sih-vbar-details strong {
+  font-size: 13px !important;
+}
+
+.sih-vbar-details span {
+  font-size: 10px !important;
+  color: #b2aea5 !important;
+}
+
+.sih-status-pill {
+  font-size: 9px !important;
+}
+
+/* ---------- ACTION BUTTONS ---------- */
+
+.sih-test-runner-container .sih-form-execute-bar .sih-next-test-btn,
+.sih-test-runner-container .sih-form-execute-bar .sih-back-btn {
+  font-size: 10px !important;
+  font-weight: 800 !important;
+}
+
+.sih-test-runner-container .sih-execute-button {
+  font-size: 11px !important;
+  font-weight: 900 !important;
+}
+
+/* ---------- GENERAL DESCRIPTION / SMALL TEXT ---------- */
+
+.sih-test-runner-container small {
+  color: #555a62;
+}
+
+@media (max-width: 800px) {
+  .sih-test-nav-meta strong {
+    font-size: 11px !important;
+  }
+
+  .sih-test-nav-meta small {
+    font-size: 9px !important;
+  }
+
+  .sih-test-heading h4 {
+    font-size: 30px !important;
+  }
+}
+
+
+/* =========================================================
+   OIMLENSE R76 — TWO-COLUMN TEST INPUT LAYOUT
+   ========================================================= */
+
+/* Main input grids: always use a balanced 2-column layout */
+.r76-input-grid,
+.sih-input-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 16px !important;
+  width: 100% !important;
+  align-items: start !important;
+}
+
+/* Make every field fill its grid cell */
+.r76-input-grid > *,
+.sih-input-grid > * {
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+/* Special test forms */
+.r76-special-test .r76-input-grid,
+.r76-special-test .sih-input-grid,
+.sih-generic-obs-form .r76-input-grid,
+.sih-generic-obs-form .sih-input-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+}
+
+/* Individual input fields should occupy their full half */
+.r76-input-grid .sih-field-label,
+.sih-input-grid .sih-field-label {
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+/* Keep section headings across the full width */
+.r76-input-grid > h3,
+.r76-input-grid > h4,
+.r76-input-grid > .r76-section-title,
+.sih-input-grid > h3,
+.sih-input-grid > h4,
+.sih-input-grid > .r76-section-title {
+  grid-column: 1 / -1 !important;
+}
+
+/* Larger, balanced input boxes */
+.r76-input-grid .sih-input-field,
+.sih-input-grid .sih-input-field {
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Textareas should span both columns */
+.r76-input-grid textarea,
+.sih-input-grid textarea {
+  grid-column: 1 / -1 !important;
+  width: 100% !important;
+}
+
+/* Help/instruction blocks can span both columns */
+.r76-input-grid .r76-form-help,
+.sih-input-grid .r76-form-help {
+  grid-column: 1 / -1 !important;
+}
+
+/* Keep important test notes full width */
+.r76-input-grid .sih-field-help {
+  display: block;
+  width: 100%;
+}
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width: 760px) {
+  .r76-input-grid,
+  .sih-input-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .r76-input-grid > h3,
+  .r76-input-grid > h4,
+  .r76-input-grid > .r76-section-title,
+  .sih-input-grid > h3,
+  .sih-input-grid > h4,
+  .sih-input-grid > .r76-section-title {
+    grid-column: auto !important;
+  }
+
+  .r76-input-grid textarea,
+  .sih-input-grid textarea {
+    grid-column: auto !important;
+  }
+}
+
+
+/* =========================================================
+   OIMLENSE R76 — COMPACT HORIZONTAL INSTRUMENT PARAMETERS
+   ========================================================= */
+
+.sih-instrument-params-bar {
+  display: grid !important;
+  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  gap: 0 !important;
+  width: 100% !important;
+  margin-bottom: 18px !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+}
+
+.sih-instrument-params-bar .sih-param-item {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  min-height: 58px !important;
+  padding: 11px 16px !important;
+  background: #181815 !important;
+  border-right: 1px solid #34332e !important;
+}
+
+.sih-instrument-params-bar .sih-param-item:last-child {
+  border-right: none !important;
+}
+
+.sih-instrument-params-bar .sih-param-label {
+  margin: 0 !important;
+  font-size: 8px !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0.08em !important;
+  color: #aaa79f !important;
+  white-space: nowrap !important;
+}
+
+.sih-instrument-params-bar .sih-param-val {
+  margin: 0 !important;
+  font-size: 13px !important;
+  line-height: 1.2 !important;
+  color: #f2efe7 !important;
+  font-weight: 700 !important;
+  white-space: nowrap !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+}
+
+/* Make the whole parameter strip compact on medium screens */
+@media (max-width: 900px) {
+  .sih-instrument-params-bar {
+    grid-template-columns: repeat(5, minmax(110px, 1fr)) !important;
+    overflow-x: auto !important;
+  }
+
+  .sih-instrument-params-bar .sih-param-item {
+    min-width: 110px !important;
+    padding: 10px 12px !important;
+  }
+}
+
+/* On phones, allow two compact rows instead of a tall vertical stack */
+@media (max-width: 600px) {
+  .sih-instrument-params-bar {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    overflow-x: visible !important;
+  }
+
+  .sih-instrument-params-bar .sih-param-item {
+    min-width: 0 !important;
+    border-bottom: 1px solid #34332e !important;
+  }
+
+  .sih-instrument-params-bar .sih-param-item:nth-child(2n) {
+    border-right: none !important;
+  }
+
+  .sih-instrument-params-bar .sih-param-item:last-child {
+    grid-column: 1 / -1 !important;
+    border-right: none !important;
+  }
+}
+
+
+/* FINAL OIMLENSE INSTRUMENT PARAMETERS - HORIZONTAL ROW */
+.sih-test-runner-container > .sih-instrument-params-bar {
+  display: grid !important;
+  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  width: 100% !important;
+  gap: 0 !important;
+  overflow: hidden !important;
+  margin-bottom: 18px !important;
+  border-radius: 12px !important;
+}
+
+.sih-test-runner-container > .sih-instrument-params-bar .sih-param-item {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  min-width: 0 !important;
+  min-height: 58px !important;
+  padding: 10px 14px !important;
+  box-sizing: border-box !important;
+  border-right: 1px solid #34332e !important;
+  border-bottom: none !important;
+}
+
+.sih-test-runner-container > .sih-instrument-params-bar .sih-param-item:last-child {
+  border-right: none !important;
+}
+
+.sih-test-runner-container > .sih-instrument-params-bar .sih-param-label {
+  font-size: 8px !important;
+  line-height: 1.2 !important;
+  white-space: nowrap !important;
+  margin: 0 !important;
+}
+
+.sih-test-runner-container > .sih-instrument-params-bar .sih-param-val {
+  font-size: 13px !important;
+  line-height: 1.2 !important;
+  white-space: nowrap !important;
+  margin: 0 !important;
+}
+
+@media (max-width: 900px) {
+  .sih-test-runner-container > .sih-instrument-params-bar {
+    grid-template-columns: repeat(5, minmax(120px, 1fr)) !important;
+    overflow-x: auto !important;
+  }
+
+  .sih-test-runner-container > .sih-instrument-params-bar .sih-param-item {
+    min-width: 120px !important;
+  }
+}
+
+/* =========================================================
+   OIMLENSE - FULL WIDTH INSTRUMENT PARAMETERS
+   Keep test inputs BELOW the parameter bar
+   ========================================================= */
+
+.sih-test-runner-container {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* Full-width parameter bar */
+.sih-test-runner-container > .sih-instrument-params-bar {
+  display: grid !important;
+  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  flex: 0 0 auto !important;
+  box-sizing: border-box !important;
+  margin-bottom: 24px !important;
+}
+
+/* Give every parameter enough room */
+.sih-test-runner-container > .sih-instrument-params-bar .sih-param-item {
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 72px !important;
+  padding: 14px 20px !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  gap: 6px !important;
+}
+
+/* Larger readable labels */
+.sih-test-runner-container > .sih-instrument-params-bar .sih-param-label {
+  font-size: 10px !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0.08em !important;
+  white-space: nowrap !important;
+}
+
+/* Larger readable values */
+.sih-test-runner-container > .sih-instrument-params-bar .sih-param-val {
+  font-size: 17px !important;
+  line-height: 1.2 !important;
+  font-weight: 700 !important;
+  white-space: nowrap !important;
+}
+
+/* =========================================================
+   TEST INPUT AREA MUST COME BELOW THE PARAMETER BAR
+   ========================================================= */
+
+.sih-test-runner-container > *:not(.sih-instrument-params-bar) {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Make input grids use the available full width */
+.sih-test-runner-container .sih-input-grid,
+.sih-test-runner-container .sih-generic-obs-form,
+.sih-test-runner-container .sih-test-section,
+.sih-test-runner-container .sih-special-test {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Prevent the parameter bar from becoming a tiny side column */
+.sih-test-runner-container > .sih-instrument-params-bar {
+  position: relative !important;
+  left: auto !important;
+  right: auto !important;
+  float: none !important;
+}
+
+/* Desktop: always keep all 5 parameters in one row */
+@media (min-width: 901px) {
+  .sih-test-runner-container > .sih-instrument-params-bar {
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  }
+}
+
+/* Smaller screens */
+@media (max-width: 900px) {
+  .sih-test-runner-container > .sih-instrument-params-bar {
+    grid-template-columns: repeat(5, minmax(140px, 1fr)) !important;
+    overflow-x: auto !important;
+  }
+
+  .sih-test-runner-container > .sih-instrument-params-bar .sih-param-item {
+    min-width: 140px !important;
+  }
+}
