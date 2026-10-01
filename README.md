@@ -1,10 +1,10 @@
-# Label Lens
+# OIMLense
 
 <p align="center">
-  <img src="assets/logo-white.png" alt="Label Lens Logo" width="180"/>
+  <img src="assets/logo-white.png" alt="OIMLense Logo" width="180"/>
 </p>
 
-<h3 align="center">AI-Powered Packaged Commodity Compliance & Inspection System</h3>
+<h3 align="center">OIML R-76 Based NAWI Test Report Generation & Compliance System</h3>
 
 <p align="center">Built for Smart India Hackathon 2026</p>
 
@@ -12,228 +12,511 @@
 
 ## SIH 2026 Problem Statement
 
-**Problem Statement ID:** SIH26034
+**Problem Statement ID:** SIH26035
 
 **Title:**  
-Software System to check compliance of Packaged Commodities under Legal Metrology (Packaged Commodities) Rules, 2011 by scanning products, images and labels.
+Development of a Software Program/Application for Generation of Test Reports for Non-Automatic Weighing Instruments (NAWI) as per OIML Recommendation R- 76
 
 **Organization:** Ministry of Consumer Affairs, Food & Public Distribution
 
 **Department:** Department of Consumer Affairs
 
+**Category:** Software
+
+**Theme:** Miscellaneous
+
 ---
+
 ## 🔗 Project Resources
 
-- 🎥 **Demo Video:** [Click Here](https://drive.google.com/file/d/1WnfZzAmzrRv_XRRop1cJoBgUAiR7EySe/view?usp=drive_link)
-- 📄 **Project Presentation / PDF:** [Click Here](https://drive.google.com/file/d/1oKHJWDfrx1dhiszYby_YXqkYZqhEYbQs/view?usp=drive_link)
+- 🎥 **Demo Video:** [Click Here](#)
+- 📄 **Project Presentation / PDF:** [Click Here](#)
 
 ---
 
-## About Label Lens
+## About OIMLense
 
-**Label Lens** is an AI-assisted packaged-product compliance and inspection platform designed to help enforcement officers quickly verify whether product packaging follows applicable Legal Metrology requirements.
+**OIMLense** is a digital test-report generation and compliance management platform designed for the evaluation of **Non-Automatic Weighing Instruments (NAWI)** according to **OIML Recommendation R-76**.
 
-Instead of manually checking every declaration on a package, Label Lens allows an officer to scan product images and automatically:
+The system digitizes the process of recording instrument information, laboratory conditions, test observations and technical results while automatically performing applicable calculations and compliance checks.
 
-- Extract information from packaging
-- Identify mandatory declarations
-- Detect missing or potentially incorrect information
-- Apply product-specific compliance rules
-- Explain violations with legal references
-- Provide corrective suggestions
-- Allow human verification and re-checking
-- Generate digital compliance reports
-- Maintain inspection history
-- Provide administrative dashboards
+Instead of relying on manually maintained spreadsheets and document templates, OIMLense provides a structured workflow for:
+
+- Registering NAWI instruments
+- Recording manufacturer and instrument details
+- Capturing technical specifications
+- Recording laboratory and environmental conditions
+- Executing applicable OIML R-76 tests
+- Performing automatic calculations
+- Determining permissible errors
+- Evaluating compliance
+- Recording test observations
+- Reviewing test results
+- Generating standardized test reports
+- Maintaining a digital report repository
+- Tracking test and approval status
+- Supporting role-based access
+- Maintaining an auditable testing workflow
 
 ---
 
-## How It Works
+## Problem
+
+Testing and evaluation of Non-Automatic Weighing Instruments involves multiple technical and metrological tests.
+
+Traditionally, test observations and calculations may be recorded using spreadsheets or document templates. This can result in:
+
+- Repetitive manual data entry
+- Calculation errors
+- Inconsistent report formatting
+- Difficulty tracking previous tests
+- Increased report preparation time
+- Difficulties maintaining structured test histories
+
+OIMLense addresses these challenges through a centralized digital workflow that connects **instrument registration → test execution → calculation → compliance evaluation → review → report generation**.
+
+---
+
+## How OIMLense Works
 
 ```text
-Product Images
-      ↓
-Image Preprocessing
-      ↓
-OCR using PaddleOCR
-      ↓
-AI Field Extraction
-      ↓
-Product / Category Detection
-      ↓
-3-Layer Compliance Rule Engine
-      ↓
-Violation Detection
-      ↓
-Severity & Compliance Score
-      ↓
-Officer Verification
-      ↓
-Compliance Report
+NAWI Instrument Registration
+            ↓
+Instrument Specifications
+            ↓
+Laboratory & Environmental Conditions
+            ↓
+Test Selection / Test Plan
+            ↓
+OIML R-76 Test Execution
+            ↓
+Observation Entry
+            ↓
+Automatic Calculations
+            ↓
+MPE / Compliance Evaluation
+            ↓
+Pass / Fail Determination
+            ↓
+Review & Verification
+            ↓
+Test Report Generation
+            ↓
+Digital Report Repository
+            ↓
+Search / History / Dashboard
 ```
 
 ---
 
 ## Key Features
 
-### 🔍 Multi-View Product Scanning
+### ⚖️ NAWI Instrument Registration
 
-Front and back images of the same product can be processed together as a single inspection.
+Register and maintain complete information about the weighing instrument.
 
-### 📝 AI-Assisted OCR
+Information can include:
 
-Uses OpenCV and PaddleOCR to extract text from product packaging.
-
-### 🤖 Intelligent Field Extraction
-
-AI extracts important declarations including:
-
-- Brand
-- Product Name
-- Generic Name
-- Net Quantity
-- MRP
-- Manufacturer / Packer / Importer
-- Consumer Care Information
-- Manufacturing Date
-- Best Before / Use By
-- Country of Origin
-
-### ⚖️ Product-Aware Rule Engine
-
-Label Lens applies a layered compliance engine:
-
-```text
-General Rules
-      +
-Category-Specific Rules
-      +
-Product-Specific Rules
-```
-
-### 🚨 Explainable Violations
-
-Detected violations can include:
-
-- Severity
-- Detected value
-- Expected value
-- Legal reference
-- Explanation
-- Suggested correction
-
-### 👨‍💼 Human-in-the-Loop Verification
-
-Officers can manually correct extracted information and re-run compliance checks.
-
-### 📊 Compliance Scoring
-
-Products receive a compliance score based on the severity of detected violations.
-
-### 📄 Digital Compliance Reports
-
-Generate structured inspection reports containing extracted fields, violations, scores and verification details.
-
-### 📱 Camera Capture
-
-Capture product images directly through the inspection interface.
-
-### 🔗 Barcode / QR Support
-
-Barcode and QR information can be captured as part of product verification.
-
-### 🌐 Multi-Language Interface
-
-Supports English and Hindi interface elements.
-
-### 🛡️ Role-Based Access
-
-Supports different user roles:
-
-- Inspector
-- Senior Inspector
-- Controller
-- Administrator
-
-### 📈 Admin Dashboard
-
-Provides visibility into:
-
-- Total inspections
-- Compliance rate
-- Non-compliant products
-- High-risk cases
-- Officer activity
-- Violation trends
-- Product-category performance
-- Inspection history
+- Manufacturer
+- Manufacturer address
+- Instrument model
+- Serial number
+- Instrument type
+- Accuracy class
+- Maximum capacity
+- Verification scale interval
+- Scale interval
+- Maximum number of verification intervals
+- Measurement specifications
+- Technical characteristics
 
 ---
 
-## Compliance Scoring
+### 🧾 Technical Specification Management
+
+OIMLense provides structured input fields for instrument specifications.
+
+Example:
 
 ```text
-Starting Score = 100
-
-High Severity     → Major deduction
-Medium Severity   → Moderate deduction
-Low Severity      → Small deduction
-Informational     → No deduction
+Accuracy Class       Class III
+Maximum Capacity     30 kg
+e                     0.01 kg
+d                     0.01 kg
+Maximum n             3000
 ```
 
-The final score helps officers quickly identify products requiring attention.
+The system dynamically handles technical parameters depending on the selected instrument configuration.
+
+---
+
+### 🧪 Test Planning & Execution
+
+The system provides a structured workflow for executing applicable OIML R-76 tests.
+
+Tests can contain multiple observations and technical inputs.
+
+Examples include:
+
+- Zero setting
+- Repeatability
+- Weighing performance
+- Eccentricity
+- Discrimination
+- Tare
+- Increasing / decreasing load tests
+- Other applicable OIML R-76 evaluations
+
+---
+
+### 📐 Automatic Metrological Calculations
+
+OIMLense automatically performs applicable calculations based on entered observations.
+
+The calculation engine can determine:
+
+- Errors
+- Permissible errors
+- Maximum permissible errors
+- Error limits
+- Test-specific calculated values
+- Compliance status
+
+This reduces repetitive manual calculations during test evaluation.
+
+---
+
+### ✅ Automatic Compliance Evaluation
+
+Each applicable test is evaluated against the corresponding OIML R-76 requirements.
+
+```text
+Test Observation
+       ↓
+Input Validation
+       ↓
+Calculation
+       ↓
+Applicable Requirement
+       ↓
+Comparison
+       ↓
+PASS / FAIL
+```
+
+The system maintains the distinction between:
+
+- Input values
+- Calculated values
+- Permissible limits
+- Final compliance status
+
+---
+
+### 🔬 Dynamic Test Inputs
+
+Different tests require different numbers and types of observations.
+
+OIMLense supports structured test forms where the required input fields can change according to the selected test and instrument configuration.
+
+For example:
+
+```text
+Test
+ ↓
+Required Parameters
+ ↓
+Observation Rows
+ ↓
+Calculated Results
+ ↓
+Compliance Status
+```
+
+This allows the system to accommodate tests with multiple readings rather than relying on a fixed single-input form.
+
+---
+
+### 🌡️ Laboratory & Environmental Conditions
+
+The application records relevant testing conditions such as:
+
+- Laboratory information
+- Temperature
+- Humidity
+- Atmospheric conditions
+- Test date
+- Testing equipment
+- Other applicable environmental parameters
+
+These details can be incorporated into the generated test report.
+
+---
+
+### 📊 Test Result Dashboard
+
+The dashboard provides an overview of testing activities.
+
+It can display:
+
+- Total instruments
+- Total tests
+- Tests in progress
+- Tests pending review
+- Completed tests
+- Passed tests
+- Failed tests
+- Report status
+- Recent test activity
+
+---
+
+### 👥 Role-Based Access
+
+OIMLense supports role-based access to control different stages of the testing workflow.
+
+Possible roles include:
+
+- Tester
+- Reviewer
+- Approving Authority
+- Administrator
+
+Different roles can be assigned permissions according to their responsibilities.
+
+---
+
+### 🔍 Test Review & Approval Workflow
+
+Test reports can follow a structured review process.
+
+```text
+Draft
+  ↓
+Testing
+  ↓
+Submitted for Review
+  ↓
+Reviewer Verification
+  ↓
+Correction / Approval
+  ↓
+Final Approval
+  ↓
+Report Finalization
+```
+
+This provides a controlled workflow instead of allowing finalized reports to be modified freely.
+
+---
+
+### 📄 Automated Test Report Generation
+
+Once the required tests and observations are completed, OIMLense generates a structured digital test report.
+
+The report can contain:
+
+- Laboratory details
+- Manufacturer details
+- Instrument details
+- Model information
+- Technical specifications
+- Environmental conditions
+- Test observations
+- Calculated results
+- MPE values
+- Compliance status
+- Test-wise results
+- Final conclusion
+- Approval / verification information
+
+---
+
+### 📚 Digital Report Repository
+
+Completed and ongoing reports are stored digitally.
+
+Users can:
+
+- Search reports
+- Filter reports
+- View previous reports
+- Open instrument history
+- Track report status
+- Access completed reports
+- Review previous test results
+
+---
+
+### 🔎 Search & History
+
+The system allows users to search previous testing records using information such as:
+
+- Instrument model
+- Serial number
+- Manufacturer
+- Test ID
+- Report ID
+- Date
+- Status
+
+This creates an instrument-wise digital testing history.
+
+---
+
+### 📎 Supporting Documents
+
+The system can support attachments related to an instrument or test report, such as:
+
+- Instrument photographs
+- Supporting documents
+- Test evidence
+- Calibration information
+- Other relevant files
+
+---
+
+### 🔐 Report Verification
+
+Generated reports can be associated with a unique verification mechanism.
+
+The system can support:
+
+- Unique report IDs
+- QR-based report access
+- Report verification
+- Report integrity checks
+- Finalized report identification
+
+This provides an additional layer of trust for digitally generated reports.
+
+---
+
+### 📝 Audit Trail
+
+Important actions can be tracked throughout the testing workflow.
+
+Examples include:
+
+```text
+Instrument Created
+       ↓
+Test Started
+       ↓
+Observation Added
+       ↓
+Test Submitted
+       ↓
+Reviewer Action
+       ↓
+Report Generated
+       ↓
+Report Finalized
+```
+
+This provides traceability for important report activities.
+
+---
+
+## OIML R-76 Compliance Engine
+
+The core of OIMLense is its rule and calculation engine.
+
+```text
+Instrument Specifications
+          ↓
+Applicable Test
+          ↓
+Test Parameters
+          ↓
+Observation Data
+          ↓
+Calculation Engine
+          ↓
+OIML R-76 Requirements
+          ↓
+MPE / Permissible Error
+          ↓
+Compliance Evaluation
+          ↓
+PASS / FAIL
+```
+
+The calculation and compliance layer is designed to keep legally relevant evaluation logic deterministic and reproducible.
 
 ---
 
 ## System Architecture
 
 ```text
-┌──────────────────────────────┐
-│        Product Images        │
-│        Front + Back          │
-└──────────────┬───────────────┘
-               ↓
-┌──────────────────────────────┐
-│       OpenCV Processing      │
-│   Resize / Crop / Enhance    │
-└──────────────┬───────────────┘
-               ↓
-┌──────────────────────────────┐
-│          PaddleOCR           │
-│       Text Detection         │
-└──────────────┬───────────────┘
-               ↓
-┌──────────────────────────────┐
-│          Groq LLM            │
-│       Field Extraction       │
-└──────────────┬───────────────┘
-               ↓
-┌──────────────────────────────┐
-│      Product Detection       │
-│     Category Classification  │
-└──────────────┬───────────────┘
-               ↓
-┌──────────────────────────────┐
-│          Rule Engine         │
-│                              │
-│ General Rules                │
-│ Category Rules               │
-│ Product Rules                │
-└──────────────┬───────────────┘
-               ↓
-┌──────────────────────────────┐
-│      Compliance Result       │
-│  Score + Violations + Fixes  │
-└──────────────┬───────────────┘
-               ↓
-┌──────────────────────────────┐
-│      Officer Verification    │
-│       Re-check + Audit       │
-└──────────────┬───────────────┘
-               ↓
-┌──────────────────────────────┐
-│      Reports + Dashboards    │
-└──────────────────────────────┘
+┌─────────────────────────────────┐
+│          Web Interface          │
+│      React / TypeScript         │
+└───────────────┬─────────────────┘
+                ↓
+┌─────────────────────────────────┐
+│          FastAPI Backend        │
+│       API & Application Logic   │
+└───────────────┬─────────────────┘
+                ↓
+┌─────────────────────────────────┐
+│       Test & Calculation        │
+│            Engine               │
+│                                 │
+│  • Test Validation              │
+│  • Calculations                 │
+│  • MPE Evaluation               │
+│  • Compliance Determination     │
+└───────────────┬─────────────────┘
+                ↓
+┌─────────────────────────────────┐
+│        OIML R-76 Rules          │
+│     & Test Requirements         │
+└───────────────┬─────────────────┘
+                ↓
+┌─────────────────────────────────┐
+│            Database             │
+│     PostgreSQL / Supabase       │
+└───────────────┬─────────────────┘
+                ↓
+┌─────────────────────────────────┐
+│       Reports & Documents       │
+│       PDF / Editable Reports    │
+└─────────────────────────────────┘
+```
+
+---
+
+## Test Execution Workflow
+
+```text
+1. User Login
+       ↓
+2. Register NAWI Instrument
+       ↓
+3. Enter Technical Specifications
+       ↓
+4. Enter Laboratory Conditions
+       ↓
+5. Select / Generate Test Plan
+       ↓
+6. Execute Applicable OIML R-76 Tests
+       ↓
+7. Enter Observations
+       ↓
+8. Validate Inputs
+       ↓
+9. Calculate Results
+       ↓
+10. Determine Compliance
+       ↓
+11. Review Results
+       ↓
+12. Submit for Approval
+       ↓
+13. Generate Final Report
+       ↓
+14. Store in Repository
 ```
 
 ---
@@ -255,28 +538,32 @@ The final score helps officers quickly identify products requiring attention.
 - Uvicorn
 - Pydantic
 
-### AI & Computer Vision
-
-- OpenCV
-- PaddleOCR
-- Groq LLM
-
-### Compliance
-
-- Python Rule Engine
-- Product-Specific Rules
-- Category-Specific Rules
-
 ### Database & Authentication
 
 - Supabase
 - PostgreSQL
 - Supabase Authentication
 
-### Reporting & Verification
+### Calculation & Compliance
+
+- Python
+- OIML R-76 based rule engine
+- Deterministic calculation logic
+- Input validation
+- Compliance evaluation
+
+### Reporting
 
 - ReportLab
-- Barcode / QR Verification
+- PDF generation
+- Editable report generation
+
+### Verification
+
+- QR Code
+- Report ID
+- Digital verification
+- Integrity verification
 
 ### Development & Deployment
 
@@ -302,12 +589,16 @@ product-label-compliance/
 │
 ├── frontend/
 │
-├── label_lens/
+├── reports/
+│
+├── rules/
 │
 ├── requirements.txt
 ├── .gitignore
 └── README.md
 ```
+
+> The project structure may evolve as additional OIML R-76 tests, reporting modules and administrative features are integrated.
 
 ---
 
@@ -341,9 +632,14 @@ Create:
 touch backend/.env
 ```
 
-Add the required Supabase and Groq configuration.
+Add the required configuration for:
 
-> Never commit `.env` or expose API keys publicly.
+- Supabase
+- Database
+- Authentication
+- Other application services
+
+> Never commit `.env` files or expose API keys publicly.
 
 ### 5. Start Backend
 
@@ -375,54 +671,60 @@ http://localhost:5173
 
 ---
 
-## OCR Example
-
-Label Lens can process multiple views of the same product as one inspection.
-
-```bash
-python -m label_lens.main_ocr \
-  --input ~/Desktop/tf.png ~/Desktop/tb.png \
-  --views front back
-```
-
-Where:
+## Example NAWI Workflow
 
 ```text
-tf.png → Front of product
-tb.png → Back of product
+Instrument
+│
+├── Manufacturer
+├── Model
+├── Serial Number
+├── Accuracy Class
+├── Max Capacity
+├── e
+├── d
+└── Max n
+        ↓
+Laboratory Conditions
+        ↓
+Test Selection
+        ↓
+Observation Entry
+        ↓
+Automatic Calculation
+        ↓
+MPE Evaluation
+        ↓
+Compliance Result
+        ↓
+Reviewer Verification
+        ↓
+Final Test Report
 ```
 
 ---
 
-## Compliance Workflow
+## Example Test Result
 
 ```text
-Officer Login
-     ↓
-Product Scanning
-     ↓
-Front + Back Images
-     ↓
-OCR
-     ↓
-AI Field Extraction
-     ↓
-Product / Category Detection
-     ↓
-Applicable Rules
-     ↓
-Compliance Analysis
-     ↓
-Violations + Score
-     ↓
-Officer Verification
-     ↓
-Re-check
-     ↓
-Compliance Report
-     ↓
-Inspection History
+Test: Repeatability
+
+Observation 1
+Load:             10 kg
+Indication:       10.01 kg
+Calculated Error: +0.01 kg
+
+Observation 2
+Load:             10 kg
+Indication:       10.00 kg
+Calculated Error:  0.00 kg
+
+Applicable MPE:   ±0.015 kg
+
+Result:            PASS
 ```
+
+> Values shown above are illustrative examples only.
 
 ---
 
@@ -430,84 +732,107 @@ Inspection History
 
 | Challenge | Mitigation |
 |---|---|
-| OCR Accuracy | Multi-view scanning + AI-assisted OCR |
-| Complex Regulations | Product-specific layered rule engine |
-| False Positives | Human verification + re-check workflow |
-| Changing Regulations | Regular rule-engine and legal-reference updates |
+| Manual test-report preparation | Digital end-to-end workflow |
+| Repetitive calculations | Automated calculation engine |
+| Calculation errors | Deterministic validation and calculation |
+| Large number of observations | Structured dynamic test forms |
+| Inconsistent reports | Standardized report generation |
+| Difficult report retrieval | Digital repository and search |
+| Unauthorized changes | Role-based workflow |
+| Lack of traceability | Audit trail |
+| Report authenticity | QR / verification mechanism |
+| Changing standards | Versioned rules and calculation logic |
 
 ---
 
 ## Impact
 
-### Faster Inspections
+### ⏱️ Faster Report Preparation
 
-Reduces time spent on manual label verification.
+Automates repetitive data entry, calculations and report generation.
 
-### Higher Consistency
+### 🎯 Improved Calculation Consistency
 
-Standardizes compliance checks across inspections.
+Reduces dependence on manually performed calculations.
 
-### Reduced Human Error
+### 📋 Standardized Reporting
 
-AI-assisted extraction minimizes repetitive manual work.
+Generates reports using a consistent digital structure.
 
-### Better Enforcement
+### 🔎 Better Traceability
 
-Helps identify high-risk and non-compliant products quickly.
+Maintains instrument-wise and test-wise digital history.
 
-### Digital Traceability
+### 🔐 Controlled Workflow
 
-Maintains inspection records and compliance history.
+Role-based permissions provide structured testing and approval stages.
 
-### Scalable Compliance
+### 📊 Centralized Monitoring
 
-The architecture can expand to additional product categories.
+Dashboards provide visibility into testing activities and report status.
+
+### 📚 Digital Repository
+
+Previous test reports can be searched and retrieved efficiently.
+
+### 🔄 Scalable Architecture
+
+The system can be extended as additional OIML R-76 tests and requirements are implemented.
 
 ---
 
 ## Future Scope
 
-- More product-specific compliance rules
-- Improved OCR for difficult packaging
-- Advanced visual placement analysis
-- Real external barcode / QR verification
-- Automated regulatory update pipeline
-- Larger inspection datasets
+- Complete coverage of applicable OIML R-76 tests
+- Expanded calculation engine
+- Versioned OIML rule packages
+- Advanced report verification
+- Digital signatures
+- Advanced audit trail
+- Laboratory equipment management
+- Calibration record integration
+- Offline testing capability
+- Mobile / tablet inspection interface
 - Advanced analytics
-- Mobile inspection application
-- Offline inspection capability
-- Expanded multilingual support
+- Automated report archival
+- Multi-laboratory support
+- Integration with future regulatory updates
 
 ---
 
-## Regulatory References
+## Regulatory & Technical References
 
-Label Lens is designed around the regulatory framework for packaged commodities, including:
+OIMLense is designed around the regulatory and technical framework relevant to Non-Automatic Weighing Instruments, including:
 
-- Legal Metrology Act, 2009
-- Legal Metrology (Packaged Commodities) Rules, 2011
-- Relevant amendments and government notifications
+- **OIML Recommendation R-76 – Non-Automatic Weighing Instruments**
+- **Legal Metrology Act, 2009**
+- **Legal Metrology (General) Rules, 2011**
+- Relevant Legal Metrology requirements and notifications
 - Department of Consumer Affairs resources
-- Smart India Hackathon 2026 Problem Statement SIH26034
+- Smart India Hackathon 2026 Problem Statement SIH26035
 
 ---
 
 ## Research & Technical References
 
-### Computer Vision & OCR
+### Metrology & Standards
 
-- OpenCV
-- PaddleOCR
-
-### AI
-
-- Groq LLM
+- OIML Recommendation R-76
+- OIML technical requirements for Non-Automatic Weighing Instruments
+- Legal Metrology Act, 2009
+- Legal Metrology Rules
 
 ### Backend
 
 - FastAPI
 - Pydantic
 - Uvicorn
+
+### Frontend
+
+- React
+- TypeScript
+- Vite
 
 ### Database
 
@@ -517,37 +842,49 @@ Label Lens is designed around the regulatory framework for packaged commodities,
 ### Reporting
 
 - ReportLab
+- PDF generation technologies
+
+### Verification
+
+- QR Code
+- Cryptographic / integrity verification mechanisms
 
 ---
 
 ## Smart India Hackathon 2026
 
-**Problem Statement:** SIH26034
+**Problem Statement:** SIH26035
 
-**Project:** Label Lens
+**Project:** OIMLense
 
 **Domain:** Software
+
+**Theme:** Miscellaneous
 
 **Organization:** Ministry of Consumer Affairs, Food & Public Distribution
 
 **Department:** Department of Consumer Affairs
 
-Label Lens aims to provide an AI-assisted digital workflow for packaged-commodity compliance inspection under the Legal Metrology framework.
+**Problem Statement Title:**
+
+> Development of a Software Program/Application for Generation of Test Reports for Non-Automatic Weighing Instruments (NAWI) as per OIML Recommendation R- 76
+
+OIMLense aims to digitize and streamline the testing, compliance evaluation and standardized report-generation workflow for Non-Automatic Weighing Instruments under OIML Recommendation R-76.
 
 ---
 
 ## Team
 
-### Team Label Lens
+### Team OIMLense
 
 | Role | Responsibility |
 |---|---|
-| AI / Computer Vision | OCR, AI extraction & compliance intelligence |
-| Frontend | User interface & inspection workflow |
+| AI / Calculation & Compliance | Calculation engine, OIML logic & technical workflow |
+| Frontend | User interface & test execution workflow |
 | Backend | APIs, database & system integration |
-| Research | Regulations, datasets & product rules |
-| Research | Product-specific compliance analysis |
-| Frontend / AI | UI + AI workflow integration |
+| Research | OIML R-76 research, regulations & test requirements |
+| Research | Test procedures, datasets & validation |
+| Frontend / Integration | UI integration & system workflow |
 
 ---
 
@@ -567,17 +904,18 @@ If you encounter an issue while running the project:
 2. Verify environment variables.
 3. Check that the backend is running.
 4. Check that the frontend is running.
-5. Open an issue with the error details.
+5. Check the browser console for frontend errors.
+6. Open an issue with the relevant error details.
 
 ---
 
 <p align="center">
 
-<b>Label Lens</b>
+<b>OIMLense</b>
 
 <br>
 
-<i>Scan. Verify. Comply.</i>
+<i>Measure. Verify. Report.</i>
 
 <br><br>
 
