@@ -1,7 +1,7 @@
 # OIMLense
 
 <p align="center">
-  <img src="assets/logo-white.png" alt="OIMLense Logo" width="180"/>
+  <img src="assets/logo-white.png" alt="OIMLense Logo" width="300"/>
 </p>
 
 <h3 align="center">OIML R-76 Based NAWI Test Report Generation & Compliance System</h3>
