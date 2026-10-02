@@ -36,6 +36,18 @@ The platform transforms a traditionally manual, document-heavy workflow into a s
 
 ---
 
+## 🎥 Demo & Presentation
+
+| Resource | Link |
+|---|---|
+| 🎥 **Demo Video** | [Watch Project Demo](YOUR_DEMO_VIDEO_LINK) |
+| 📊 **Project PPT** | [View Project Presentation](YOUR_PPT_LINK) |
+| 🚀 **Live Demo** | [Open OIMLense](https://oimlense.vercel.app) |
+
+The demo video provides a walkthrough of the implemented OIMLense workflow, while the presentation covers the problem statement, proposed solution, architecture, features, technology stack and expected impact.
+
+---
+
 ## 🚀 Live Demo
 
 ### [Visit OIMLense →](https://oimlense.vercel.app)
@@ -44,7 +56,7 @@ The deployed application provides access to the OIMLense interface, dashboard, t
 
 ---
 
-## 🎯 Problem
+# 🎯 Problem
 
 Testing and verification of Non-Automatic Weighing Instruments involves handling multiple technical parameters, observations, calculations and compliance requirements.
 
@@ -63,7 +75,7 @@ A digital system is required to make the workflow more structured, consistent an
 
 ---
 
-## 💡 Our Solution
+# 💡 Our Solution
 
 OIMLense converts the NAWI testing process into a **data-driven digital workflow**.
 
@@ -440,7 +452,7 @@ The test and report information can be maintained for future retrieval and refer
 
 # 🧠 Technical Approach
 
-OIMLense follows a layered approach:
+OIMLense follows a layered approach.
 
 ### Presentation Layer
 
@@ -548,7 +560,7 @@ product-label-compliance/
 └── README.md
 ```
 
-> The exact internal structure may evolve as the project continues to be developed.
+> The exact internal structure may evolve as development continues.
 
 ---
 
@@ -650,7 +662,7 @@ The platform can be extended with:
 
 # 🎯 Project Objective
 
-The ultimate objective of OIMLense is to provide a **standardized, reliable and scalable digital workflow for NAWI testing and test-report generation**, reducing dependence on repetitive manual documentation and calculations while improving consistency and traceability.
+The objective of OIMLense is to provide a **standardized, reliable and scalable digital workflow for NAWI testing and test-report generation**, reducing dependence on repetitive manual documentation and calculations while improving consistency and traceability.
 
 ---
 
@@ -672,20 +684,23 @@ OIMLense can support workflows for:
 
 | Item | Details |
 |---|---|
-| Project | OIMLense |
-| SIH Problem Statement | SIH26035 |
-| Domain | Legal Metrology / Software |
-| Target Instrument | Non-Automatic Weighing Instruments |
-| Standard | OIML Recommendation R-76 |
-| Frontend | React + TypeScript + Vite |
-| Backend | FastAPI + Python |
-| Database/Auth | Supabase |
-| Deployment | Vercel + Backend Deployment |
-| Version Control | Git + GitHub |
+| **Project** | OIMLense |
+| **SIH Problem Statement** | SIH26035 |
+| **Domain** | Legal Metrology / Software |
+| **Target Instrument** | Non-Automatic Weighing Instruments |
+| **Standard** | OIML Recommendation R-76 |
+| **Frontend** | React + TypeScript + Vite |
+| **Backend** | FastAPI + Python |
+| **Database/Auth** | Supabase |
+| **Deployment** | Vercel + Backend Deployment |
+| **Version Control** | Git + GitHub |
+| **Institution** | Netaji Subhas University of Technology (NSUT), Delhi |
+| **Team** | Among Us |
+| **Hackathon** | Smart India Hackathon 2026 |
 
 ---
 
-# 🚀 Try the Project
+# 🚀 Try OIMLense
 
 ### Live Application
 
@@ -695,19 +710,9 @@ OIMLense can support workflows for:
 
 # 📜 Disclaimer
 
-OIMLense is a software project developed for the Smart India Hackathon problem statement SIH26035.
+OIMLense is a software project developed for the Smart India Hackathon problem statement **SIH26035**.
 
 The platform is intended to digitize and streamline the testing and report-generation workflow based on applicable OIML and Indian Legal Metrology requirements. The software should not be considered a substitute for official legal, regulatory or metrological authority unless formally validated and approved for such use.
-
----
-
-# 🤝 Team
-
-**Team:** Among Us
-
-**Institution:** Netaji Subhas University of Technology (NSUT), Delhi
-
-**Smart India Hackathon:** SIH 2026
 
 ---
 
