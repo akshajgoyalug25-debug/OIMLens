@@ -5,26 +5,13 @@ import { SIH26035DashboardPage } from './pages/SIH26035DashboardPage'
 import { SIH26035LandingPage } from './pages/SIH26035LandingPage'
 import { R76VerificationPage } from './pages/R76VerificationPage'
 import { getMe } from './services/auth'
-import { useI18n } from './i18n/I18nContext'
 import type { AuthMode, User } from './types/auth'
 
 function App() {
-  const { language, setLanguage } = useI18n()
-
   const [mode, setMode] = useState<'landing' | 'auth' | 'workspace' | 'verification'>('landing')
   const [authInitialMode, setAuthInitialMode] = useState<AuthMode>('login')
   const [user, setUser] = useState<User | null>(null)
   const [authChecked, setAuthChecked] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 40)
-    }
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
   const verificationMatch = window.location.pathname.match(/^\/verify\/([^/]+)\/?$/)
   const verificationReportId = verificationMatch ? decodeURIComponent(verificationMatch[1]) : ''
 
@@ -91,27 +78,6 @@ function App() {
 
   return (
     <>
-      <div
-        className={`global-language-switcher ${scrolled ? 'scrolled' : ''}`}
-        aria-label="Language"
-      >
-        <button
-          type="button"
-          className={language === 'en' ? 'active' : ''}
-          onClick={() => setLanguage('en')}
-        >
-          EN
-        </button>
-
-        <button
-          type="button"
-          className={language === 'hi' ? 'active' : ''}
-          onClick={() => setLanguage('hi')}
-        >
-          हिन्दी
-        </button>
-      </div>
-
       {mode === 'landing' && (
         <SIH26035LandingPage
           onLogin={openLogin}

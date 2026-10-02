@@ -15696,3 +15696,988 @@ textarea {
   color: #6b7280 !important;
   margin-top: 4px !important;
 }
+
+/* =========================================================
+   OIMLENSE — FINAL RESPONSIVE MOBILE OVERRIDES
+   Added after all desktop styles so mobile rules take priority.
+   ========================================================= */
+
+@media (max-width: 768px) {
+  /* Prevent the entire application from creating horizontal scroll */
+  html,
+  body,
+  #root {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  /* Main test input grids */
+  .r76-input-grid,
+  .sih-input-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    width: 100% !important;
+    gap: 12px !important;
+  }
+
+  .r76-input-grid > *,
+  .sih-input-grid > * {
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+
+  .r76-input-grid textarea,
+  .sih-input-grid textarea,
+  .r76-input-grid > h3,
+  .r76-input-grid > h4,
+  .r76-input-grid > .r76-section-title,
+  .sih-input-grid > h3,
+  .sih-input-grid > h4,
+  .sih-input-grid > .r76-section-title {
+    grid-column: 1 !important;
+  }
+
+  /* Inputs must never exceed the viewport */
+  .sih-input-field,
+  .r76-input-grid input,
+  .r76-input-grid select,
+  .r76-input-grid textarea,
+  .sih-input-grid input,
+  .sih-input-grid select,
+  .sih-input-grid textarea {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Instrument specification strip */
+  .sih-instrument-params-bar,
+  .sih-test-runner-container > .sih-instrument-params-bar {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+  }
+
+  .sih-instrument-params-bar .sih-param-item,
+  .sih-test-runner-container > .sih-instrument-params-bar .sih-param-item {
+    min-width: 0 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 10px 12px !important;
+  }
+
+  .sih-instrument-params-bar .sih-param-label,
+  .sih-instrument-params-bar .sih-param-val {
+    min-width: 0 !important;
+  }
+
+  .sih-instrument-params-bar .sih-param-val {
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  /* Last specification item spans the full row */
+  .sih-instrument-params-bar .sih-param-item:last-child,
+  .sih-test-runner-container > .sih-instrument-params-bar .sih-param-item:last-child {
+    grid-column: 1 / -1 !important;
+    border-right: none !important;
+  }
+
+  /* Test execution controls */
+  .sih-form-execute-bar {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+  }
+
+  .sih-form-execute-bar button,
+  .sih-execute-button,
+  .sih-next-test-btn {
+    max-width: 100% !important;
+  }
+
+  /* Dashboard grids */
+  .sih-dashboard-grid {
+    grid-template-columns: 1fr !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* Completion metrics */
+  .sih-completion-metrics-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+  }
+
+  .sih-completion-metric-card {
+    min-width: 0 !important;
+    padding: 12px !important;
+  }
+
+  /* Tables should scroll inside their own container */
+  .sih-repeatability-table-wrap,
+  .sih-completion-table-wrap,
+  .sih-observation-table {
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .sih-repeatability-table,
+  .sih-observation-table {
+    min-width: 600px;
+  }
+
+  /* Category/status tabs */
+  .sih-category-tabs {
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    flex-wrap: nowrap !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Verification/action bars */
+  .sih-active-verification-bar {
+    max-width: 100% !important;
+    flex-wrap: wrap !important;
+  }
+
+  /* Long text should wrap instead of pushing the page wider */
+  .sih-test-runner-container,
+  .sih-test-runner-container * {
+    overflow-wrap: break-word;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Tighter phone spacing */
+  .r76-input-grid,
+  .sih-input-grid {
+    gap: 10px !important;
+  }
+
+  /* Two compact columns for instrument specifications */
+  .sih-instrument-params-bar,
+  .sih-test-runner-container > .sih-instrument-params-bar {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    border-radius: 10px !important;
+  }
+
+  .sih-instrument-params-bar .sih-param-item,
+  .sih-test-runner-container > .sih-instrument-params-bar .sih-param-item {
+    min-height: 52px !important;
+    padding: 8px 10px !important;
+    gap: 6px !important;
+  }
+
+  .sih-instrument-params-bar .sih-param-label {
+    font-size: 7px !important;
+  }
+
+  .sih-instrument-params-bar .sih-param-val {
+    font-size: 11px !important;
+  }
+
+  /* Completion cards */
+  .sih-completion-metrics-row {
+    grid-template-columns: 1fr !important;
+  }
+
+  .sih-cm-val {
+    font-size: 20px !important;
+  }
+
+  /* Make important action buttons easy to tap */
+  .sih-form-execute-bar button,
+  .sih-execute-button,
+  .sih-next-test-btn {
+    min-height: 42px !important;
+  }
+}
+
+
+/* =========================================================
+   OIMLENSE — RESPONSIVE VERIFICATION TEST REPORT
+   Landing page report preview only
+   ========================================================= */
+
+@media (max-width: 768px) {
+  .oiml-report-preview {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .oiml-doc-frame {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+    padding: 20px !important;
+    border-radius: 10px !important;
+  }
+
+  /* Report header */
+  .oiml-doc-header {
+    gap: 14px !important;
+    margin-bottom: 18px !important;
+    padding-bottom: 16px !important;
+    align-items: flex-start !important;
+  }
+
+  .oiml-doc-brand {
+    min-width: 0 !important;
+  }
+
+  .oiml-doc-brand strong {
+    font-size: 13px !important;
+    line-height: 1.25 !important;
+  }
+
+  .oiml-doc-brand small {
+    display: block !important;
+    font-size: 9px !important;
+    line-height: 1.4 !important;
+    margin-top: 3px !important;
+  }
+
+  .oiml-doc-stamp {
+    flex: 0 0 auto !important;
+    text-align: right !important;
+  }
+
+  .oiml-doc-stamp span {
+    font-size: 7px !important;
+  }
+
+  .oiml-doc-stamp strong {
+    font-size: 11px !important;
+  }
+
+  /* Report sections */
+  .oiml-doc-section {
+    min-width: 0 !important;
+  }
+
+  .oiml-doc-section h5 {
+    font-size: 9px !important;
+    margin-bottom: 8px !important;
+  }
+
+  /* Instrument details */
+  .oiml-doc-meta-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 7px 12px !important;
+    font-size: 10px !important;
+    margin-bottom: 18px !important;
+  }
+
+  .oiml-doc-meta-grid > div {
+    min-width: 0 !important;
+    line-height: 1.4 !important;
+    overflow-wrap: break-word !important;
+  }
+
+  /* Evaluation table gets its own scroll area */
+  .oiml-doc-section:has(.oiml-doc-table) {
+    min-width: 0 !important;
+  }
+
+  .oiml-doc-table {
+    display: block !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    overflow-x: auto !important;
+    white-space: nowrap !important;
+    -webkit-overflow-scrolling: touch !important;
+    font-size: 9px !important;
+    margin-bottom: 18px !important;
+  }
+
+  .oiml-doc-table thead,
+  .oiml-doc-table tbody {
+    width: max-content !important;
+  }
+
+  .oiml-doc-table th,
+  .oiml-doc-table td {
+    padding: 7px 8px !important;
+  }
+
+  .oiml-doc-table th {
+    font-size: 8px !important;
+  }
+
+  /* Report footer */
+  .oiml-doc-footer {
+    gap: 14px !important;
+    padding-top: 16px !important;
+    align-items: flex-end !important;
+  }
+
+  .oiml-sign-line small,
+  .oiml-doc-id small {
+    font-size: 8px !important;
+  }
+
+  .oiml-sign-line span {
+    font-size: 9px !important;
+  }
+
+  .oiml-doc-id {
+    min-width: 0 !important;
+    text-align: right !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .oiml-doc-frame {
+    padding: 15px !important;
+    border-radius: 8px !important;
+  }
+
+  .oiml-doc-header {
+    gap: 10px !important;
+    padding-bottom: 12px !important;
+    margin-bottom: 14px !important;
+  }
+
+  .oiml-doc-brand strong {
+    font-size: 11px !important;
+    letter-spacing: 0.04em !important;
+  }
+
+  .oiml-doc-brand small {
+    font-size: 8px !important;
+  }
+
+  .oiml-doc-stamp span {
+    font-size: 6px !important;
+  }
+
+  .oiml-doc-stamp strong {
+    font-size: 10px !important;
+  }
+
+  .oiml-doc-section h5 {
+    font-size: 8px !important;
+    margin-bottom: 7px !important;
+  }
+
+  .oiml-doc-meta-grid {
+    grid-template-columns: 1fr !important;
+    gap: 5px !important;
+    font-size: 9px !important;
+    margin-bottom: 16px !important;
+  }
+
+  .oiml-doc-table {
+    font-size: 8px !important;
+  }
+
+  .oiml-doc-table th,
+  .oiml-doc-table td {
+    padding: 6px 7px !important;
+  }
+
+  .oiml-doc-footer {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 10px !important;
+  }
+
+  .oiml-doc-id {
+    text-align: left !important;
+  }
+}
+
+
+/* =========================================================
+   OIMLENSE — RESPONSIVE HERO CAROUSEL
+   Mobile/tablet only — desktop hero remains unchanged.
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .oiml-hero-section {
+    padding: 48px 24px 72px !important;
+  }
+
+  .oiml-hero-grid {
+    grid-template-columns: 1fr !important;
+    gap: 42px !important;
+    align-items: start !important;
+  }
+
+  .oiml-hero-copy {
+    width: 100% !important;
+    max-width: 720px !important;
+  }
+
+  .oiml-hero-title {
+    font-size: clamp(36px, 7vw, 50px) !important;
+  }
+
+  .oiml-hero-lead {
+    max-width: 680px !important;
+  }
+
+  .oiml-hero-visual {
+    width: 100% !important;
+    max-width: 720px !important;
+    margin: 0 auto !important;
+  }
+
+  .oiml-slider-frame {
+    aspect-ratio: 16 / 10 !important;
+    border-radius: 12px !important;
+  }
+
+  .oiml-slide-hud {
+    padding: 18px !important;
+  }
+
+  .oiml-hud-bottom {
+    max-width: 82% !important;
+    margin-bottom: 52px !important;
+  }
+
+  .oiml-hud-bottom h4 {
+    font-size: 18px !important;
+    line-height: 1.25 !important;
+  }
+
+  .oiml-hud-bottom p {
+    font-size: 12px !important;
+    line-height: 1.4 !important;
+    max-width: 520px !important;
+  }
+
+  .oiml-slider-nav {
+    padding: 10px 16px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .oiml-hero-section {
+    padding: 34px 16px 56px !important;
+  }
+
+  .oiml-hero-grid {
+    gap: 30px !important;
+  }
+
+  .oiml-hero-title {
+    font-size: clamp(32px, 9vw, 42px) !important;
+    line-height: 1.08 !important;
+    margin-bottom: 16px !important;
+  }
+
+  .oiml-hero-lead {
+    font-size: 14px !important;
+    line-height: 1.55 !important;
+    margin-bottom: 24px !important;
+  }
+
+  .oiml-hero-actions {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+    margin-bottom: 30px !important;
+  }
+
+  .oiml-btn-hero-primary,
+  .oiml-btn-hero-secondary {
+    width: 100% !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+  }
+
+  .oiml-hero-meta {
+    gap: 12px !important;
+    justify-content: space-between !important;
+    padding-top: 20px !important;
+  }
+
+  .oiml-meta-val {
+    font-size: 12px !important;
+  }
+
+  .oiml-meta-lbl {
+    font-size: 8px !important;
+    letter-spacing: 0.05em !important;
+  }
+
+  .oiml-meta-divider {
+    height: 28px !important;
+  }
+
+  .oiml-hero-visual {
+    max-width: 100% !important;
+  }
+
+  .oiml-slider-frame {
+    aspect-ratio: 4 / 3 !important;
+    border-radius: 10px !important;
+  }
+
+  .oiml-slide-hud {
+    padding: 12px !important;
+  }
+
+  .oiml-hud-top {
+    gap: 8px !important;
+    align-items: flex-start !important;
+  }
+
+  .oiml-hud-badge {
+    max-width: 70% !important;
+    padding: 4px 7px !important;
+    font-size: 7px !important;
+    line-height: 1.25 !important;
+    letter-spacing: 0.08em !important;
+    white-space: normal !important;
+  }
+
+  .oiml-hud-clause {
+    font-size: 8px !important;
+    white-space: nowrap !important;
+  }
+
+  .oiml-hud-bottom {
+    max-width: calc(100% - 8px) !important;
+    margin-bottom: 48px !important;
+  }
+
+  .oiml-hud-bottom h4 {
+    font-size: 15px !important;
+    line-height: 1.2 !important;
+    margin-bottom: 4px !important;
+  }
+
+  .oiml-hud-bottom p {
+    font-size: 10px !important;
+    line-height: 1.35 !important;
+
+    /* Prevent the long description from colliding with controls */
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+  }
+
+  .oiml-slider-nav {
+    height: 48px !important;
+    box-sizing: border-box !important;
+    padding: 8px 10px !important;
+  }
+
+  .oiml-slider-arrow {
+    width: 28px !important;
+    height: 28px !important;
+    font-size: 16px !important;
+    flex: 0 0 auto !important;
+  }
+
+  .oiml-slider-dots {
+    gap: 4px !important;
+    flex: 1 !important;
+    justify-content: center !important;
+  }
+
+  .oiml-slider-dot {
+    width: 20px !important;
+    height: 3px !important;
+  }
+
+  .oiml-slider-counter {
+    font-size: 9px !important;
+    flex: 0 0 auto !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .oiml-hero-section {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  .oiml-slider-frame {
+    aspect-ratio: 1 / 1 !important;
+  }
+
+  .oiml-hud-bottom h4 {
+    font-size: 14px !important;
+  }
+
+  .oiml-hud-bottom p {
+    font-size: 9px !important;
+  }
+
+  .oiml-slider-nav {
+    padding-left: 7px !important;
+    padding-right: 7px !important;
+  }
+
+  .oiml-slider-dot {
+    width: 16px !important;
+  }
+}
+
+
+/* =========================================================
+   OIMLENSE — LOGGED-IN WORKSPACE MOBILE LAYOUT
+   Fixes SIH26035 dashboard specifically for phones
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+  /* Actual dashboard wrapper used by SIH26035DashboardPage */
+  .sih-shell {
+    display: block !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+  }
+
+  /* Hide the desktop sidebar on phones.
+     The top navigation becomes the mobile navigation. */
+  .sih-shell > .sih-sidebar {
+    display: none !important;
+  }
+
+  .sih-shell > .sih-main {
+    display: block !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    overflow-x: hidden !important;
+  }
+
+  /* ---------- TOP BAR ---------- */
+
+  .sih-topbar {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+    padding: 12px 14px !important;
+    overflow: hidden !important;
+  }
+
+  .sih-top-brand {
+    flex: 0 0 auto !important;
+    width: 34px !important;
+    height: 34px !important;
+  }
+
+  /* Mobile navigation becomes one horizontal scroll row */
+  .sih-top-navigation {
+    order: 3 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    gap: 6px !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    padding: 2px 0 4px !important;
+  }
+
+  .sih-top-navigation::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .sih-top-navigation button {
+    flex: 0 0 auto !important;
+    white-space: nowrap !important;
+    min-height: 38px !important;
+    padding: 8px 12px !important;
+    font-size: 12px !important;
+  }
+
+  .sih-top-actions {
+    order: 2 !important;
+    width: auto !important;
+    margin-left: auto !important;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    gap: 6px !important;
+  }
+
+  .sih-standard-pill {
+    white-space: nowrap !important;
+    font-size: 9px !important;
+    padding: 6px 8px !important;
+  }
+
+  .sih-top-actions .sih-primary-action {
+    width: auto !important;
+    min-height: 36px !important;
+    padding: 8px 11px !important;
+    font-size: 11px !important;
+    white-space: nowrap !important;
+  }
+
+  /* ---------- PAGE CONTENT ---------- */
+
+  .sih-shell .sih-main > * {
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .sih-welcome {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 18px !important;
+    gap: 18px !important;
+  }
+
+  .sih-welcome h2 {
+    font-size: clamp(25px, 7vw, 34px) !important;
+    line-height: 1.12 !important;
+    overflow-wrap: anywhere !important;
+    word-break: normal !important;
+  }
+
+  .sih-welcome p {
+    font-size: 13px !important;
+    line-height: 1.55 !important;
+    max-width: 100% !important;
+  }
+
+  .sih-welcome-actions {
+    width: 100% !important;
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+  }
+
+  .sih-welcome-actions button {
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* ---------- STAT CARDS ---------- */
+
+  .sih-stat-grid {
+    width: 100% !important;
+    max-width: 100% !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 9px !important;
+  }
+
+  .sih-stat-card {
+    min-width: 0 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 13px !important;
+    overflow: hidden !important;
+  }
+
+  .sih-stat-card span,
+  .sih-stat-card small {
+    display: block !important;
+    max-width: 100% !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  .sih-stat-card strong {
+    display: block !important;
+    max-width: 100% !important;
+    font-size: clamp(19px, 6vw, 28px) !important;
+    line-height: 1.15 !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  /* ---------- PANELS ---------- */
+
+  .sih-panel {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+  }
+
+  .sih-panel-header {
+    width: 100% !important;
+    min-width: 0 !important;
+    gap: 12px !important;
+  }
+
+  .sih-panel-header h3 {
+    font-size: clamp(18px, 5vw, 24px) !important;
+    line-height: 1.2 !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  .sih-panel-header p {
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  /* Dashboard analytics grid */
+  .sih-dashboard-grid {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  /* ---------- TEST WORKSPACE ---------- */
+
+  .sih-test-workspace,
+  .sih-test-layout,
+  .sih-test-main,
+  .sih-test-sidebar {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .sih-test-layout {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .sih-test-heading {
+    width: 100% !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .sih-test-heading h4 {
+    font-size: clamp(20px, 6vw, 27px) !important;
+    line-height: 1.2 !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  .sih-test-heading p {
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  .sih-source-row {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 7px !important;
+  }
+
+  /* Active verification information stacks cleanly */
+  .sih-active-verification-bar {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+
+  .sih-vbar-section {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .sih-vbar-details {
+    min-width: 0 !important;
+  }
+
+  .sih-vbar-details strong,
+  .sih-vbar-details span {
+    overflow-wrap: anywhere !important;
+  }
+
+  .sih-vbar-divider {
+    display: none !important;
+  }
+
+  /* ---------- SMALL PHONE ---------- */
+
+  .sih-main {
+    font-size: 14px !important;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .sih-topbar {
+    padding: 10px 12px !important;
+  }
+
+  .sih-top-navigation button {
+    min-height: 36px !important;
+    padding: 7px 10px !important;
+    font-size: 11px !important;
+  }
+
+  .sih-top-actions .sih-standard-pill {
+    display: none !important;
+  }
+
+  .sih-top-actions .sih-primary-action {
+    min-height: 36px !important;
+    padding: 7px 10px !important;
+    font-size: 10px !important;
+  }
+
+  .sih-welcome {
+    padding: 15px !important;
+  }
+
+  .sih-stat-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .sih-stat-card {
+    padding: 14px !important;
+  }
+
+  .sih-panel {
+    border-radius: 10px !important;
+  }
+
+  .sih-panel-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+
+  .sih-status {
+    max-width: 100% !important;
+    overflow-wrap: anywhere !important;
+  }
+}
+
+@media (max-width: 360px) {
+
+  .sih-topbar {
+    padding-inline: 10px !important;
+  }
+
+  .sih-welcome {
+    padding: 13px !important;
+  }
+
+  .sih-stat-card {
+    padding: 12px !important;
+  }
+
+  .sih-top-navigation button {
+    padding-inline: 9px !important;
+    font-size: 10px !important;
+  }
+}
+
