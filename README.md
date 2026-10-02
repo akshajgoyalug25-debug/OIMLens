@@ -446,6 +446,35 @@ The calculation and compliance layer is designed to keep legally relevant evalua
 
 ---
 
+## Validation Evidence
+
+OIMLense includes automated validation of its calculation and execution workflows.
+
+### Automated Test Coverage
+
+- **78/78** SIH26035 procedure-audit tests passing
+- **40/40** core R-76 calculation and executor tests passing
+- **14/14** MPE engine tests passing
+- Frontend production build verified successfully
+- MPE boundary conditions tested for both PASS and FAIL outcomes
+- Digital discrimination sequence tested for both valid and invalid observations
+
+### Known PASS / FAIL Validation Cases
+
+| Validation case | Expected result |
+|---|---|
+| Class III weighing error within applicable MPE | PASS |
+| Class III weighing error beyond applicable MPE | FAIL |
+| Digital discrimination with correct I−d and I+d sequence | PASS |
+| Digital discrimination with incorrect reduced indication | FAIL |
+| Digital discrimination with incorrect final indication | FAIL |
+| Zero-tracking baseline within the applicable accuracy limit | PASS |
+| Repeatability series containing an individual error beyond MPE | FAIL |
+
+These cases provide regression coverage for the core metrological decision logic. The 78-procedure audit additionally verifies that every catalogue procedure can be constructed and evaluated through the execution framework.
+
+> **Validation note:** The automated suite is software validation evidence. It should not be interpreted as certification of a weighing instrument or as proof that every OIML R-76 procedure has been experimentally reproduced.
+
 ## System Architecture
 
 ```text

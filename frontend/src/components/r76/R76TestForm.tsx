@@ -1241,22 +1241,35 @@ export function R76TestForm({
                               </tr>
                             </thead>
                             <tbody>
-                              {observations.map((load, index) => (
-                                <tr key={index}>
-                                  <td>{index + 1}</td>
-                                  <td>{Number(load).toFixed(3)} {unit}</td>
-                                  <td>
-                                    {item.indications?.[index] !== undefined
-                                      ? `${Number(item.indications[index]).toFixed(3)} ${unit}`
-                                      : '—'}
-                                  </td>
-                                  <td>
-                                    {errors[index] !== undefined
-                                      ? `${Number(errors[index]) >= 0 ? '+' : ''}${Number(errors[index]).toFixed(4)} ${unit}`
-                                      : '—'}
-                                  </td>
-                                </tr>
-                              ))}
+                              {observations.map((load, index) => {
+                                const readingError = errors[index]
+                                const readingFailed =
+                                  readingError !== undefined &&
+                                  item.mpe !== undefined &&
+                                  Math.abs(Number(readingError)) > Number(item.mpe)
+
+                                return (
+                                  <tr key={index} className={readingFailed ? 'failed-reading' : ''}>
+                                    <td>{index + 1}</td>
+                                    <td>{Number(load).toFixed(3)} {unit}</td>
+                                    <td>
+                                      {item.indications?.[index] !== undefined
+                                        ? `${Number(item.indications[index]).toFixed(3)} ${unit}`
+                                        : '—'}
+                                    </td>
+                                    <td>
+                                      {readingError !== undefined
+                                        ? `${Number(readingError) >= 0 ? '+' : ''}${Number(readingError).toFixed(4)} ${unit}`
+                                        : '—'}
+                                      {readingFailed && (
+                                        <span className="sih-reading-failure">
+                                          {' '}← FAIL: exceeds MPE
+                                        </span>
+                                      )}
+                                    </td>
+                                  </tr>
+                                )
+                              })}
                             </tbody>
                           </table>
                         </div>
