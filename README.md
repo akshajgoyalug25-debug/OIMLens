@@ -1,953 +1,720 @@
 # OIMLense
 
 <p align="center">
-  <img src="assets/logo-white.png" alt="OIMLense Logo" width="300"/>
+  <img src="assets/logo-white.png" alt="OIMLense Logo" width="180"/>
 </p>
 
-<h3 align="center">OIML R-76 Based NAWI Test Report Generation & Compliance System</h3>
+<h3 align="center">
+  Digital NAWI Testing & Test Report Generation Platform
+</h3>
 
-<p align="center">Built for Smart India Hackathon 2026</p>
+<p align="center">
+  <strong>SIH26035 • OIML R-76 • Legal Metrology</strong>
+</p>
+
+<p align="center">
+  <a href="https://oimlense.vercel.app">
+    <img src="https://img.shields.io/badge/🚀%20Live%20Demo-OIMLense-blue?style=for-the-badge" alt="Live Demo"/>
+  </a>
+</p>
 
 ---
 
-## SIH 2026 Problem Statement
+## 📌 Overview
+
+**OIMLense** is a digital software platform designed to streamline the testing, compliance evaluation, and test-report generation process for **Non-Automatic Weighing Instruments (NAWI)** according to **OIML Recommendation R-76**.
+
+The platform transforms a traditionally manual, document-heavy workflow into a structured digital process where users can enter instrument specifications, record test observations, perform applicable calculations, evaluate compliance against predefined requirements, and generate standardized test reports.
+
+### Smart India Hackathon
 
 **Problem Statement ID:** SIH26035
 
-**Title:**  
-Development of a Software Program/Application for Generation of Test Reports for Non-Automatic Weighing Instruments (NAWI) as per OIML Recommendation R- 76
+**Problem Statement:**
 
-**Organization:** Ministry of Consumer Affairs, Food & Public Distribution
-
-**Department:** Department of Consumer Affairs
-
-**Category:** Software
-
-**Theme:** Miscellaneous
+> Development of a Software Program/Application for Generation of Test Reports for Non-Automatic Weighing Instruments (NAWI) as per OIML Recommendation R-76.
 
 ---
 
-## 🔗 Project Resources
+## 🚀 Live Demo
 
-- 🎥 **Demo Video:** [Click Here](#)
-- 📄 **Project Presentation / PDF:** [Click Here](#)
+### [Visit OIMLense →](https://oimlense.vercel.app)
 
----
-
-## About OIMLense
-
-**OIMLense** is a digital test-report generation and compliance management platform designed for the evaluation of **Non-Automatic Weighing Instruments (NAWI)** according to **OIML Recommendation R-76**.
-
-The system digitizes the process of recording instrument information, laboratory conditions, test observations and technical results while automatically performing applicable calculations and compliance checks.
-
-Instead of relying on manually maintained spreadsheets and document templates, OIMLense provides a structured workflow for:
-
-- Registering NAWI instruments
-- Recording manufacturer and instrument details
-- Capturing technical specifications
-- Recording laboratory and environmental conditions
-- Executing applicable OIML R-76 tests
-- Performing automatic calculations
-- Determining permissible errors
-- Evaluating compliance
-- Recording test observations
-- Reviewing test results
-- Generating standardized test reports
-- Maintaining a digital report repository
-- Tracking test and approval status
-- Supporting role-based access
-- Maintaining an auditable testing workflow
+The deployed application provides access to the OIMLense interface, dashboard, testing workflow, compliance evaluation and report-generation experience.
 
 ---
 
-## Problem
+## 🎯 Problem
 
-Testing and evaluation of Non-Automatic Weighing Instruments involves multiple technical and metrological tests.
+Testing and verification of Non-Automatic Weighing Instruments involves handling multiple technical parameters, observations, calculations and compliance requirements.
 
-Traditionally, test observations and calculations may be recorded using spreadsheets or document templates. This can result in:
+A manual workflow can involve:
 
-- Repetitive manual data entry
-- Calculation errors
-- Inconsistent report formatting
-- Difficulty tracking previous tests
-- Increased report preparation time
-- Difficulties maintaining structured test histories
+- Repeated data entry
+- Manual MPE calculations
+- Manual comparison against permissible limits
+- Repetitive test documentation
+- Inconsistent report formats
+- Difficulty maintaining historical records
+- Increased possibility of calculation or transcription errors
+- Time-consuming report preparation
 
-OIMLense addresses these challenges through a centralized digital workflow that connects **instrument registration → test execution → calculation → compliance evaluation → review → report generation**.
+A digital system is required to make the workflow more structured, consistent and traceable.
 
 ---
 
-## How OIMLense Works
+## 💡 Our Solution
+
+OIMLense converts the NAWI testing process into a **data-driven digital workflow**.
+
+Instead of treating the test report as a document that is manually filled, OIMLense treats the report as the final output of a structured testing process.
+
+### Core Workflow
 
 ```text
-NAWI Instrument Registration
-            ↓
-Instrument Specifications
-            ↓
-Laboratory & Environmental Conditions
-            ↓
-Test Selection / Test Plan
-            ↓
-OIML R-76 Test Execution
-            ↓
-Observation Entry
-            ↓
-Automatic Calculations
-            ↓
-MPE / Compliance Evaluation
-            ↓
-Pass / Fail Determination
-            ↓
-Review & Verification
-            ↓
-Test Report Generation
-            ↓
-Digital Report Repository
-            ↓
-Search / History / Dashboard
+Instrument Details
+        ↓
+Test Configuration
+        ↓
+Test Observations
+        ↓
+Data Validation
+        ↓
+OIML R-76 Rule Evaluation
+        ↓
+Automated Calculations
+        ↓
+Compliance / Pass-Fail
+        ↓
+Test Record
+        ↓
+Report Generation
+        ↓
+PDF / Editable Report
+        ↓
+Digital Repository
 ```
 
 ---
 
-## Key Features
+# ✨ Key Features
 
-### ⚖️ NAWI Instrument Registration
+## 1. 🔐 Secure Authentication
 
-Register and maintain complete information about the weighing instrument.
+Authenticated access to the OIMLense workspace using Supabase authentication.
 
-Information can include:
+Users can access the testing dashboard and their digital testing workspace after login.
+
+---
+
+## 2. 📊 Testing Dashboard
+
+A centralized dashboard provides an overview of the testing environment.
+
+It includes:
+
+- Test statistics
+- Testing activity
+- Compliance information
+- Recent records
+- Test management
+- Report management
+- Testing workspace
+
+---
+
+## 3. ⚖️ Instrument Specification Management
+
+The platform allows testers to enter and manage important NAWI specifications such as:
 
 - Manufacturer
-- Manufacturer address
-- Instrument model
-- Serial number
-- Instrument type
-- Accuracy class
-- Maximum capacity
-- Verification scale interval
-- Scale interval
-- Maximum number of verification intervals
-- Measurement specifications
-- Technical characteristics
+- Model
+- Serial Number
+- Instrument Type
+- Accuracy Class
+- Maximum Capacity
+- Minimum Capacity
+- Verification Scale Interval (`e`)
+- Scale Interval (`d`)
+- Maximum Number of Verification Intervals (`n`)
+- Other relevant technical parameters
+
+The information is maintained as structured data rather than unformatted document text.
 
 ---
 
-### 🧾 Technical Specification Management
+## 4. 🧪 Structured Test Workflow
 
-OIMLense provides structured input fields for instrument specifications.
+OIMLense organizes testing into structured test modules.
 
-Example:
+Each test can contain multiple inputs and observations depending on its requirements.
+
+The system supports:
+
+- Test parameters
+- Measurement values
+- Environmental conditions
+- Instrument conditions
+- Test observations
+- Calculated values
+- Compliance results
+
+This allows different tests to have different input requirements instead of forcing every test into a fixed format.
+
+---
+
+## 5. 📐 Automated Calculations
+
+The platform is designed to automate applicable calculations required during NAWI testing.
+
+This includes calculation workflows related to:
+
+- Measurement error
+- Maximum Permissible Error (MPE)
+- Verification intervals
+- Test-specific evaluation parameters
+
+The objective is to reduce repetitive manual calculations and improve consistency.
+
+---
+
+## 6. 📚 Rule-Based Compliance Engine
+
+OIMLense incorporates applicable requirements into a structured rule-based evaluation workflow.
+
+The system follows the concept:
 
 ```text
-Accuracy Class       Class III
-Maximum Capacity     30 kg
-e                     0.01 kg
-d                     0.01 kg
-Maximum n             3000
+Test Input
+    ↓
+Calculation
+    ↓
+Applicable Requirement
+    ↓
+Comparison
+    ↓
+Compliance Result
 ```
 
-The system dynamically handles technical parameters depending on the selected instrument configuration.
+This allows testing results to be evaluated systematically rather than relying entirely on manual interpretation.
 
 ---
 
-### 🧪 Test Planning & Execution
+## 7. ✅ Pass / Fail Evaluation
 
-The system provides a structured workflow for executing applicable OIML R-76 tests.
+The platform converts calculated test results into compliance outcomes.
 
-Tests can contain multiple observations and technical inputs.
-
-Examples include:
-
-- Zero setting
-- Repeatability
-- Weighing performance
-- Eccentricity
-- Discrimination
-- Tare
-- Increasing / decreasing load tests
-- Other applicable OIML R-76 evaluations
-
----
-
-### 📐 Automatic Metrological Calculations
-
-OIMLense automatically performs applicable calculations based on entered observations.
-
-The calculation engine can determine:
-
-- Errors
-- Permissible errors
-- Maximum permissible errors
-- Error limits
-- Test-specific calculated values
-- Compliance status
-
-This reduces repetitive manual calculations during test evaluation.
-
----
-
-### ✅ Automatic Compliance Evaluation
-
-Each applicable test is evaluated against the corresponding OIML R-76 requirements.
+For applicable tests:
 
 ```text
-Test Observation
+Observed Result
        ↓
-Input Validation
-       ↓
-Calculation
-       ↓
-Applicable Requirement
+Applicable Limit
        ↓
 Comparison
        ↓
 PASS / FAIL
 ```
 
-The system maintains the distinction between:
-
-- Input values
-- Calculated values
-- Permissible limits
-- Final compliance status
+This provides a clear outcome for each evaluated test.
 
 ---
 
-### 🔬 Dynamic Test Inputs
+## 8. 📄 Automated Test Report Generation
 
-Different tests require different numbers and types of observations.
+Once the testing workflow is completed, OIMLense can generate a structured test report containing:
 
-OIMLense supports structured test forms where the required input fields can change according to the selected test and instrument configuration.
+### Instrument Information
 
-For example:
-
-```text
-Test
- ↓
-Required Parameters
- ↓
-Observation Rows
- ↓
-Calculated Results
- ↓
-Compliance Status
-```
-
-This allows the system to accommodate tests with multiple readings rather than relying on a fixed single-input form.
-
----
-
-### 🌡️ Laboratory & Environmental Conditions
-
-The application records relevant testing conditions such as:
-
-- Laboratory information
-- Temperature
-- Humidity
-- Atmospheric conditions
-- Test date
-- Testing equipment
-- Other applicable environmental parameters
-
-These details can be incorporated into the generated test report.
-
----
-
-### 📊 Test Result Dashboard
-
-The dashboard provides an overview of testing activities.
-
-It can display:
-
-- Total instruments
-- Total tests
-- Tests in progress
-- Tests pending review
-- Completed tests
-- Passed tests
-- Failed tests
-- Report status
-- Recent test activity
-
----
-
-### 👥 Role-Based Access
-
-OIMLense supports role-based access to control different stages of the testing workflow.
-
-Possible roles include:
-
-- Tester
-- Reviewer
-- Approving Authority
-- Administrator
-
-Different roles can be assigned permissions according to their responsibilities.
-
----
-
-### 🔍 Test Review & Approval Workflow
-
-Test reports can follow a structured review process.
-
-```text
-Draft
-  ↓
-Testing
-  ↓
-Submitted for Review
-  ↓
-Reviewer Verification
-  ↓
-Correction / Approval
-  ↓
-Final Approval
-  ↓
-Report Finalization
-```
-
-This provides a controlled workflow instead of allowing finalized reports to be modified freely.
-
----
-
-### 📄 Automated Test Report Generation
-
-Once the required tests and observations are completed, OIMLense generates a structured digital test report.
-
-The report can contain:
-
-- Laboratory details
-- Manufacturer details
-- Instrument details
-- Model information
-- Technical specifications
-- Environmental conditions
-- Test observations
-- Calculated results
-- MPE values
-- Compliance status
-- Test-wise results
-- Final conclusion
-- Approval / verification information
-
----
-
-### 📚 Digital Report Repository
-
-Completed and ongoing reports are stored digitally.
-
-Users can:
-
-- Search reports
-- Filter reports
-- View previous reports
-- Open instrument history
-- Track report status
-- Access completed reports
-- Review previous test results
-
----
-
-### 🔎 Search & History
-
-The system allows users to search previous testing records using information such as:
-
-- Instrument model
-- Serial number
 - Manufacturer
-- Test ID
-- Report ID
+- Model
+- Serial Number
+- Instrument specifications
+
+### Test Information
+
+- Test performed
+- Test conditions
+- Observations
+- Measurements
+
+### Evaluation
+
+- Calculated values
+- Applicable limits
+- Compliance status
+- Pass/Fail results
+
+### Report Information
+
+- Report/Test ID
 - Date
-- Status
-
-This creates an instrument-wise digital testing history.
-
----
-
-### 📎 Supporting Documents
-
-The system can support attachments related to an instrument or test report, such as:
-
-- Instrument photographs
-- Supporting documents
-- Test evidence
-- Calibration information
-- Other relevant files
+- Testing information
+- Sign-off sections
 
 ---
 
-### 🔐 Report Verification
+## 9. 📝 Editable Report Workflow
 
-Generated reports can be associated with a unique verification mechanism.
+The platform is designed to support report outputs that can be reviewed and further edited where required.
 
-The system can support:
-
-- Unique report IDs
-- QR-based report access
-- Report verification
-- Report integrity checks
-- Finalized report identification
-
-This provides an additional layer of trust for digitally generated reports.
+This provides greater flexibility than treating the generated report as a static document only.
 
 ---
 
-### 📝 Audit Trail
+## 10. 🗂️ Digital Report Repository
 
-Important actions can be tracked throughout the testing workflow.
+Generated testing records and reports can be maintained digitally.
 
-Examples include:
+This provides a foundation for:
 
-```text
-Instrument Created
-       ↓
-Test Started
-       ↓
-Observation Added
-       ↓
-Test Submitted
-       ↓
-Reviewer Action
-       ↓
-Report Generated
-       ↓
-Report Finalized
-```
-
-This provides traceability for important report activities.
+- Historical records
+- Report retrieval
+- Test tracking
+- Documentation
+- Audit support
+- Centralized record management
 
 ---
 
-## OIML R-76 Compliance Engine
+## 11. 📱 Responsive Interface
 
-The core of OIMLense is its rule and calculation engine.
+OIMLense is designed as a responsive web application.
 
-```text
-Instrument Specifications
-          ↓
-Applicable Test
-          ↓
-Test Parameters
-          ↓
-Observation Data
-          ↓
-Calculation Engine
-          ↓
-OIML R-76 Requirements
-          ↓
-MPE / Permissible Error
-          ↓
-Compliance Evaluation
-          ↓
-PASS / FAIL
-```
+The interface has been optimized for:
 
-The calculation and compliance layer is designed to keep legally relevant evaluation logic deterministic and reproducible.
+- Desktop
+- Tablet-sized screens
+- Mobile phones
+
+The mobile workspace adapts:
+
+- Navigation
+- Dashboard cards
+- Test forms
+- Verification information
+- Buttons
+- Panels
+- Tables
+- Long text
+
+to smaller screen sizes.
 
 ---
 
-## Validation Evidence
+# 📜 Regulatory & Standards Basis
 
-OIMLense includes automated validation of its calculation and execution workflows.
+The platform is designed around the applicable requirements for NAWI testing.
 
-### Automated Test Coverage
+Reference material used during development includes:
 
-- **78/78** SIH26035 procedure-audit tests passing
-- **40/40** core R-76 calculation and executor tests passing
-- **14/14** MPE engine tests passing
-- Frontend production build verified successfully
-- MPE boundary conditions tested for both PASS and FAIL outcomes
-- Digital discrimination sequence tested for both valid and invalid observations
-
-### Known PASS / FAIL Validation Cases
-
-| Validation case | Expected result |
-|---|---|
-| Class III weighing error within applicable MPE | PASS |
-| Class III weighing error beyond applicable MPE | FAIL |
-| Digital discrimination with correct I−d and I+d sequence | PASS |
-| Digital discrimination with incorrect reduced indication | FAIL |
-| Digital discrimination with incorrect final indication | FAIL |
-| Zero-tracking baseline within the applicable accuracy limit | PASS |
-| Repeatability series containing an individual error beyond MPE | FAIL |
-
-These cases provide regression coverage for the core metrological decision logic. The 78-procedure audit additionally verifies that every catalogue procedure can be constructed and evaluated through the execution framework.
-
-> **Validation note:** The automated suite is software validation evidence. It should not be interpreted as certification of a weighing instrument or as proof that every OIML R-76 procedure has been experimentally reproduced.
-
-## System Architecture
-
-```text
-┌─────────────────────────────────┐
-│          Web Interface          │
-│      React / TypeScript         │
-└───────────────┬─────────────────┘
-                ↓
-┌─────────────────────────────────┐
-│          FastAPI Backend        │
-│       API & Application Logic   │
-└───────────────┬─────────────────┘
-                ↓
-┌─────────────────────────────────┐
-│       Test & Calculation        │
-│            Engine               │
-│                                 │
-│  • Test Validation              │
-│  • Calculations                 │
-│  • MPE Evaluation               │
-│  • Compliance Determination     │
-└───────────────┬─────────────────┘
-                ↓
-┌─────────────────────────────────┐
-│        OIML R-76 Rules          │
-│     & Test Requirements         │
-└───────────────┬─────────────────┘
-                ↓
-┌─────────────────────────────────┐
-│            Database             │
-│     PostgreSQL / Supabase       │
-└───────────────┬─────────────────┘
-                ↓
-┌─────────────────────────────────┐
-│       Reports & Documents       │
-│       PDF / Editable Reports    │
-└─────────────────────────────────┘
-```
-
----
-
-## Test Execution Workflow
-
-```text
-1. User Login
-       ↓
-2. Register NAWI Instrument
-       ↓
-3. Enter Technical Specifications
-       ↓
-4. Enter Laboratory Conditions
-       ↓
-5. Select / Generate Test Plan
-       ↓
-6. Execute Applicable OIML R-76 Tests
-       ↓
-7. Enter Observations
-       ↓
-8. Validate Inputs
-       ↓
-9. Calculate Results
-       ↓
-10. Determine Compliance
-       ↓
-11. Review Results
-       ↓
-12. Submit for Approval
-       ↓
-13. Generate Final Report
-       ↓
-14. Store in Repository
-```
-
----
-
-## Technology Stack
-
-### Frontend
-
-- React.js
-- TypeScript
-- Vite
-- HTML5
-- CSS3
-
-### Backend
-
-- Python
-- FastAPI
-- Uvicorn
-- Pydantic
-
-### Database & Authentication
-
-- Supabase
-- PostgreSQL
-- Supabase Authentication
-
-### Calculation & Compliance
-
-- Python
-- OIML R-76 based rule engine
-- Deterministic calculation logic
-- Input validation
-- Compliance evaluation
-
-### Reporting
-
-- ReportLab
-- PDF generation
-- Editable report generation
-
-### Verification
-
-- QR Code
-- Report ID
-- Digital verification
-- Integrity verification
-
-### Development & Deployment
-
-- Git
-- GitHub
-- Vercel
-- npm
-- Python Virtual Environment
-
----
-
-## Project Structure
-
-```text
-product-label-compliance/
-│
-├── assets/
-│   └── logo-white.png
-│
-├── screenshots/
-│
-├── backend/
-│
-├── frontend/
-│
-├── reports/
-│
-├── rules/
-│
-├── requirements.txt
-├── .gitignore
-└── README.md
-```
-
-> The project structure may evolve as additional OIML R-76 tests, reporting modules and administrative features are integrated.
-
----
-
-## How to Run
-
-### 1. Clone the Repository
-
-```bash
-git clone https://github.com/Divya-Singhal07/product-label-compliance.git
-cd product-label-compliance
-```
-
-### 2. Create Python Environment
-
-```bash
-python3 -m venv venv
-source venv/bin/activate
-```
-
-### 3. Install Dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-### 4. Configure Environment Variables
-
-Create:
-
-```bash
-touch backend/.env
-```
-
-Add the required configuration for:
-
-- Supabase
-- Database
-- Authentication
-- Other application services
-
-> Never commit `.env` files or expose API keys publicly.
-
-### 5. Start Backend
-
-```bash
-python -m uvicorn backend.app:app --reload
-```
-
-Backend:
-
-```text
-http://127.0.0.1:8000
-```
-
-### 6. Start Frontend
-
-Open another terminal:
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-Frontend:
-
-```text
-http://localhost:5173
-```
-
----
-
-## Example NAWI Workflow
-
-```text
-Instrument
-│
-├── Manufacturer
-├── Model
-├── Serial Number
-├── Accuracy Class
-├── Max Capacity
-├── e
-├── d
-└── Max n
-        ↓
-Laboratory Conditions
-        ↓
-Test Selection
-        ↓
-Observation Entry
-        ↓
-Automatic Calculation
-        ↓
-MPE Evaluation
-        ↓
-Compliance Result
-        ↓
-Reviewer Verification
-        ↓
-Final Test Report
-```
-
----
-
-## Example Test Result
-
-```text
-Test: Repeatability
-
-Observation 1
-Load:             10 kg
-Indication:       10.01 kg
-Calculated Error: +0.01 kg
-
-Observation 2
-Load:             10 kg
-Indication:       10.00 kg
-Calculated Error:  0.00 kg
-
-Applicable MPE:   ±0.015 kg
-
-Result:            PASS
-```
-
-> Values shown above are illustrative examples only.
-
----
-
-## Challenges & Mitigations
-
-| Challenge | Mitigation |
-|---|---|
-| Manual test-report preparation | Digital end-to-end workflow |
-| Repetitive calculations | Automated calculation engine |
-| Calculation errors | Deterministic validation and calculation |
-| Large number of observations | Structured dynamic test forms |
-| Inconsistent reports | Standardized report generation |
-| Difficult report retrieval | Digital repository and search |
-| Unauthorized changes | Role-based workflow |
-| Lack of traceability | Audit trail |
-| Report authenticity | QR / verification mechanism |
-| Changing standards | Versioned rules and calculation logic |
-
----
-
-## Impact
-
-### ⏱️ Faster Report Preparation
-
-Automates repetitive data entry, calculations and report generation.
-
-### 🎯 Improved Calculation Consistency
-
-Reduces dependence on manually performed calculations.
-
-### 📋 Standardized Reporting
-
-Generates reports using a consistent digital structure.
-
-### 🔎 Better Traceability
-
-Maintains instrument-wise and test-wise digital history.
-
-### 🔐 Controlled Workflow
-
-Role-based permissions provide structured testing and approval stages.
-
-### 📊 Centralized Monitoring
-
-Dashboards provide visibility into testing activities and report status.
-
-### 📚 Digital Repository
-
-Previous test reports can be searched and retrieved efficiently.
-
-### 🔄 Scalable Architecture
-
-The system can be extended as additional OIML R-76 tests and requirements are implemented.
-
----
-
-## Future Scope
-
-- Complete coverage of applicable OIML R-76 tests
-- Expanded calculation engine
-- Versioned OIML rule packages
-- Advanced report verification
-- Digital signatures
-- Advanced audit trail
-- Laboratory equipment management
-- Calibration record integration
-- Offline testing capability
-- Mobile / tablet inspection interface
-- Advanced analytics
-- Automated report archival
-- Multi-laboratory support
-- Integration with future regulatory updates
-
----
-
-## Regulatory & Technical References
-
-OIMLense is designed around the regulatory and technical framework relevant to Non-Automatic Weighing Instruments, including:
-
-- **OIML Recommendation R-76 – Non-Automatic Weighing Instruments**
-- **Legal Metrology Act, 2009**
+- **OIML R 76-1:2006**
 - **Legal Metrology (General) Rules, 2011**
-- Relevant Legal Metrology requirements and notifications
-- Department of Consumer Affairs resources
-- Smart India Hackathon 2026 Problem Statement SIH26035
+- **Approval of Models Rules, 2011**
+- **Government Approved Test Centre Rules, 2013**
+
+The compliance workflow is designed to translate applicable requirements into structured digital testing and evaluation logic.
 
 ---
 
-## Research & Technical References
+# 🏗️ System Architecture
 
-### Metrology & Standards
+```text
+                         OIMLENSE
+                            │
+                            ▼
+                  ┌──────────────────┐
+                  │ Authentication   │
+                  │    & Access      │
+                  └────────┬─────────┘
+                           │
+                           ▼
+                  ┌──────────────────┐
+                  │    Dashboard     │
+                  └────────┬─────────┘
+                           │
+                ┌──────────┴──────────┐
+                │                     │
+                ▼                     ▼
+       ┌────────────────┐    ┌────────────────┐
+       │ Instrument     │    │ Test           │
+       │ Specifications │    │ Configuration  │
+       └───────┬────────┘    └───────┬────────┘
+               │                     │
+               └──────────┬──────────┘
+                          ▼
+                 ┌──────────────────┐
+                 │ Test Observations│
+                 │ & Measurements   │
+                 └────────┬─────────┘
+                          │
+                          ▼
+                 ┌──────────────────┐
+                 │ Data Validation  │
+                 └────────┬─────────┘
+                          │
+                          ▼
+                 ┌──────────────────┐
+                 │ OIML R-76 Rules  │
+                 │ & Rule Engine    │
+                 └────────┬─────────┘
+                          │
+                ┌─────────┴─────────┐
+                ▼                   ▼
+       ┌────────────────┐   ┌────────────────┐
+       │ Calculations   │   │ Compliance     │
+       │ / MPE          │   │ Evaluation     │
+       └───────┬────────┘   └───────┬────────┘
+               │                    │
+               └──────────┬─────────┘
+                          ▼
+                 ┌──────────────────┐
+                 │ Test Result /    │
+                 │ Pass-Fail Status │
+                 └────────┬─────────┘
+                          │
+                          ▼
+                 ┌──────────────────┐
+                 │ Report Generator │
+                 └────────┬─────────┘
+                          │
+                ┌─────────┴─────────┐
+                ▼                   ▼
+          ┌──────────┐       ┌──────────────┐
+          │   PDF    │       │ Editable     │
+          │  Report  │       │   Report     │
+          └────┬─────┘       └──────┬───────┘
+               │                    │
+               └──────────┬─────────┘
+                          ▼
+                 ┌──────────────────┐
+                 │ Report Repository│
+                 └──────────────────┘
+```
 
-- OIML Recommendation R-76
-- OIML technical requirements for Non-Automatic Weighing Instruments
-- Legal Metrology Act, 2009
-- Legal Metrology Rules
+---
 
-### Backend
+# 🔄 User Workflow
 
-- FastAPI
-- Pydantic
-- Uvicorn
+### Step 1 — Login
 
-### Frontend
+The authorized tester logs into the OIMLense platform.
+
+### Step 2 — Create Test
+
+A new NAWI testing session is created.
+
+### Step 3 — Enter Instrument Details
+
+The tester enters the specifications and identification information of the instrument.
+
+### Step 4 — Configure Tests
+
+Required tests and their corresponding parameters are configured.
+
+### Step 5 — Enter Observations
+
+The tester enters measured values and test conditions.
+
+### Step 6 — Automated Processing
+
+The application validates the entered data and performs applicable calculations.
+
+### Step 7 — Compliance Evaluation
+
+Results are evaluated against the applicable predefined requirements.
+
+### Step 8 — Pass/Fail Result
+
+The system produces the corresponding compliance result.
+
+### Step 9 — Generate Report
+
+The completed test data is converted into a structured test report.
+
+### Step 10 — Store Record
+
+The test and report information can be maintained for future retrieval and reference.
+
+---
+
+# 🧠 Technical Approach
+
+OIMLense follows a layered approach:
+
+### Presentation Layer
+
+Provides:
+
+- Responsive user interface
+- Dashboard
+- Test forms
+- Instrument specification forms
+- Results
+- Reports
+
+### Application Layer
+
+Handles:
+
+- Test workflow
+- Data processing
+- Validation
+- Calculations
+- Compliance evaluation
+- Report generation
+
+### Rule Layer
+
+Contains structured requirements and evaluation logic based on applicable metrology standards.
+
+### Data Layer
+
+Maintains:
+
+- User information
+- Instrument information
+- Test records
+- Observations
+- Results
+- Reports
+
+---
+
+# 🛠️ Technology Stack
+
+## Frontend
 
 - React
 - TypeScript
 - Vite
+- CSS
+- Responsive Web Design
 
-### Database
+## Backend
+
+- Python
+- FastAPI
+
+## Database & Authentication
 
 - Supabase
-- PostgreSQL
 
-### Reporting
+## Compliance & Calculation
 
-- ReportLab
-- PDF generation technologies
+- Python-based rule and calculation logic
+- OIML R-76 requirements
+- Indian Legal Metrology requirements
 
-### Verification
+## Deployment
 
-- QR Code
-- Cryptographic / integrity verification mechanisms
+- Vercel
+- Backend API deployment
 
----
+## Development & Version Control
 
-## Smart India Hackathon 2026
-
-**Problem Statement:** SIH26035
-
-**Project:** OIMLense
-
-**Domain:** Software
-
-**Theme:** Miscellaneous
-
-**Organization:** Ministry of Consumer Affairs, Food & Public Distribution
-
-**Department:** Department of Consumer Affairs
-
-**Problem Statement Title:**
-
-> Development of a Software Program/Application for Generation of Test Reports for Non-Automatic Weighing Instruments (NAWI) as per OIML Recommendation R- 76
-
-OIMLense aims to digitize and streamline the testing, compliance evaluation and standardized report-generation workflow for Non-Automatic Weighing Instruments under OIML Recommendation R-76.
+- Git
+- GitHub
+- VS Code
 
 ---
 
-## Team
+# 📁 Project Structure
 
-### Team OIMLense
+The project follows a frontend/backend architecture.
 
-| Role | Responsibility |
+```text
+product-label-compliance/
+│
+├── frontend/
+│   ├── src/
+│   │   ├── pages/
+│   │   ├── components/
+│   │   ├── App.tsx
+│   │   └── index.css
+│   │
+│   ├── public/
+│   ├── package.json
+│   └── vite.config.*
+│
+├── backend/
+│   ├── app.py
+│   ├── deps.py
+│   ├── routes/
+│   └── ...
+│
+├── assets/
+│
+└── README.md
+```
+
+> The exact internal structure may evolve as the project continues to be developed.
+
+---
+
+# 🌟 Innovation
+
+OIMLense focuses on converting the **complete testing workflow** into a structured digital process instead of simply generating a document.
+
+### Key innovation areas
+
+**Rule-driven compliance**
+
+Applicable requirements are represented through structured evaluation logic.
+
+**Automated calculations**
+
+Applicable calculations can be performed automatically from test inputs.
+
+**Data-driven report generation**
+
+Reports are generated from structured testing data.
+
+**Integrated workflow**
+
+Instrument information, test observations, calculations, compliance evaluation and reporting are connected in one workflow.
+
+**Digital traceability**
+
+Testing information can remain associated with the generated record.
+
+---
+
+# 📈 Expected Benefits
+
+OIMLense is intended to provide:
+
+- Reduced manual effort
+- Reduced repetitive calculations
+- More consistent testing workflows
+- Standardized report generation
+- Better data organization
+- Improved traceability
+- Faster documentation
+- Easier report retrieval
+- Better accessibility through a responsive interface
+
+---
+
+# 🔮 Future Scope
+
+The platform can be extended with:
+
+- Full clause-level OIML R-76 coverage
+- Advanced document/data extraction
+- OCR-assisted test data entry
+- Intelligent assistance for testers
+- Automated anomaly detection
+- Digital signatures
+- Advanced audit trails
+- Multi-laboratory management
+- Organization-level role management
+- Government system integrations
+- Advanced analytics and reporting
+- Automated instrument identification
+
+---
+
+# 📊 Current Project Status
+
+### Implemented
+
+- [x] Landing page
+- [x] Live deployment
+- [x] User authentication
+- [x] Logged-in workspace
+- [x] Dashboard
+- [x] Instrument specification interface
+- [x] Structured test workflow
+- [x] Multiple test inputs
+- [x] Rule-based evaluation architecture
+- [x] MPE/calculation workflow
+- [x] Pass/Fail evaluation workflow
+- [x] Test record management
+- [x] Report preview
+- [x] Responsive desktop interface
+- [x] Responsive mobile interface
+- [x] Report repository architecture
+- [x] GitHub version control
+
+### Under Development / Extensible
+
+- [ ] Complete clause-level implementation of all applicable OIML R-76 requirements
+- [ ] Advanced automated data extraction
+- [ ] AI-assisted workflows
+- [ ] Advanced analytics
+- [ ] Digital signatures
+- [ ] External system integrations
+
+---
+
+# 🎯 Project Objective
+
+The ultimate objective of OIMLense is to provide a **standardized, reliable and scalable digital workflow for NAWI testing and test-report generation**, reducing dependence on repetitive manual documentation and calculations while improving consistency and traceability.
+
+---
+
+# 👥 Target Users
+
+OIMLense can support workflows for:
+
+- Legal Metrology Departments
+- Government-approved testing centres
+- Testing laboratories
+- Metrology inspectors
+- Verification officers
+- NAWI manufacturers
+- Instrument testing personnel
+
+---
+
+# 📌 Project Information
+
+| Item | Details |
 |---|---|
-| AI / Calculation & Compliance | Calculation engine, OIML logic & technical workflow |
-| Frontend | User interface & test execution workflow |
-| Backend | APIs, database & system integration |
-| Research | OIML R-76 research, regulations & test requirements |
-| Research | Test procedures, datasets & validation |
-| Frontend / Integration | UI integration & system workflow |
+| Project | OIMLense |
+| SIH Problem Statement | SIH26035 |
+| Domain | Legal Metrology / Software |
+| Target Instrument | Non-Automatic Weighing Instruments |
+| Standard | OIML Recommendation R-76 |
+| Frontend | React + TypeScript + Vite |
+| Backend | FastAPI + Python |
+| Database/Auth | Supabase |
+| Deployment | Vercel + Backend Deployment |
+| Version Control | Git + GitHub |
 
 ---
 
-## Contributing
+# 🚀 Try the Project
 
-Contributions, suggestions and improvements are welcome.
+### Live Application
 
-For major changes, please open an issue first to discuss the proposed changes.
+**[https://oimlense.vercel.app](https://oimlense.vercel.app)**
 
 ---
 
-## Support
+# 📜 Disclaimer
 
-If you encounter an issue while running the project:
+OIMLense is a software project developed for the Smart India Hackathon problem statement SIH26035.
 
-1. Check the installation steps.
-2. Verify environment variables.
-3. Check that the backend is running.
-4. Check that the frontend is running.
-5. Check the browser console for frontend errors.
-6. Open an issue with the relevant error details.
+The platform is intended to digitize and streamline the testing and report-generation workflow based on applicable OIML and Indian Legal Metrology requirements. The software should not be considered a substitute for official legal, regulatory or metrological authority unless formally validated and approved for such use.
+
+---
+
+# 🤝 Team
+
+**Team:** Among Us
+
+**Institution:** Netaji Subhas University of Technology (NSUT), Delhi
+
+**Smart India Hackathon:** SIH 2026
 
 ---
 
 <p align="center">
+  <strong>OIMLense — Digitizing NAWI Testing & Compliance</strong>
+</p>
 
-<b>OIMLense</b>
-
-<br>
-
-<i>Measure. Verify. Report.</i>
-
-<br><br>
-
-Built for Smart India Hackathon 2026 🇮🇳
-
+<p align="center">
+  Built for Smart India Hackathon 2026 • SIH26035
 </p>
