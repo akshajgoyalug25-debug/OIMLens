@@ -149,3 +149,38 @@ def test_invalid_n_rejection():
     # Class III max n is 10000. n=20000 should be rejected.
     with pytest.raises(ValueError, match="Class III instrument requires"):
         calculate_mpe(accuracy_class="III", load=Decimal("10"), e=Decimal("0.001"), max_capacity=Decimal("20"))
+
+def test_oiml_class_iii_weighing_error_at_mpe_boundary():
+    from oimlense.r76.mpe_engine import calculate_weighing_error
+
+    # Class III, Max = 30 kg, e = 0.01 kg.
+    # At 20 kg (2000e), Table 6 gives MPE = 1.5e = 0.015 kg.
+    result = calculate_weighing_error(
+        indication=Decimal("20.010"),
+        additional_load=Decimal("0"),
+        load=Decimal("20"),
+        e=Decimal("0.01"),
+        zero_error=Decimal("0"),
+        mpe=Decimal("0.015"),
+    )
+
+    assert result.corrected_error == Decimal("0.015")
+    assert result.passed is True
+
+
+def test_oiml_class_iii_weighing_error_beyond_mpe_boundary():
+    from oimlense.r76.mpe_engine import calculate_weighing_error
+
+    # Same Class III reference point, but the corrected error exceeds
+    # the allowed 1.5e MPE.
+    result = calculate_weighing_error(
+        indication=Decimal("20.015"),
+        additional_load=Decimal("0"),
+        load=Decimal("20"),
+        e=Decimal("0.01"),
+        zero_error=Decimal("0"),
+        mpe=Decimal("0.015"),
+    )
+
+    assert result.corrected_error == Decimal("0.020")
+    assert result.passed is False

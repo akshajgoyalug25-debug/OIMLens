@@ -36,18 +36,25 @@ def check_digital_discrimination(
     final_indication: Decimal,
     d: Decimal,
     load: Decimal | None = None,
+    reduced_indication: Decimal | None = None,
 ) -> DiscriminationResult:
     """
     OIML R 76-1:2006 A.4.8.2.
 
     Digital discrimination:
       - applicable when d >= 5 mg
-      - additional load = 1.4 d
-      - indication change must be at least d
+      - reduce the indication by d
+      - apply an additional load of 1.4 d
+      - the resulting indication should become I + d
+
+    ``reduced_indication`` is optional for backward compatibility with
+    the earlier two-indication API. When supplied, the complete
+    discrimination sequence is checked.
     """
     d = Decimal(str(d))
     initial_indication = Decimal(str(initial_indication))
     final_indication = Decimal(str(final_indication))
+
     if d <= 0:
         raise ValueError("Scale interval d must be greater than zero.")
 
@@ -58,7 +65,16 @@ def check_digital_discrimination(
 
     indication_change = final_indication - initial_indication
     additional_load = Decimal("1.4") * d
-    passed = indication_change >= d
+
+    if reduced_indication is None:
+        # Backward-compatible two-indication API.
+        passed = indication_change >= d
+    else:
+        reduced_indication = Decimal(str(reduced_indication))
+        reduced_target = initial_indication - d
+        reduced_ok = reduced_indication == reduced_target
+        final_ok = final_indication == initial_indication + d
+        passed = reduced_ok and final_ok
 
     return DiscriminationResult(
         test_type="digital",
@@ -229,6 +245,11 @@ def calculate_discrimination(
                     ],
                     d=d,
                     load=Decimal(str(load)) if load is not None else None,
+                    reduced_indication=(
+                        observation["reduced_indication"]
+                        if "reduced_indication" in observation
+                        else None
+                    ),
                 )
             else:
                 if mpe is None:

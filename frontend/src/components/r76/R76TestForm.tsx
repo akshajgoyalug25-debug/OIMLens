@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import type {
   R76Instrument,
   R76TestDefinition,
@@ -327,10 +327,37 @@ export function R76TestForm({
     eccentric_zero_3: '0',
   })
 
+  useEffect(() => {
+    const maxCapacity = instrument?.max_capacity
+
+    if (maxCapacity === undefined || maxCapacity <= 0) {
+      return
+    }
+
+    const defaultEccentricLoad = String(maxCapacity / 3)
+
+    setValues((current) => ({
+      ...current,
+      eccentric_load_1:
+        current.eccentric_load_1 === '10'
+          ? defaultEccentricLoad
+          : current.eccentric_load_1,
+      eccentric_load_2:
+        current.eccentric_load_2 === '10'
+          ? defaultEccentricLoad
+          : current.eccentric_load_2,
+      eccentric_load_3:
+        current.eccentric_load_3 === '10'
+          ? defaultEccentricLoad
+          : current.eccentric_load_3,
+    }))
+  }, [instrument?.max_capacity])
+
   const [discriminationRows, setDiscriminationRows] = useState([
     {
       load: String(instrument?.min_capacity ?? ''),
       initial_indication: String(instrument?.min_capacity ?? ''),
+      reduced_indication: String(instrument?.min_capacity ?? ''),
       final_indication: String(instrument?.min_capacity ?? ''),
       visible_displacement: 'true',
     },
@@ -345,6 +372,11 @@ export function R76TestForm({
           ? instrument.max_capacity / 2
           : '',
       ),
+      reduced_indication: String(
+        instrument?.max_capacity !== undefined
+          ? instrument.max_capacity / 2
+          : '',
+      ),
       final_indication: String(
         instrument?.max_capacity !== undefined
           ? instrument.max_capacity / 2
@@ -355,6 +387,7 @@ export function R76TestForm({
     {
       load: String(instrument?.max_capacity ?? ''),
       initial_indication: String(instrument?.max_capacity ?? ''),
+      reduced_indication: String(instrument?.max_capacity ?? ''),
       final_indication: String(instrument?.max_capacity ?? ''),
       visible_displacement: 'true',
     },
@@ -498,6 +531,11 @@ export function R76TestForm({
             numberOrZero(row.initial_indication)
           observation.final_indication =
             numberOrZero(row.final_indication)
+
+          if (type === 'digital') {
+            observation.reduced_indication =
+              numberOrZero(row.reduced_indication)
+          }
 
           if (type === 'analog') {
             const load = numberOrZero(row.load)
@@ -1389,6 +1427,9 @@ export function R76TestForm({
                 'non_self_indicating' && (
                 <>
                   <span>Initial indication</span>
+                  {values.discrimination_type === 'digital' && (
+                    <span>Reduced indication</span>
+                  )}
                   <span>Final indication</span>
                 </>
               )}
@@ -1450,6 +1491,27 @@ export function R76TestForm({
                         )
                       }
                     />
+
+                    {values.discrimination_type === 'digital' && (
+                      <input
+                        type="number"
+                        step="any"
+                        value={row.reduced_indication}
+                        onChange={(event) =>
+                          setDiscriminationRows((rows) =>
+                            rows.map((item, i) =>
+                              i === index
+                                ? {
+                                    ...item,
+                                    reduced_indication:
+                                      event.target.value,
+                                  }
+                                : item,
+                            ),
+                          )
+                        }
+                      />
+                    )}
 
                     <input
                       type="number"

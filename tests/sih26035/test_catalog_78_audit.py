@@ -19,10 +19,36 @@ def _build_test_inputs(code: str) -> dict:
         "min_capacity": 0.2,
         "e": 0.01,
         "d": 0.01,
+        "load": 10.0,
+        "indication": 10.0,
+        "additional_load": 0.0,
+        "correction_rate": 0.0,
+        "equilibrium_stable": True,
+        "measured_error": 0.0,
+        "error": 0.0,
+        "significant_fault": False,
         "inspection_passed": True,
         "passed": True,
     }
 
+    if code == "ZERO_TRACKING":
+        base.update({
+            "load": 0.0,
+            "indication": 0.0,
+            "additional_load": 0.005,
+            "correction_rate": 0.0,
+            "e": 0.01,
+            "equilibrium_stable": True,
+            "equilibrium_stable": True,
+        })
+    elif code == "ZERO_TRACKING":
+        base.update({
+            "load": 0.0,
+            "indication": 0.0,
+            "additional_load": 0.0,
+            "correction_rate": 0.0,
+            "equilibrium_stable": True,
+        })
     if code == "ZERO_RANGE":
         base.update({
             "positive_range": 1.0,
@@ -79,6 +105,7 @@ def _build_test_inputs(code: str) -> dict:
         })
     elif code == "CREEP":
         base.update({
+            "load": 30.0,
             "initial_error": 0.0,
             "error_at_15_min": 0.0,
             "error_at_30_min": 0.0,

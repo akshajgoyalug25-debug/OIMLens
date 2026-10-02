@@ -287,3 +287,40 @@ def test_endurance_cycles_requirement():
             before=[],
             after=[],
         )
+
+def test_digital_discrimination_strict_sequence_passes():
+    result = check_digital_discrimination(
+        initial_indication=Decimal("100.000"),
+        reduced_indication=Decimal("99.995"),
+        final_indication=Decimal("100.005"),
+        d=Decimal("0.005"),
+        load=Decimal("10"),
+    )
+
+    assert result.passed is True
+    assert result.indication_change == Decimal("0.005")
+    assert result.additional_load == Decimal("0.0070")
+
+
+def test_digital_discrimination_strict_sequence_fails_wrong_reduction():
+    result = check_digital_discrimination(
+        initial_indication=Decimal("100.000"),
+        reduced_indication=Decimal("99.996"),
+        final_indication=Decimal("100.005"),
+        d=Decimal("0.005"),
+        load=Decimal("10"),
+    )
+
+    assert result.passed is False
+
+
+def test_digital_discrimination_strict_sequence_fails_wrong_final_indication():
+    result = check_digital_discrimination(
+        initial_indication=Decimal("100.000"),
+        reduced_indication=Decimal("99.995"),
+        final_indication=Decimal("100.006"),
+        d=Decimal("0.005"),
+        load=Decimal("10"),
+    )
+
+    assert result.passed is False
