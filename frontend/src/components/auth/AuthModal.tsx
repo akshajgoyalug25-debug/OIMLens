@@ -79,6 +79,11 @@ export function AuthModal({ initialMode = 'login', onSuccess, onClose }: AuthMod
         return
       }
 
+      if (result && 'detail' in result && (result as any).detail) {
+        setError((result as any).detail)
+        return
+      }
+
       if (result && 'success' in result && result.success) {
         const resolvedOfficerId =
           result.officer_id || (isEmail ? '' : identifier)
@@ -95,7 +100,7 @@ export function AuthModal({ initialMode = 'login', onSuccess, onClose }: AuthMod
         return
       }
 
-      setError('Login failed. Please try again.')
+      setError('Login failed. Please check your credentials and try again.')
     } else if (mode === 'forgot') {
       if (!officerId.trim()) {
         setError('Please enter your officer ID.')
@@ -173,8 +178,11 @@ export function AuthModal({ initialMode = 'login', onSuccess, onClose }: AuthMod
         })
       }
     }
-  } catch {
-    setError('Something went wrong. Please try again.')
+  } catch (err: any) {
+    console.error('Authentication error:', err)
+    setError(
+      err?.message || 'Something went wrong during authentication. Please try again.',
+    )
   } finally {
     setLoading(false)
   }

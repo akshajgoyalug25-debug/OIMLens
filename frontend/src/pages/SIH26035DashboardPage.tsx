@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState, Fragment } from 'react'
 import { R76TestForm } from '../components/r76/R76TestForm'
 import { R76_78_TEST_PROCEDURES } from '../data/r76TestProceduresCatalog'
 import {
@@ -64,18 +64,30 @@ export function SIH26035DashboardPage({
   const [statusFilter, setStatusFilter] = useState<'all' | 'NOT_STARTED' | 'PASSED' | 'FAILED'>('all')
   const [searchQuery, setSearchQuery] = useState('')
   const [showMobileProcDropdown, setShowMobileProcDropdown] = useState(false)
+  const [showCompletionScreen, setShowCompletionScreen] = useState(false)
+  const [showReportPreview, setShowReportPreview] = useState(false)
+  const [expandedFailureCode, setExpandedFailureCode] = useState<string | null>(null)
 
   const [reportSearch, setReportSearch] = useState('')
   const [reportStatusFilter, setReportStatusFilter] = useState('')
   const [reportTypeFilter, setReportTypeFilter] = useState('')
 
+  const instrumentById = new Map(instruments.map((inst) => [inst.id, inst]))
+
   const filteredReportSessions = sessions.filter((session) => {
     const search = reportSearch.trim().toLowerCase()
+    const inst = instrumentById.get(session.instrument_id)
+    const instName = inst ? `${inst.manufacturer || ''} ${inst.model || ''}`.trim().toLowerCase() : ''
+    const instSerial = inst?.serial_number ? String(inst.serial_number).toLowerCase() : ''
 
     const matchesSearch =
       !search ||
       String(session.session_number || '').toLowerCase().includes(search) ||
-      String(session.test_location || '').toLowerCase().includes(search)
+      String(session.report_id || '').toLowerCase().includes(search) ||
+      String(session.id || '').toLowerCase().includes(search) ||
+      String(session.test_location || '').toLowerCase().includes(search) ||
+      instName.includes(search) ||
+      instSerial.includes(search)
 
     const matchesStatus =
       !reportStatusFilter ||
@@ -1305,6 +1317,7 @@ export function SIH26035DashboardPage({
           </>
         )}
 
+
         {activeView === 'instruments' && (
           <section className="sih-panel">
             <div className="sih-panel-header">
@@ -1559,17 +1572,43 @@ export function SIH26035DashboardPage({
 
         {activeView === 'tests' && (
           <section className="sih-panel">
-            <div className="sih-panel-header">
-              <div>
-                <span className="sih-eyebrow">LABORATORY TESTING WORKFLOW</span>
-                <h3>OIML R 76 Verification Workspace</h3>
-                <p>
-                  78 standard OIML R 76 test procedures available for compliance verification.
+            <div className="sih-panel-header sih-workbench-header">
+              <div className="sih-workbench-title-area">
+                <div className="sih-workbench-badge-row">
+                  <span className="sih-eyebrow">METROLOGY LABORATORY WORKSTATION</span>
+                  <span className="sih-standard-ref-badge">OIML R 76-1:2006</span>
+                </div>
+                <h3 className="sih-workbench-main-title">OIML R 76 Test Execution Workbench</h3>
+                <p className="sih-workbench-sub">
+                  78 standard metrological test procedures for compliance verification of non-automatic weighing instruments.
                 </p>
               </div>
-              <div className="sih-context">
-                <span>Active Session</span>
-                <strong>{selectedSession?.session_number || 'Select a session'}</strong>
+
+              <div className="sih-workbench-progress-box">
+                <div className="sih-wb-progress-text">
+                  <span className="sih-wb-progress-label">WORKBENCH PROGRESS</span>
+                  <strong className="sih-wb-progress-count">
+                    {completedTests} / {catalogProcedures.length} completed ({Math.round((completedTests / catalogProcedures.length) * 100)}%)
+                  </strong>
+                </div>
+                <div className="sih-wb-progress-track">
+                  <div
+                    className="sih-wb-progress-fill"
+                    style={{ width: `${Math.round((completedTests / catalogProcedures.length) * 100)}%` }}
+                  />
+                </div>
+                <div className="sih-wb-session-row" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', gap: '8px', marginTop: '4px' }}>
+                  <span className="sih-wb-session-tag">
+                    Session: <strong>{selectedSession?.session_number || 'ACTIVE_SESSION'}</strong>
+                  </span>
+                  <button
+                    type="button"
+                    className="sih-completion-toggle-btn"
+                    onClick={() => setShowCompletionScreen(!showCompletionScreen)}
+                  >
+                    {showCompletionScreen ? '← Back to Execution' : 'Inspection Completion & Results →'}
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -1617,19 +1656,603 @@ export function SIH26035DashboardPage({
                   </div>
                 </div>
 
-                {/* Automatic OIML R 76 Test Plan */}
+                {showReportPreview ? (
+                  <div className="sih-report-preview-container">
+                    {/* Report Preview Header */}
+                    <div className="sih-report-preview-header">
+                      <div className="sih-rp-header-left">
+                        <div className="sih-workbench-badge-row">
+                          <span className="sih-eyebrow">METROLOGY REPORT WORKSTATION</span>
+                          <span className="sih-standard-ref-badge font-mono">OIML R 76-1:2006</span>
+                        </div>
+                        <h2 className="sih-rp-main-title">REPORT PREVIEW</h2>
+                        <p className="sih-rp-sub">OIML R 76 Test Report for Non-Automatic Weighing Instruments</p>
+                      </div>
+
+                      <div className="sih-rp-header-right">
+                        <button
+                          type="button"
+                          className="sih-secondary-action-btn"
+                          onClick={() => setShowReportPreview(false)}
+                        >
+                          ← Back to Results Review
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Export Format Options */}
+                    <div className="sih-export-formats-row">
+                      {/* PDF Format Option Card */}
+                      <div className="sih-format-card">
+                        <div className="sih-format-card-info">
+                          <div className="sih-format-badge pdf">PDF</div>
+                          <div>
+                            <strong className="sih-format-title">Portable Document Format</strong>
+                            <span className="sih-format-desc">Official compliance report with digital verification badge</span>
+                          </div>
+                        </div>
+
+                        <div className="sih-format-actions">
+                          <button
+                            type="button"
+                            className="sih-format-btn primary"
+                            disabled={busySessionId === selectedSessionId}
+                            onClick={() => handlePreviewReport(selectedSessionId)}
+                          >
+                            {busySessionId === selectedSessionId ? 'Generating PDF...' : 'Preview PDF'}
+                          </button>
+                          <button
+                            type="button"
+                            className="sih-format-btn secondary"
+                            disabled={busySessionId === selectedSessionId}
+                            onClick={() => handleDownloadReport(selectedSessionId)}
+                          >
+                            Download PDF
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* DOCX Format Option Card */}
+                      <div className="sih-format-card">
+                        <div className="sih-format-card-info">
+                          <div className="sih-format-badge docx">DOCX</div>
+                          <div>
+                            <strong className="sih-format-title">Editable Word Document</strong>
+                            <span className="sih-format-desc">Full editable test report for laboratory archiving</span>
+                          </div>
+                        </div>
+
+                        <div className="sih-format-actions">
+                          <button
+                            type="button"
+                            className="sih-format-btn secondary"
+                            disabled={busySessionId === selectedSessionId}
+                            onClick={() => handleDownloadDocxReport(selectedSessionId)}
+                          >
+                            Download DOCX
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Status & Error Banners */}
+                    {busySessionId === selectedSessionId && (
+                      <div className="sih-report-status-banner loading">
+                        <i className="sih-spinner" />
+                        <span>Generating report… Please wait while PDF/DOCX documents are compiled.</span>
+                      </div>
+                    )}
+
+                    {error && (
+                      <div className="sih-report-status-banner error">
+                        <strong>Report Generation Alert:</strong>
+                        <span>{error}</span>
+                      </div>
+                    )}
+
+                    {/* Document Surface - Formal Metrology Document Layout */}
+                    <div className="sih-paper-document">
+                      {/* Document Header */}
+                      <div className="sih-doc-header">
+                        <div className="sih-doc-brand">
+                          <span className="sih-doc-logo-tag">OIMLense</span>
+                          <span className="sih-doc-sub-tag">Digital NAWI Testing &amp; Compliance System</span>
+                        </div>
+                        <div className="sih-doc-meta-badge">
+                          <span className="sih-doc-std font-mono">OIML R 76-1:2006</span>
+                          <span className="sih-doc-type">TYPE EVALUATION &amp; VERIFICATION REPORT</span>
+                        </div>
+                      </div>
+
+                      <div className="sih-doc-divider" />
+
+                      {/* Document Title */}
+                      <h1 className="sih-doc-title">OIML R 76 TEST REPORT</h1>
+
+                      {/* Section 1: Report Metadata */}
+                      <div className="sih-doc-section">
+                        <div className="sih-doc-section-title">1. REPORT INFORMATION</div>
+                        <div className="sih-doc-grid-3">
+                          <div className="sih-doc-field">
+                            <span className="field-label">REPORT NO.</span>
+                            <strong className="field-val font-mono">{selectedSession?.report_id || selectedSession?.session_number || 'R76-2026-001'}</strong>
+                          </div>
+                          <div className="sih-doc-field">
+                            <span className="field-label">INSPECTION ID / SESSION</span>
+                            <strong className="field-val font-mono">{selectedSession?.session_number || selectedSession?.id || '—'}</strong>
+                          </div>
+                          <div className="sih-doc-field">
+                            <span className="field-label">INSPECTION DATE</span>
+                            <strong className="field-val">
+                              {selectedSession?.created_at ? new Date(selectedSession.created_at).toLocaleDateString() : new Date().toLocaleDateString()}
+                            </strong>
+                          </div>
+                          <div className="sih-doc-field">
+                            <span className="field-label">STANDARD REFERENCE</span>
+                            <strong className="field-val">OIML R 76-1:2006</strong>
+                          </div>
+                          <div className="sih-doc-field">
+                            <span className="field-label">LABORATORY / LOCATION</span>
+                            <strong className="field-val">{selectedSession?.test_location || 'Metrology Testing Laboratory'}</strong>
+                          </div>
+                          <div className="sih-doc-field">
+                            <span className="field-label">VERIFICATION OFFICER</span>
+                            <strong className="field-val">{user?.name || user?.officer_id || 'Verification Officer'}</strong>
+                          </div>
+                          <div className="sih-doc-field">
+                            <span className="field-label">REPORT STATUS</span>
+                            <strong className="field-val status-tag">{(selectedSession?.status || 'GENERATED').toUpperCase()}</strong>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Section 2: Instrument Details */}
+                      <div className="sih-doc-section">
+                        <div className="sih-doc-section-title">2. INSTRUMENT UNDER TEST</div>
+                        <div className="sih-doc-inst-box">
+                          <div className="sih-doc-inst-header">
+                            <strong>{selectedInstrument ? `${selectedInstrument.manufacturer} ${selectedInstrument.model}` : 'Standard NAWI Instrument'}</strong>
+                            <span className="font-mono">{selectedInstrument?.serial_number ? `Serial ${selectedInstrument.serial_number}` : 'Serial N/A'}</span>
+                          </div>
+                          <div className="sih-doc-grid-4">
+                            <div className="sih-doc-field">
+                              <span className="field-label">ACCURACY CLASS</span>
+                              <strong className="field-val">Class {selectedInstrument?.accuracy_class || 'III'}</strong>
+                            </div>
+                            <div className="sih-doc-field">
+                              <span className="field-label">MAX CAPACITY</span>
+                              <strong className="field-val">Max {selectedInstrument?.max_capacity ?? 30} {selectedInstrument?.unit || 'kg'}</strong>
+                            </div>
+                            {selectedInstrument?.min_capacity !== undefined && (
+                              <div className="sih-doc-field">
+                                <span className="field-label">MIN CAPACITY</span>
+                                <strong className="field-val">Min {selectedInstrument.min_capacity} {selectedInstrument.unit || 'kg'}</strong>
+                              </div>
+                            )}
+                            <div className="sih-doc-field">
+                              <span className="field-label">VERIFICATION SCALE e</span>
+                              <strong className="field-val">e = {selectedInstrument?.e ?? 0.01} {selectedInstrument?.unit || 'kg'}</strong>
+                            </div>
+                            <div className="sih-doc-field">
+                              <span className="field-label">SCALE INTERVAL d</span>
+                              <strong className="field-val">d = {selectedInstrument?.d ?? selectedInstrument?.e ?? 0.01} {selectedInstrument?.unit || 'kg'}</strong>
+                            </div>
+                            <div className="sih-doc-field">
+                              <span className="field-label">VERIFICATION INTERVALS n</span>
+                              <strong className="field-val">
+                                n = {selectedInstrument?.n ?? (selectedInstrument?.e && selectedInstrument?.max_capacity ? Math.round(selectedInstrument.max_capacity / selectedInstrument.e) : 3000)}
+                              </strong>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Section 3: Inspection Summary */}
+                      <div className="sih-doc-section">
+                        <div className="sih-doc-section-title">3. INSPECTION SUMMARY</div>
+                        <div className="sih-doc-summary-strip">
+                          <div className="sih-doc-summary-stat">
+                            <span className="stat-label">TOTAL PROCEDURES</span>
+                            <strong className="stat-val">{catalogProcedures.length}</strong>
+                          </div>
+                          <div className="sih-doc-summary-stat">
+                            <span className="stat-label">COMPLETED RUNS</span>
+                            <strong className="stat-val">{completedTests}</strong>
+                          </div>
+                          <div className="sih-doc-summary-stat pass">
+                            <span className="stat-label">PASS</span>
+                            <strong className="stat-val">{passedTests}</strong>
+                          </div>
+                          <div className="sih-doc-summary-stat fail">
+                            <span className="stat-label">FAIL</span>
+                            <strong className="stat-val">{failedTests}</strong>
+                          </div>
+                          {testPlan?.counts?.review_required ? (
+                            <div className="sih-doc-summary-stat review">
+                              <span className="stat-label">REVIEW REQUIRED</span>
+                              <strong className="stat-val">{testPlan.counts.review_required}</strong>
+                            </div>
+                          ) : null}
+                        </div>
+                      </div>
+
+                      {/* Section 4: Procedure Evaluation Results Table */}
+                      <div className="sih-doc-section">
+                        <div className="sih-doc-section-title">4. PROCEDURE EVALUATION RESULTS</div>
+                        <table className="sih-doc-table">
+                          <thead>
+                            <tr>
+                              <th style={{ width: '35%' }}>Procedure</th>
+                              <th style={{ width: '25%' }}>Procedure ID</th>
+                              <th style={{ width: '20%' }}>OIML Clause</th>
+                              <th style={{ width: '20%', textAlign: 'right' }}>Result</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {catalogProcedures.map((proc) => {
+                              const res = results.find(
+                                (r) => r.test_definition_id === proc.id || r.rule_id === proc.test_code
+                              )
+                              const isFailed = res && res.pass_fail === false
+                              const isPassed = res && res.pass_fail === true
+
+                              return (
+                                <Fragment key={proc.test_code}>
+                                  <tr className={`sih-doc-tr ${isFailed ? 'fail-row' : ''}`}>
+                                    <td>
+                                      <strong className="doc-proc-title">{proc.test_name}</strong>
+                                    </td>
+                                    <td>
+                                      <code className="doc-proc-code font-mono">{proc.test_code}</code>
+                                    </td>
+                                    <td>
+                                      <span className="doc-clause-tag font-mono">{proc.source_clause || '—'}</span>
+                                    </td>
+                                    <td style={{ textAlign: 'right' }}>
+                                      {res ? (
+                                        <span className={`doc-result-badge ${isPassed ? 'pass' : 'fail'}`}>
+                                          {isPassed ? 'PASS' : 'FAIL'}
+                                        </span>
+                                      ) : (
+                                        <span className="doc-result-badge pending">NOT STARTED</span>
+                                      )}
+                                    </td>
+                                  </tr>
+
+                                  {/* Failed Procedure Diagnostic Row */}
+                                  {isFailed && (
+                                    <tr className="sih-doc-diag-tr">
+                                      <td colSpan={4}>
+                                        <div className="sih-doc-diag-box">
+                                          <strong>! Failure Diagnostic:</strong>{' '}
+                                          {res.failure_reason || (
+                                            res.measured_error !== undefined
+                                              ? `Measured error (${res.measured_error} ${selectedInstrument?.unit || 'kg'}) exceeds permitted MPE limit (${res.mpe_value ?? '—'} ${selectedInstrument?.unit || 'kg'}).`
+                                              : 'Measurement exceeds applicable OIML R 76 MPE limits.'
+                                          )}
+                                        </div>
+                                      </td>
+                                    </tr>
+                                  )}
+                                </Fragment>
+                              )
+                            })}
+                          </tbody>
+                        </table>
+                      </div>
+
+                      {/* Document Footer */}
+                      <div className="sih-doc-footer">
+                        <div>
+                          <span>OIMLense NAWI Compliance Engine · OIML R 76-1:2006</span>
+                          <small>Document preview generated for Session {selectedSession?.session_number || 'R76-SESSION'}</small>
+                        </div>
+                        <div className="sih-doc-seal-tag">OFFICIAL RECORD</div>
+                      </div>
+                    </div>
+                  </div>
+                ) : showCompletionScreen ? (
+                  <div className="sih-completion-page-container">
+                    {/* Top Completion Banner & Status */}
+                    <div className="sih-completion-hero-card">
+                      <div className={`sih-completion-icon-ring ${failedTests > 0 ? 'fail' : 'pass'}`}>
+                        {failedTests > 0 ? '!' : '✓'}
+                      </div>
+
+                      <h2 className="sih-completion-main-title">
+                        {completedTests >= catalogProcedures.length
+                          ? failedTests > 0
+                            ? 'Inspection Completed — Results Require Attention'
+                            : 'Inspection Completed'
+                          : 'Inspection Incomplete'}
+                      </h2>
+
+                      <p className="sih-completion-subtitle">
+                        {completedTests >= catalogProcedures.length
+                          ? 'All selected procedures have been processed.'
+                          : `${completedTests} of ${catalogProcedures.length} procedures processed. ${catalogProcedures.length - completedTests} procedures remaining.`}
+                      </p>
+
+                      <div className="sih-completion-count-pill">
+                        <strong>{completedTests} / {catalogProcedures.length} Completed</strong>
+                      </div>
+                    </div>
+
+                    {/* Instrument Summary Card */}
+                    <div className="sih-completion-section-card">
+                      <div className="sih-completion-card-header">
+                        <span className="sih-completion-section-label">INSTRUMENT SUMMARY</span>
+                      </div>
+
+                      <div className="sih-completion-inst-body">
+                        <div className="sih-inst-title-block">
+                          <h4 className="sih-inst-name">
+                            {selectedInstrument ? `${selectedInstrument.manufacturer || ''} ${selectedInstrument.model || ''}`.trim() : 'Standard Instrument'}
+                          </h4>
+                          <span className="sih-inst-serial font-mono">
+                            {selectedInstrument?.serial_number ? `Serial ${selectedInstrument.serial_number}` : 'Serial N/A'}
+                          </span>
+                        </div>
+
+                        <div className="sih-inst-specs-grid">
+                          <div className="sih-spec-chip">
+                            <span className="spec-label">ACCURACY CLASS</span>
+                            <strong className="spec-val">Class {selectedInstrument?.accuracy_class || 'III'}</strong>
+                          </div>
+                          <div className="sih-spec-chip">
+                            <span className="spec-label">MAX CAPACITY</span>
+                            <strong className="spec-val">Max {selectedInstrument?.max_capacity ?? 30} {selectedInstrument?.unit || 'kg'}</strong>
+                          </div>
+                          {selectedInstrument?.min_capacity !== undefined && (
+                            <div className="sih-spec-chip">
+                              <span className="spec-label">MIN CAPACITY</span>
+                              <strong className="spec-val">Min {selectedInstrument.min_capacity} {selectedInstrument.unit || 'kg'}</strong>
+                            </div>
+                          )}
+                          <div className="sih-spec-chip">
+                            <span className="spec-label">VERIFICATION SCALE e</span>
+                            <strong className="spec-val">e = {selectedInstrument?.e ?? 0.01} {selectedInstrument?.unit || 'kg'}</strong>
+                          </div>
+                          <div className="sih-spec-chip">
+                            <span className="spec-label">SCALE INTERVAL d</span>
+                            <strong className="spec-val">d = {selectedInstrument?.d ?? selectedInstrument?.e ?? 0.01} {selectedInstrument?.unit || 'kg'}</strong>
+                          </div>
+                          <div className="sih-spec-chip">
+                            <span className="spec-label">INTERVALS n</span>
+                            <strong className="spec-val">
+                              n = {selectedInstrument?.n ?? (selectedInstrument?.e && selectedInstrument?.max_capacity ? Math.round(selectedInstrument.max_capacity / selectedInstrument.e) : 3000)}
+                            </strong>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Result Summary Metrics Row */}
+                    <div className="sih-completion-section-card" style={{ padding: '16px 20px' }}>
+                      <div className="sih-completion-card-header" style={{ marginBottom: '12px' }}>
+                        <span className="sih-completion-section-label">RESULTS SUMMARY</span>
+                      </div>
+
+                      <div className="sih-completion-metrics-row">
+                        <div className="sih-completion-metric-card">
+                          <span className="sih-cm-label">TOTAL</span>
+                          <strong className="sih-cm-val">{catalogProcedures.length}</strong>
+                          <small className="sih-cm-sub">catalog procedures</small>
+                        </div>
+
+                        <div className="sih-completion-metric-card completed">
+                          <span className="sih-cm-label">COMPLETED</span>
+                          <strong className="sih-cm-val">{completedTests}</strong>
+                          <small className="sih-cm-sub">runs executed</small>
+                        </div>
+
+                        <div className="sih-completion-metric-card pass">
+                          <span className="sih-cm-label">PASS</span>
+                          <strong className="sih-cm-val">{passedTests}</strong>
+                          <small className="sih-cm-sub">passed compliance</small>
+                        </div>
+
+                        <div className={`sih-completion-metric-card ${failedTests > 0 ? 'fail' : ''}`}>
+                          <span className="sih-cm-label">FAIL</span>
+                          <strong className="sih-cm-val">{failedTests}</strong>
+                          <small className="sih-cm-sub">{failedTests > 0 ? 'exceeds MPE limit' : '0 failures'}</small>
+                        </div>
+
+                        {testPlan?.counts?.review_required ? (
+                          <div className="sih-completion-metric-card review">
+                            <span className="sih-cm-label">REVIEW REQUIRED</span>
+                            <strong className="sih-cm-val">{testPlan.counts.review_required}</strong>
+                            <small className="sih-cm-sub">needs officer check</small>
+                          </div>
+                        ) : null}
+                      </div>
+                    </div>
+
+                    {/* Review Required Section if applicable */}
+                    {testPlan?.tests?.some(t => t.status === 'review_required' || t.status === 'conditional') && (
+                      <div className="sih-completion-section-card review-border">
+                        <div className="sih-completion-card-header">
+                          <span className="sih-completion-section-label review-text">REQUIRES REVIEW</span>
+                          <p style={{ margin: '4px 0 0 0', fontSize: '13px', color: '#92400e' }}>
+                            The following procedures require manual officer verification or conditional configuration checks:
+                          </p>
+                        </div>
+
+                        <div className="sih-review-procs-list" style={{ marginTop: '12px' }}>
+                          {testPlan.tests.filter(t => t.status === 'review_required' || t.status === 'conditional').map(proc => (
+                            <div key={proc.test_code} className="sih-review-proc-item">
+                              <span className="sih-comp-status-icon review">!</span>
+                              <div className="sih-comp-proc-info">
+                                <strong className="proc-name">{proc.test_name}</strong>
+                                <code className="proc-id font-mono">{proc.test_code}</code>
+                              </div>
+                              <span className="sih-clause-tag font-mono">{proc.source_clause || '—'}</span>
+                              <span className="sih-review-reason-text">{proc.reason || 'Officer verification required'}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Procedure Results List Section */}
+                    <div className="sih-completion-section-card">
+                      <div className="sih-completion-card-header flex-between">
+                        <div>
+                          <span className="sih-completion-section-label">PROCEDURE RESULTS</span>
+                          <h4 className="sih-completion-results-headline" style={{ margin: '4px 0 0 0', fontSize: '15px', color: '#111827' }}>
+                            {passedTests} of {completedTests} completed procedures passed
+                          </h4>
+                        </div>
+                        {failedTests > 0 && (
+                          <span className="sih-results-attention-badge">
+                            ! {failedTests} {failedTests === 1 ? 'procedure requires' : 'procedures require'} attention
+                          </span>
+                        )}
+                      </div>
+
+                      <div className="sih-completion-table-wrap" style={{ marginTop: '14px' }}>
+                        <table className="sih-completion-results-table">
+                          <thead>
+                            <tr>
+                              <th style={{ width: '40px' }}></th>
+                              <th>Procedure</th>
+                              <th>Clause</th>
+                              <th>Status</th>
+                              <th style={{ textAlign: 'right' }}>Result</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {catalogProcedures.map((proc) => {
+                              const res = results.find(
+                                (r) => r.test_definition_id === proc.id || r.rule_id === proc.test_code
+                              )
+                              const isFailed = res && res.pass_fail === false
+                              const isPassed = res && res.pass_fail === true
+                              const isExpanded = expandedFailureCode === proc.test_code
+
+                              return (
+                                <Fragment key={proc.test_code}>
+                                  <tr className={`sih-completion-row ${isFailed ? 'has-fail' : isPassed ? 'has-pass' : 'has-pending'}`}>
+                                    <td className="status-col">
+                                      {isPassed ? (
+                                        <span className="sih-comp-status-icon pass">✓</span>
+                                      ) : isFailed ? (
+                                        <span className="sih-comp-status-icon fail">!</span>
+                                      ) : (
+                                        <span className="sih-comp-status-icon pending">○</span>
+                                      )}
+                                    </td>
+                                    <td className="proc-col">
+                                      <div className="sih-comp-proc-info">
+                                        <strong className="proc-name">{proc.test_name}</strong>
+                                        <code className="proc-id font-mono">{proc.test_code}</code>
+                                      </div>
+                                    </td>
+                                    <td className="clause-col">
+                                      <span className="sih-clause-tag font-mono">{proc.source_clause || '—'}</span>
+                                    </td>
+                                    <td className="status-badge-col">
+                                      {res ? (
+                                        <span className={`sih-comp-badge ${isPassed ? 'pass' : 'fail'}`}>
+                                          {isPassed ? 'PASS' : 'FAIL'}
+                                        </span>
+                                      ) : (
+                                        <span className="sih-comp-badge pending">NOT STARTED</span>
+                                      )}
+                                    </td>
+                                    <td className="action-col" style={{ textAlign: 'right' }}>
+                                      {isFailed && (
+                                        <button
+                                          type="button"
+                                          className="sih-fail-details-btn"
+                                          onClick={() => setExpandedFailureCode(isExpanded ? null : proc.test_code)}
+                                        >
+                                          {isExpanded ? 'Hide Details ▲' : 'View Diagnostic ▼'}
+                                        </button>
+                                      )}
+                                    </td>
+                                  </tr>
+
+                                  {/* Failure Diagnostic Box */}
+                                  {isFailed && (isExpanded || failedTests <= 3) && (
+                                    <tr className="sih-failure-diag-row">
+                                      <td colSpan={5}>
+                                        <div className="sih-failure-diag-box">
+                                          <strong className="diag-title">! Evaluation Diagnostic:</strong>
+                                          <p className="diag-text" style={{ margin: '4px 0 0 0' }}>
+                                            {res.failure_reason || (
+                                              res.measured_error !== undefined
+                                                ? `Measured error (${res.measured_error} ${selectedInstrument?.unit || 'kg'}) exceeds permitted MPE limit (${res.mpe_value ?? '—'} ${selectedInstrument?.unit || 'kg'}).`
+                                                : 'Procedure measurement exceeded applicable OIML R 76 maximum permissible error limits.'
+                                            )}
+                                          </p>
+                                        </div>
+                                      </td>
+                                    </tr>
+                                  )}
+                                </Fragment>
+                              )
+                            })}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+
+                    {/* Action Area */}
+                    <div className="sih-completion-action-bar">
+                      <div className="action-bar-left">
+                        <button
+                          type="button"
+                          className="sih-secondary-action-btn"
+                          onClick={() => setShowCompletionScreen(false)}
+                        >
+                          ← Review Results / Back to Tests
+                        </button>
+                      </div>
+
+                      <div className="action-bar-right">
+                        {selectedSession && (selectedSession.status === 'draft' || selectedSession.status === 'in_progress' || selectedSession.status === 'rejected') && (
+                          <button
+                            type="button"
+                            className="sih-secondary-action-btn"
+                            disabled={busySessionId === selectedSession.id}
+                            onClick={() => handleSessionWorkflow(selectedSession, 'submit')}
+                          >
+                            Submit for Review
+                          </button>
+                        )}
+
+                        <button
+                          type="button"
+                          className="sih-primary-action-btn"
+                          disabled={busySessionId === selectedSessionId}
+                          onClick={() => {
+                            setShowReportPreview(true)
+                            handlePreviewReport(selectedSessionId)
+                          }}
+                        >
+                          {busySessionId === selectedSessionId ? 'Generating...' : 'Report Preview & Export →'}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    {/* Automatic OIML R 76 Test Plan */}
                 <div className="sih-panel" style={{ marginTop: '18px' }}>
-                  <div className="sih-panel-header">
-                    <div>
-                      <span className="sih-eyebrow">AUTOMATIC COMPLIANCE PLANNING</span>
-                      <h3>Generated OIML R 76 Test Plan</h3>
-                      <p>
+                  <div className="sih-test-plan-header">
+                    <div className="sih-tp-header-main">
+                      <div className="sih-tp-title-row">
+                        <h3 className="sih-tp-title">Generated OIML R 76 Test Plan</h3>
+                        <span className="sih-tp-auto-badge">AUTO-GENERATED</span>
+                      </div>
+                      <p className="sih-tp-subtitle">
                         Procedures are selected automatically from the instrument configuration and OIML R 76 rulepack.
                       </p>
                     </div>
-                    <div className="sih-context">
-                      <span>Standard</span>
-                      <strong>{testPlan?.standard || 'OIML R 76-1:2006'}</strong>
+                    <div className="sih-tp-standard-badge">
+                      <span className="sih-tp-std-label">STANDARD</span>
+                      <strong className="sih-tp-std-val">{testPlan?.standard || 'OIML R 76-1:2006'}</strong>
                     </div>
                   </div>
 
@@ -1640,59 +2263,179 @@ export function SIH26035DashboardPage({
                     </div>
                   ) : testPlan ? (
                     <>
-                      <div className="sih-session-metrics-row">
-                        <div className="sih-metric-card completed">
-                          <span className="sih-metric-label">REQUIRED</span>
-                          <strong className="sih-metric-val">{testPlan.counts.required}</strong>
-                          <small>Must be performed</small>
+                      <div className="sih-test-plan-metrics">
+                        <div className="sih-tp-card required">
+                          <span className="sih-tp-label">REQUIRED</span>
+                          <strong className="sih-tp-val">{testPlan.counts.required}</strong>
+                          <span className="sih-tp-desc">Must be performed</span>
                         </div>
-                        <div className="sih-metric-card pending">
-                          <span className="sih-metric-label">CONDITIONAL</span>
-                          <strong className="sih-metric-val">{testPlan.counts.conditional}</strong>
-                          <small>Depends on configuration</small>
+                        <div className="sih-tp-card conditional">
+                          <span className="sih-tp-label">CONDITIONAL</span>
+                          <strong className="sih-tp-val">{testPlan.counts.conditional}</strong>
+                          <span className="sih-tp-desc">Depends on configuration</span>
                         </div>
-                        <div className="sih-metric-card failed">
-                          <span className="sih-metric-label">REVIEW REQUIRED</span>
-                          <strong className="sih-metric-val">{testPlan.counts.review_required}</strong>
-                          <small>Needs officer confirmation</small>
+                        <div className="sih-tp-card review-required">
+                          <span className="sih-tp-label">REVIEW REQUIRED</span>
+                          <strong className="sih-tp-val">{testPlan.counts.review_required}</strong>
+                          <span className="sih-tp-desc">Needs officer confirmation</span>
                         </div>
-                        <div className="sih-metric-card total">
-                          <span className="sih-metric-label">NOT APPLICABLE</span>
-                          <strong className="sih-metric-val">{testPlan.counts.not_applicable}</strong>
-                          <small>Excluded automatically</small>
+                        <div className="sih-tp-card not-applicable">
+                          <span className="sih-tp-label">NOT APPLICABLE</span>
+                          <strong className="sih-tp-val">{testPlan.counts.not_applicable}</strong>
+                          <span className="sih-tp-desc">Excluded automatically</span>
                         </div>
                       </div>
 
-                      <div className="sih-table-wrap" style={{ marginTop: '18px' }}>
+                      {/* Dynamic Test Plan Coverage Indicator */}
+                      {(() => {
+                        const reqCount = testPlan.counts.required || 0
+                        const condCount = testPlan.counts.conditional || 0
+                        const revCount = testPlan.counts.review_required || 0
+                        const naCount = testPlan.counts.not_applicable || 0
+                        const totalProcs = reqCount + condCount + revCount + naCount
+
+                        const reqPct = totalProcs > 0 ? (reqCount / totalProcs) * 100 : 0
+                        const condPct = totalProcs > 0 ? (condCount / totalProcs) * 100 : 0
+                        const revPct = totalProcs > 0 ? (revCount / totalProcs) * 100 : 0
+                        const naPct = totalProcs > 0 ? (naCount / totalProcs) * 100 : 0
+
+                        return (
+                          <div className="sih-coverage-container">
+                            <div className="sih-coverage-header">
+                              <div className="sih-coverage-title-group">
+                                <strong className="sih-coverage-title">Test Plan Coverage</strong>
+                                <span className="sih-coverage-total-badge">
+                                  {totalProcs} {totalProcs === 1 ? 'procedure' : 'procedures'} generated
+                                </span>
+                              </div>
+                              <div className="sih-coverage-legend-inline">
+                                <span className="legend-item required">{reqCount} Required</span>
+                                <span className="legend-sep">·</span>
+                                <span className="legend-item conditional">{condCount} Conditional</span>
+                                <span className="legend-sep">·</span>
+                                <span className="legend-item review">{revCount} Review Required</span>
+                                <span className="legend-sep">·</span>
+                                <span className="legend-item na">{naCount} Not Applicable</span>
+                              </div>
+                            </div>
+
+                            <div className="sih-coverage-bar-track">
+                              {totalProcs > 0 ? (
+                                <>
+                                  {reqPct > 0 && (
+                                    <div
+                                      className="sih-coverage-seg required"
+                                      style={{ width: `${reqPct}%` }}
+                                      title={`Required: ${reqCount} (${reqPct.toFixed(1)}%)`}
+                                    />
+                                  )}
+                                  {condPct > 0 && (
+                                    <div
+                                      className="sih-coverage-seg conditional"
+                                      style={{ width: `${condPct}%` }}
+                                      title={`Conditional: ${condCount} (${condPct.toFixed(1)}%)`}
+                                    />
+                                  )}
+                                  {revPct > 0 && (
+                                    <div
+                                      className="sih-coverage-seg review"
+                                      style={{ width: `${revPct}%` }}
+                                      title={`Review Required: ${revCount} (${revPct.toFixed(1)}%)`}
+                                    />
+                                  )}
+                                  {naPct > 0 && (
+                                    <div
+                                      className="sih-coverage-seg na"
+                                      style={{ width: `${naPct}%` }}
+                                      title={`Not Applicable: ${naCount} (${naPct.toFixed(1)}%)`}
+                                    />
+                                  )}
+                                </>
+                              ) : (
+                                <div className="sih-coverage-seg empty" style={{ width: '100%' }} />
+                              )}
+                            </div>
+                          </div>
+                        )
+                      })()}
+
+                      <div className="sih-table-wrap" style={{ marginTop: '0px' }}>
                         <table className="sih-table">
                           <thead>
                             <tr>
-                              <th>Procedure</th>
-                              <th>Category</th>
-                              <th>Clause</th>
-                              <th>Status</th>
-                              <th>Reason</th>
+                              <th className="sih-col-procedure">Procedure</th>
+                              <th className="sih-col-category">Category</th>
+                              <th className="sih-col-clause">Clause</th>
+                              <th className="sih-col-status">Status</th>
+                              <th className="sih-col-reason">Reason</th>
                             </tr>
                           </thead>
                           <tbody>
                             {testPlan.tests.map((test) => (
                               <tr key={test.test_code}>
-                                <td>
-                                  <strong>{test.test_name}</strong>
-                                  <small style={{ display: 'block', opacity: 0.65 }}>{test.test_code}</small>
+                                <td className="sih-col-procedure">
+                                  <div className="sih-tp-proc-cell">
+                                    <span className="sih-tp-accent-marker" />
+                                    <div className="sih-tp-proc-meta">
+                                      <strong className="sih-tp-proc-name">{test.test_name}</strong>
+                                      <code className="sih-tp-proc-id">{test.test_code}</code>
+                                    </div>
+                                  </div>
                                 </td>
-                                <td>{test.category || '—'}</td>
-                                <td>{test.source_clause || '—'}</td>
-                                <td>
+                                <td className="sih-col-category">
+                                  <span className="sih-category-pill">
+                                    {test.category
+                                      ? test.category.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
+                                      : '—'}
+                                  </span>
+                                </td>
+                                <td className="sih-col-clause">
+                                  <span className="sih-clause-tag">
+                                    {test.source_clause || '—'}
+                                  </span>
+                                </td>
+                                <td className="sih-col-status" style={{ minWidth: '160px', whiteSpace: 'nowrap' }}>
                                   <span className={`sih-status-pill ${test.status}`}>
                                     {test.status.replace('_', ' ').toUpperCase()}
                                   </span>
                                 </td>
-                                <td>{test.reason || '—'}</td>
+                                <td className="sih-col-reason reason-cell">
+                                  <span className="sih-reason-text" style={{ color: '#374151', fontSize: '13px', lineHeight: 1.5, display: 'block', wordBreak: 'normal', overflowWrap: 'break-word' }}>
+                                    {test.reason || '—'}
+                                  </span>
+                                </td>
                               </tr>
                             ))}
                           </tbody>
                         </table>
+                      </div>
+
+                      {/* Next Steps / Test Plan Footer */}
+                      <div className="sih-test-plan-footer">
+                        <div className="sih-tp-footer-info">
+                          <div className="sih-tp-footer-status">
+                            <span className="sih-tp-check-icon">✓</span>
+                            <strong className="sih-tp-footer-title">Test plan generated successfully</strong>
+                          </div>
+                          <p className="sih-tp-footer-sub">
+                            Review the selected procedures before starting test execution.
+                          </p>
+                        </div>
+                        <div className="sih-tp-footer-actions">
+                          <button
+                            type="button"
+                            className="sih-tp-start-btn"
+                            onClick={() => {
+                              const firstRequired = testPlan?.tests?.find(t => t.status === 'required' || t.status === 'conditional' || t.status === 'review_required')?.test_code || testPlan?.tests?.[0]?.test_code
+                              if (firstRequired) {
+                                setSelectedTestCode(firstRequired)
+                              }
+                              document.querySelector('.sih-test-layout')?.scrollIntoView({ behavior: 'smooth' })
+                            }}
+                          >
+                            Start Testing →
+                          </button>
+                        </div>
                       </div>
                     </>
                   ) : (
@@ -1847,31 +2590,38 @@ export function SIH26035DashboardPage({
                           (result) => result.test_definition_id === definition.id || result.rule_id === definition.test_code
                         )
                         const selected = selectedTestCode === definition.test_code
-                        const catIndex = R76_78_TEST_PROCEDURES.findIndex(p => p.test_code === definition.test_code)
-                        const posNum = catIndex >= 0 ? String(catIndex + 1).padStart(2, '0') : '01'
+
+                        let icon = '○'
+                        let iconClass = 'pending'
+
+                        if (existing) {
+                          if (existing.pass_fail === false) {
+                            icon = '!'
+                            iconClass = 'fail'
+                          } else {
+                            icon = '✓'
+                            iconClass = 'completed'
+                          }
+                        } else if (selected) {
+                          icon = '●'
+                          iconClass = 'current'
+                        }
 
                         return (
                           <button
                             type="button"
                             key={definition.test_code}
-                            className={`sih-test-nav-item ${selected ? 'active' : ''}`}
+                            className={`sih-test-nav-item ${selected ? 'is-current' : ''} ${existing ? (existing.pass_fail ? 'is-completed' : 'is-failed') : ''}`}
                             onClick={() => {
                               setSelectedTestCode(definition.test_code)
                               setShowMobileProcDropdown(false)
                             }}
                           >
-                            <span className="sih-proc-num">{posNum}</span>
-                            <span className="sih-test-nav-meta">
-                              <strong>{definition.test_name}</strong>
-                              <small>{definition.test_code} • {definition.source_clause}</small>
-                            </span>
-                            {existing ? (
-                              <span className={`sih-proc-badge ${existing.pass_fail ? 'pass' : 'fail'}`}>
-                                {existing.pass_fail ? 'PASSED ✓' : 'FAILED ✕'}
-                              </span>
-                            ) : (
-                              <span className="sih-proc-badge not-started">NOT STARTED</span>
-                            )}
+                            <span className={`sih-proc-status-icon ${iconClass}`}>{icon}</span>
+                            <div className="sih-proc-content">
+                              <span className="sih-proc-name">{definition.test_name}</span>
+                              <span className="sih-proc-id">{definition.test_code}</span>
+                            </div>
                           </button>
                         )
                       })}
@@ -1881,9 +2631,9 @@ export function SIH26035DashboardPage({
 
                 <div className="sih-test-layout">
                   <aside className="sih-test-sidebar">
-                    <div className="sih-test-progress">
-                      <span>78 PROCEDURES · {completedTests} COMPLETED · {passedTests} PASSED · {failedTests} FAILED</span>
-                      <strong>{filteredProcedures.length} procedures matching filter</strong>
+                    <div className="sih-test-sidebar-header">
+                      <strong className="sih-sidebar-title">TEST PROCEDURES</strong>
+                      <span className="sih-sidebar-subtitle">{filteredProcedures.length} procedures</span>
                     </div>
 
                     <div className="sih-procedure-list">
@@ -1892,28 +2642,35 @@ export function SIH26035DashboardPage({
                           (result) => result.test_definition_id === definition.id || result.rule_id === definition.test_code
                         )
                         const selected = selectedTestCode === definition.test_code
-                        const catIndex = R76_78_TEST_PROCEDURES.findIndex(p => p.test_code === definition.test_code)
-                        const posNum = catIndex >= 0 ? String(catIndex + 1).padStart(2, '0') : '01'
+
+                        let icon = '○'
+                        let iconClass = 'pending'
+
+                        if (existing) {
+                          if (existing.pass_fail === false) {
+                            icon = '!'
+                            iconClass = 'fail'
+                          } else {
+                            icon = '✓'
+                            iconClass = 'completed'
+                          }
+                        } else if (selected) {
+                          icon = '●'
+                          iconClass = 'current'
+                        }
 
                         return (
                           <button
                             type="button"
                             key={definition.test_code}
-                            className={`sih-test-nav-item ${selected ? 'active' : ''}`}
+                            className={`sih-test-nav-item ${selected ? 'is-current' : ''} ${existing ? (existing.pass_fail ? 'is-completed' : 'is-failed') : ''}`}
                             onClick={() => setSelectedTestCode(definition.test_code)}
                           >
-                            <span className="sih-proc-num">{posNum}</span>
-                            <span className="sih-test-nav-meta">
-                              <strong>{definition.test_name}</strong>
-                              <small>{definition.test_code} • {definition.source_clause}</small>
-                            </span>
-                            {existing ? (
-                              <span className={`sih-proc-badge ${existing.pass_fail ? 'pass' : 'fail'}`}>
-                                {existing.pass_fail ? 'PASSED ✓' : 'FAILED ✕'}
-                              </span>
-                            ) : (
-                              <span className="sih-proc-badge not-started">NOT STARTED</span>
-                            )}
+                            <span className={`sih-proc-status-icon ${iconClass}`}>{icon}</span>
+                            <div className="sih-proc-content">
+                              <span className="sih-proc-name">{definition.test_name}</span>
+                              <span className="sih-proc-id">{definition.test_code}</span>
+                            </div>
                           </button>
                         )
                       })}
@@ -1928,17 +2685,24 @@ export function SIH26035DashboardPage({
                       <>
                         <div className="sih-test-heading">
                           <div className="sih-test-heading-top">
-                            <span className="sih-eyebrow">OIML R 76-1:2006 • CLAUSE {selectedDefinition.source_clause || '—'}</span>
+                            <div className="sih-test-heading-badges">
+                              <span className="sih-clause-tag font-mono">CLAUSE {selectedDefinition.source_clause || '—'}</span>
+                              <span className="sih-standard-ref-badge">OIML R 76-1:2006</span>
+                            </div>
                             <span className="sih-test-pos-tag">
-                              TEST {String(R76_78_TEST_PROCEDURES.findIndex(p => p.test_code === selectedDefinition.test_code) + 1).padStart(2, '0')} OF 78
+                              PROCEDURE {String(R76_78_TEST_PROCEDURES.findIndex(p => p.test_code === selectedDefinition.test_code) + 1).padStart(2, '0')} OF 78
                             </span>
                           </div>
                           <h4>{selectedDefinition.test_code}: {selectedDefinition.test_name}</h4>
-                          <p>{selectedDefinition.description || 'OIML R 76 standard test procedure for non-automatic weighing instruments.'}</p>
+                          <p className="sih-test-heading-desc">{selectedDefinition.description || 'OIML R 76 standard test procedure for non-automatic weighing instruments.'}</p>
                           <div className="sih-source-row">
-                            <span><strong>Standard</strong> {selectedDefinition.source_document || 'OIML R 76-1:2006'}</span>
-                            <span><strong>Category</strong> {(selectedDefinition.category || 'weighing').toUpperCase()}</span>
-                            <span>
+                            <span className="sih-source-item">
+                              <strong>Category</strong>{' '}
+                              <span className="sih-category-pill">
+                                {(selectedDefinition.category || 'weighing').replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())}
+                              </span>
+                            </span>
+                            <span className="sih-source-item">
                               <strong>Status</strong>{' '}
                               {results.find(r => r.test_definition_id === selectedDefinition.id || r.rule_id === selectedDefinition.test_code) ? (
                                 <span className={`sih-status-inline ${results.find(r => r.test_definition_id === selectedDefinition.id || r.rule_id === selectedDefinition.test_code)?.pass_fail ? 'pass' : 'fail'}`}>
@@ -1971,6 +2735,8 @@ export function SIH26035DashboardPage({
                             const currIdx = catalogProcedures.findIndex(p => p.test_code === selectedTestCode)
                             if (currIdx >= 0 && currIdx < catalogProcedures.length - 1) {
                               setSelectedTestCode(catalogProcedures[currIdx + 1].test_code)
+                            } else if (currIdx === catalogProcedures.length - 1) {
+                              setShowCompletionScreen(true)
                             }
                           }}
                           onBackToProcedures={() => {
@@ -1984,10 +2750,12 @@ export function SIH26035DashboardPage({
                     )}
                   </div>
                 </div>
-              </div>
+              </>
             )}
-          </section>
+          </div>
         )}
+      </section>
+    )}
 
         {activeView === 'history' && (
           <section className="sih-panel">
@@ -2039,196 +2807,308 @@ export function SIH26035DashboardPage({
         )}
 
         {activeView === 'reports' && (
-          <section className="sih-panel">
-            <div className="sih-panel-header">
+          <section className="sih-panel sih-repo-panel">
+            {/* Header */}
+            <div className="sih-panel-header sih-repo-header">
               <div>
                 <span className="sih-eyebrow">REPORT REPOSITORY</span>
-                <h3>R76 Test Reports</h3>
-                <p>Search, filter and manage generated NAWI test reports.</p>
+                <h3 className="sih-repo-title">Report Repository</h3>
+                <p className="sih-repo-subtitle">
+                  View and manage previous OIML R 76 inspections and generated reports.
+                </p>
               </div>
             </div>
 
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'minmax(220px, 1fr) 180px 180px',
-                gap: '12px',
-                marginBottom: '18px',
-              }}
-            >
-              <input
-                type="search"
-                className="sih-search-input"
-                placeholder="Search session number or location..."
-                value={reportSearch}
-                onChange={(event) => setReportSearch(event.target.value)}
-              />
+            {/* Dynamic Summary Metrics */}
+            <div className="sih-repo-summary-grid">
+              <div className="sih-repo-summary-card">
+                <span className="sih-rsc-label">TOTAL REPORTS</span>
+                <strong className="sih-rsc-val">{sessions.length}</strong>
+                <small className="sih-rsc-sub">Inspections recorded</small>
+              </div>
 
-              <select
-                className="sih-search-input"
-                value={reportStatusFilter}
-                onChange={(event) => setReportStatusFilter(event.target.value)}
-              >
-                <option value="">All statuses</option>
-                <option value="draft">Draft</option>
-                <option value="in_progress">In progress</option>
-                <option value="submitted">Submitted</option>
-                <option value="under_review">Under review</option>
-                <option value="approved">Approved</option>
-                <option value="rejected">Rejected</option>
-                <option value="completed">Completed</option>
-              </select>
+              <div className="sih-repo-summary-card completed">
+                <span className="sih-rsc-label">COMPLETED</span>
+                <strong className="sih-rsc-val">
+                  {sessions.filter(s => s.status === 'completed' || s.status === 'approved' || s.status === 'submitted').length}
+                </strong>
+                <small className="sih-rsc-sub">Processed runs</small>
+              </div>
 
-              <select
-                className="sih-search-input"
-                value={reportTypeFilter}
-                onChange={(event) => setReportTypeFilter(event.target.value)}
-              >
-                <option value="">All test types</option>
-                <option value="type_evaluation">Type evaluation</option>
-                <option value="initial_verification">Initial verification</option>
-                <option value="in_service">In-service</option>
-              </select>
+              <div className="sih-repo-summary-card pass">
+                <span className="sih-rsc-label">PASS</span>
+                <strong className="sih-rsc-val">
+                  {sessions.filter(s => s.status === 'approved' || s.status === 'completed').length}
+                </strong>
+                <small className="sih-rsc-sub">Compliant inspections</small>
+              </div>
+
+              <div className="sih-repo-summary-card fail">
+                <span className="sih-rsc-label">FAIL</span>
+                <strong className="sih-rsc-val">
+                  {sessions.filter(s => s.status === 'rejected' || s.status === 'failed').length}
+                </strong>
+                <small className="sih-rsc-sub">Requires attention</small>
+              </div>
             </div>
 
-            {filteredReportSessions.length === 0 ? (
-              <div className="sih-empty large">
-                No reports match the selected filters.
+            {/* Search & Filters */}
+            <div className="sih-repo-controls-bar">
+              <div className="sih-search-box sih-repo-search font-sans">
+                <span className="sih-search-icon">🔍</span>
+                <input
+                  type="text"
+                  placeholder="Search reports by model, serial number, report ID, or inspection number..."
+                  value={reportSearch}
+                  onChange={(event) => setReportSearch(event.target.value)}
+                  className="sih-search-input"
+                />
+                {reportSearch && (
+                  <button
+                    type="button"
+                    className="sih-search-clear"
+                    onClick={() => setReportSearch('')}
+                  >
+                    ×
+                  </button>
+                )}
+              </div>
+
+              <div className="sih-repo-filters font-sans">
+                <select
+                  className="sih-repo-select"
+                  value={reportStatusFilter}
+                  onChange={(event) => setReportStatusFilter(event.target.value)}
+                >
+                  <option value="">All Statuses</option>
+                  <option value="draft">Draft</option>
+                  <option value="in_progress">In Progress</option>
+                  <option value="submitted">Submitted</option>
+                  <option value="under_review">Under Review</option>
+                  <option value="approved">Approved</option>
+                  <option value="completed">Completed</option>
+                  <option value="rejected">Rejected / Failed</option>
+                </select>
+
+                <select
+                  className="sih-repo-select"
+                  value={reportTypeFilter}
+                  onChange={(event) => setReportTypeFilter(event.target.value)}
+                >
+                  <option value="">All Verification Types</option>
+                  <option value="type_evaluation">Type evaluation</option>
+                  <option value="initial_verification">Initial verification</option>
+                  <option value="in_service">In-service</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Error Banner */}
+            {error && (
+              <div className="sih-report-status-banner error" style={{ margin: '14px 0' }}>
+                <strong>Unable to load reports:</strong>
+                <span>{error}</span>
+                <button
+                  type="button"
+                  className="sih-secondary-action-btn"
+                  style={{ marginLeft: 'auto', padding: '4px 10px', fontSize: '12px' }}
+                  onClick={() => setError('')}
+                >
+                  Dismiss
+                </button>
+              </div>
+            )}
+
+            {/* Empty State */}
+            {sessions.length === 0 ? (
+              <div className="sih-empty large sih-repo-empty">
+                <div className="sih-repo-empty-icon font-mono">▤</div>
+                <strong className="sih-repo-empty-title">No reports yet</strong>
+                <span className="sih-repo-empty-desc">Completed inspections and generated reports will appear here.</span>
+                <button
+                  type="button"
+                  className="sih-primary-action-btn"
+                  style={{ marginTop: '16px' }}
+                  onClick={() => setActiveView('sessions')}
+                >
+                  + Start New Test Session
+                </button>
+              </div>
+            ) : filteredReportSessions.length === 0 ? (
+              <div className="sih-empty large sih-repo-empty">
+                <strong>No reports match search criteria</strong>
+                <span>Try adjusting your search query or status filter.</span>
+                <button
+                  type="button"
+                  className="sih-secondary-action-btn"
+                  style={{ marginTop: '12px' }}
+                  onClick={() => {
+                    setReportSearch('')
+                    setReportStatusFilter('')
+                    setReportTypeFilter('')
+                  }}
+                >
+                  Clear Filters
+                </button>
               </div>
             ) : (
-              <div className="sih-report-repository">
-                {filteredReportSessions.map((session) => (
-                  <div className="sih-report-row" key={session.id}>
-                    <div style={{ minWidth: 0 }}>
-                      <strong>
-                        {session.session_number || session.id}
-                      </strong>
+              /* Report Table Surface */
+              <div className="sih-repo-table-wrap">
+                <table className="sih-repo-table">
+                  <thead>
+                    <tr>
+                      <th>Report</th>
+                      <th>Instrument</th>
+                      <th>Serial</th>
+                      <th>Date</th>
+                      <th>Result</th>
+                      <th>Status</th>
+                      <th style={{ textAlign: 'right' }}>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filteredReportSessions.map((session) => {
+                      const inst = instrumentById.get(session.instrument_id)
+                      const reportId = session.report_id || session.session_number || session.id
+                      const instName = inst
+                        ? `${inst.manufacturer || ''} ${inst.model || ''}`.trim()
+                        : (session.test_type || 'NAWI Instrument')
+                      const instSerial = inst?.serial_number || 'N/A'
+                      const createdDate = session.created_at || session.started_at
+                        ? new Date(session.created_at || session.started_at!).toLocaleDateString('en-GB', {
+                            day: '2-digit',
+                            month: 'short',
+                            year: 'numeric',
+                          })
+                        : '02 Oct 2026'
 
-                      <span>
-                        {session.test_type || 'Verification'}
-                        {' · '}
-                        {session.test_location || 'Location not recorded'}
-                      </span>
+                      let resultTag = { label: 'PENDING', class: 'pending' }
+                      if (session.status === 'approved' || session.status === 'completed') {
+                        resultTag = { label: 'PASS', class: 'pass' }
+                      } else if (session.status === 'rejected' || session.status === 'failed') {
+                        resultTag = { label: 'FAIL', class: 'fail' }
+                      } else if (session.status === 'submitted' || session.status === 'under_review') {
+                        resultTag = { label: 'REVIEW', class: 'review' }
+                      }
 
-                      <small style={{ display: 'block', marginTop: '4px', opacity: 0.7 }}>
-                        Report ID: {session.report_id || 'Generated on export'}
-                        {' · '}
-                        {session.created_at
-                          ? new Date(session.created_at).toLocaleDateString()
-                          : 'Date not recorded'}
-                      </small>
-                    </div>
+                      return (
+                        <tr key={session.id} className="sih-repo-row">
+                          <td className="sih-repo-cell-report">
+                            <strong className="repo-report-num font-mono">{reportId}</strong>
+                            <small className="repo-session-id font-mono">ID: {session.session_number || session.id}</small>
+                          </td>
 
-                    <span
-                      className={`sih-status ${session.status || 'draft'}`}
-                    >
-                      {session.status || 'draft'}
-                    </span>
+                          <td className="sih-repo-cell-inst">
+                            <strong className="repo-inst-name">{instName}</strong>
+                            <small className="repo-inst-type">{session.test_type || session.verification_stage || 'Initial Verification'}</small>
+                          </td>
 
-                    <div
-                      style={{
-                        display: 'flex',
-                        gap: '8px',
-                        flexWrap: 'wrap',
-                        justifyContent: 'flex-end',
-                      }}
-                    >
-                      <button
-                        type="button"
-                        className="sih-secondary-action"
-                        onClick={() => {
-                          setSelectedSessionId(session.id)
-                          setActiveView('tests')
-                        }}
-                      >
-                        View results
-                      </button>
+                          <td className="sih-repo-cell-serial font-mono">
+                            {instSerial}
+                          </td>
 
-                      <button
-                        type="button"
-                        className="sih-secondary-action"
-                        disabled={busySessionId === session.id}
-                        onClick={() => handlePreviewReport(session.id)}
-                      >
-                        {busySessionId === session.id
-                          ? 'Generating...'
-                          : 'Preview PDF'}
-                      </button>
+                          <td className="sih-repo-cell-date">
+                            {createdDate}
+                          </td>
 
-                      <button
-                        type="button"
-                        className="sih-secondary-action"
-                        disabled={busySessionId === session.id}
-                        onClick={() => handleDownloadReport(session.id)}
-                      >
-                        Download PDF
-                      </button>
+                          <td className="sih-repo-cell-result">
+                            <span className={`sih-result-pill ${resultTag.class}`}>
+                              {resultTag.label}
+                            </span>
+                          </td>
 
-                      <button
-                        type="button"
-                        className="sih-secondary-action"
-                        disabled={busySessionId === session.id}
-                        onClick={() => handleDownloadDocxReport(session.id)}
-                      >
-                        Download DOCX
-                      </button>
+                          <td className="sih-repo-cell-status">
+                            <span className={`sih-status-pill ${String(session.status || 'draft').toLowerCase().replace(/\s+/g, '_')}`}>
+                              {(session.status || 'draft').toUpperCase().replace(/_/g, ' ')}
+                            </span>
+                          </td>
 
-                      {(session.status === 'draft' ||
-                        session.status === 'in_progress' ||
-                        session.status === 'rejected') && (
-                        <button
-                          type="button"
-                          className="sih-secondary-action"
-                          disabled={busySessionId === session.id}
-                          onClick={() =>
-                            handleSessionWorkflow(session, 'submit')
-                          }
-                        >
-                          Submit for Review
-                        </button>
-                      )}
+                          <td className="sih-repo-cell-actions" style={{ textAlign: 'right' }}>
+                            <div className="sih-repo-actions-group">
+                              <button
+                                type="button"
+                                className="sih-repo-action-btn view"
+                                onClick={() => {
+                                  setSelectedSessionId(session.id)
+                                  setShowReportPreview(true)
+                                  setActiveView('tests')
+                                }}
+                                title="View report preview & compliance details"
+                              >
+                                View
+                              </button>
 
-                      {session.status === 'submitted' && (
-                        <button
-                          type="button"
-                          className="sih-secondary-action"
-                          disabled={busySessionId === session.id}
-                          onClick={() =>
-                            handleSessionWorkflow(session, 'review')
-                          }
-                        >
-                          Start Review
-                        </button>
-                      )}
+                              <button
+                                type="button"
+                                className="sih-repo-action-btn pdf"
+                                disabled={busySessionId === session.id}
+                                onClick={() => handleDownloadReport(session.id)}
+                                title="Download PDF document"
+                              >
+                                {busySessionId === session.id ? '...' : 'PDF'}
+                              </button>
 
-                      {session.status === 'under_review' && (
-                        <>
-                          <button
-                            type="button"
-                            className="sih-secondary-action"
-                            disabled={busySessionId === session.id}
-                            onClick={() =>
-                              handleSessionWorkflow(session, 'approve')
-                            }
-                          >
-                            Approve
-                          </button>
+                              <button
+                                type="button"
+                                className="sih-repo-action-btn docx"
+                                disabled={busySessionId === session.id}
+                                onClick={() => handleDownloadDocxReport(session.id)}
+                                title="Download DOCX document"
+                              >
+                                DOCX
+                              </button>
 
-                          <button
-                            type="button"
-                            className="sih-secondary-action"
-                            disabled={busySessionId === session.id}
-                            onClick={() =>
-                              handleSessionWorkflow(session, 'reject')
-                            }
-                          >
-                            Reject
-                          </button>
-                        </>
-                      )}
-                    </div>
-                  </div>
-                ))}
+                              {(session.status === 'draft' ||
+                                session.status === 'in_progress' ||
+                                session.status === 'rejected') && (
+                                <button
+                                  type="button"
+                                  className="sih-repo-action-btn workflow"
+                                  disabled={busySessionId === session.id}
+                                  onClick={() => handleSessionWorkflow(session, 'submit')}
+                                >
+                                  Submit
+                                </button>
+                              )}
+
+                              {session.status === 'submitted' && (
+                                <button
+                                  type="button"
+                                  className="sih-repo-action-btn workflow"
+                                  disabled={busySessionId === session.id}
+                                  onClick={() => handleSessionWorkflow(session, 'review')}
+                                >
+                                  Review
+                                </button>
+                              )}
+
+                              {session.status === 'under_review' && (
+                                <>
+                                  <button
+                                    type="button"
+                                    className="sih-repo-action-btn approve"
+                                    disabled={busySessionId === session.id}
+                                    onClick={() => handleSessionWorkflow(session, 'approve')}
+                                  >
+                                    Approve
+                                  </button>
+                                  <button
+                                    type="button"
+                                    className="sih-repo-action-btn reject"
+                                    disabled={busySessionId === session.id}
+                                    onClick={() => handleSessionWorkflow(session, 'reject')}
+                                  >
+                                    Reject
+                                  </button>
+                                </>
+                              )}
+                            </div>
+                          </td>
+                        </tr>
+                      )
+                    })}
+                  </tbody>
+                </table>
               </div>
             )}
           </section>
@@ -2238,78 +3118,57 @@ export function SIH26035DashboardPage({
           role="dialog"
           aria-modal="true"
           aria-label="PDF preview"
-          style={{
-            position: 'fixed',
-            inset: 0,
-            zIndex: 1000,
-            background: 'rgba(0, 0, 0, 0.65)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '24px',
-          }}
+          className="sih-pdf-modal-overlay"
           onClick={closePdfPreview}
         >
           <div
-            style={{
-              width: 'min(1100px, 96vw)',
-              height: 'min(850px, 92vh)',
-              background: '#ffffff',
-              borderRadius: '14px',
-              overflow: 'hidden',
-              display: 'flex',
-              flexDirection: 'column',
-              boxShadow: '0 24px 80px rgba(0, 0, 0, 0.35)',
-            }}
+            className="sih-pdf-modal-container"
             onClick={(event) => event.stopPropagation()}
           >
-            <div
-              style={{
-                minHeight: '56px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                padding: '0 18px',
-                borderBottom: '1px solid #e5e7eb',
-                background: '#f8fafc',
-              }}
-            >
-              <strong
-                style={{
-                  fontSize: '16px',
-                  color: '#111827',
-                }}
-              >
-                OIMLense — PDF Preview
-              </strong>
+            <div className="sih-pdf-modal-header">
+              <div className="sih-pdf-modal-title-group">
+                <span className="sih-pdf-badge font-mono">PDF</span>
+                <div>
+                  <strong className="sih-pdf-modal-title">OIMLense — PDF Report Preview</strong>
+                  <span className="sih-pdf-modal-sub">
+                    {selectedSession?.session_number || 'Verification Report'} · OIML R 76-1:2006
+                  </span>
+                </div>
+              </div>
 
-              <button
-                type="button"
-                onClick={closePdfPreview}
-                style={{
-                  border: 'none',
-                  background: '#111827',
-                  color: '#ffffff',
-                  borderRadius: '8px',
-                  padding: '8px 14px',
-                  cursor: 'pointer',
-                  fontSize: '14px',
-                  fontWeight: 600,
-                }}
-              >
-                Close
-              </button>
+              <div className="sih-pdf-modal-actions">
+                {selectedSessionId && (
+                  <>
+                    <button
+                      type="button"
+                      className="sih-pdf-action-btn secondary"
+                      onClick={() => handleDownloadReport(selectedSessionId)}
+                    >
+                      Download PDF
+                    </button>
+                    <button
+                      type="button"
+                      className="sih-pdf-action-btn secondary"
+                      onClick={() => handleDownloadDocxReport(selectedSessionId)}
+                    >
+                      Download DOCX
+                    </button>
+                  </>
+                )}
+                <button
+                  type="button"
+                  className="sih-pdf-action-btn close"
+                  onClick={closePdfPreview}
+                >
+                  Close ×
+                </button>
+              </div>
             </div>
 
             <iframe
               title="OIMLense PDF Preview"
               src={previewPdfUrl}
-              style={{
-                flex: 1,
-                width: '100%',
-                border: 'none',
-                background: '#e5e7eb',
-              }}
+              className="sih-pdf-iframe"
             />
           </div>
         </div>

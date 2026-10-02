@@ -230,7 +230,19 @@ def current_user_or_none(request: Request):
 
 def auth_error_message(exc: Exception) -> str:
     """Convert a Supabase exception to a human-readable string."""
+    raw_str = str(exc)
+    msg = raw_str.lower()
+    if (
+        "nodename nor servname provided" in msg
+        or "connecterror" in msg
+        or "name or service not known" in msg
+        or "connection refused" in msg
+        or "network" in msg
+        or "gai_error" in msg
+    ):
+        return "Unable to connect to authentication server. Please check your internet connection."
+    if "invalid login credentials" in msg or "invalid_credentials" in msg:
+        return "Invalid Officer ID/email or password."
 
-    message = getattr(exc, "message", None) or str(exc)
-
-    return message or "Something went wrong. Please try again."
+    message = getattr(exc, "message", None) or raw_str
+    return message or "Authentication failed. Please try again."

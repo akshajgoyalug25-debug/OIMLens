@@ -48,32 +48,72 @@ export type RegisterResult = AuthSuccess | AuthNotice | AuthError
 
 /** Login with officer ID + password. */
 export async function login(input: LoginInput): Promise<LoginResult> {
-  const res = await fetch(`${API}/login`, {
-    method: 'POST',
-    credentials: 'include',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(input),
-  })
-  return res.json() as Promise<LoginResult>
+  try {
+    const res = await fetch(`${API}/login`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(input),
+    })
+    const data = await res.json().catch(() => null)
+    if (!res.ok) {
+      return {
+        error:
+          data?.error ||
+          data?.detail ||
+          data?.message ||
+          `Login failed (${res.status}). Please try again.`,
+      }
+    }
+    return data as LoginResult
+  } catch (err: any) {
+    return {
+      error:
+        err?.message ||
+        'Unable to connect to authentication server. Please check your connection.',
+    }
+  }
 }
 
 /** Register a new account. */
 export async function register(input: RegisterInput): Promise<RegisterResult> {
-  const res = await fetch(`${API}/register`, {
-    method: 'POST',
-    credentials: 'include',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(input),
-  })
-  return res.json() as Promise<RegisterResult>
+  try {
+    const res = await fetch(`${API}/register`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(input),
+    })
+    const data = await res.json().catch(() => null)
+    if (!res.ok) {
+      return {
+        error:
+          data?.error ||
+          data?.detail ||
+          data?.message ||
+          `Registration failed (${res.status}). Please try again.`,
+      }
+    }
+    return data as RegisterResult
+  } catch (err: any) {
+    return {
+      error:
+        err?.message ||
+        'Unable to connect to authentication server. Please check your connection.',
+    }
+  }
 }
 
 /** Log out. Clears session cookies. */
 export async function logout(): Promise<void> {
-  await fetch(`${API}/logout`, {
-    method: 'POST',
-    credentials: 'include',
-  })
+  try {
+    await fetch(`${API}/logout`, {
+      method: 'POST',
+      credentials: 'include',
+    })
+  } catch {
+    // Ignore logout network errors
+  }
 }
 
 export interface ForgotPasswordResult {
@@ -84,11 +124,29 @@ export interface ForgotPasswordResult {
 
 /** Request password reset link for an Officer ID. */
 export async function forgotPassword(officer_id: string): Promise<ForgotPasswordResult> {
-  const res = await fetch(`${API}/forgot-password`, {
-    method: 'POST',
-    credentials: 'include',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ officer_id }),
-  })
-  return res.json() as Promise<ForgotPasswordResult>
+  try {
+    const res = await fetch(`${API}/forgot-password`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ officer_id }),
+    })
+    const data = await res.json().catch(() => null)
+    if (!res.ok) {
+      return {
+        error:
+          data?.error ||
+          data?.detail ||
+          data?.message ||
+          `Password reset request failed (${res.status}). Please try again.`,
+      }
+    }
+    return data as ForgotPasswordResult
+  } catch (err: any) {
+    return {
+      error:
+        err?.message ||
+        'Unable to connect to authentication server. Please check your connection.',
+    }
+  }
 }

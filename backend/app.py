@@ -186,7 +186,11 @@ async def api_login(request: Request):
         )
 
     if not email:
-        email = _resolve_email(officer_id)
+        try:
+            email = _resolve_email(officer_id)
+        except Exception as exc:
+            return JSONResponse({"error": auth_error_message(exc)}, status_code=500)
+
         if not email:
             return JSONResponse(
                 {"error": "No account found for that Officer ID."},
