@@ -1155,7 +1155,43 @@ export function R76TestForm({
                         {result.failure_reason ||
                           (result.pass_fail
                             ? 'All repeatability series comply with the applicable limits.'
-                            : 'One or more individual errors or repeatability ranges exceed the applicable limits.')}
+                            : (() => {
+                                const failures: string[] = []
+
+                                series.forEach((item, seriesIndex) => {
+                                  const seriesNumber = seriesIndex + 1
+                                  const mpe = item.mpe
+
+                                  if (mpe !== undefined && Array.isArray(item.errors)) {
+                                    item.errors.forEach((error, readingIndex) => {
+                                      if (Math.abs(Number(error)) > Number(mpe)) {
+                                        const sign = Number(error) >= 0 ? '+' : ''
+                                        failures.push(
+                                          `Series ${seriesNumber}, Reading ${readingIndex + 1}: ` +
+                                          `error ${sign}${Number(error).toFixed(4)} ${unit} exceeds ` +
+                                          `MPE ±${Number(mpe).toFixed(4)} ${unit}.`
+                                        )
+                                      }
+                                    })
+                                  }
+
+                                  if (
+                                    item.error_range !== undefined &&
+                                    mpe !== undefined &&
+                                    Number(item.error_range) > Number(mpe)
+                                  ) {
+                                    failures.push(
+                                      `Series ${seriesNumber}: error range ` +
+                                      `${Number(item.error_range).toFixed(4)} ${unit} exceeds ` +
+                                      `MPE ±${Number(mpe).toFixed(4)} ${unit}.`
+                                    )
+                                  }
+                                })
+
+                                return failures.length > 0
+                                  ? failures.join(' ')
+                                  : 'One or more repeatability acceptance criteria were not satisfied.'
+                              })())}
                       </strong>
                     </div>
                   </div>
