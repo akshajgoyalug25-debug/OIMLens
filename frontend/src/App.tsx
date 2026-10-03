@@ -100,7 +100,7 @@ function App() {
 
   // The public landing page does not need to wait for authentication.
   // This prevents a loading/blank transition when refreshing `/`.
-  if (!authChecked && window.location.pathname === '/') {
+  if (!authChecked && window.location.pathname === '/' && mode === 'landing') {
     return (
       <SIH26035LandingPage
         onLogin={() => {
