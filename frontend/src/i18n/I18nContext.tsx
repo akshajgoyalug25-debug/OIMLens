@@ -224,7 +224,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     scanProduct: 'Scan Product',
     sihLegalMetrology: 'SIH26035 · OIML R 76',
     complianceMadeSimple: 'COMPLIANCE,',
-    aiPoweredVerification: 'AI-powered packaged commodity label verification.',
+    aiPoweredVerification: 'AI-assisted NAWI testing and OIML R-76 compliance verification.',
     scanAProduct: 'SCAN A PRODUCT →',
     exploreHowItWorks: 'EXPLORE HOW IT WORKS',
     productSection: '01 — Product',
