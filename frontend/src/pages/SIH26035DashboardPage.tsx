@@ -1693,8 +1693,8 @@ export function SIH26035DashboardPage({
                 {showReportPreview ? (
                   <div className="sih-report-preview-container">
                     {/* Report Preview Header */}
-                    <div className="sih-report-preview-header">
-                      <div className="sih-rp-header-left">
+                    <div className="sih-rp-header-bar">
+                      <div className="sih-rp-header-titles">
                         <div className="sih-workbench-badge-row">
                           <span className="sih-eyebrow">METROLOGY REPORT WORKSTATION</span>
                           <span className="sih-standard-ref-badge font-mono">OIML R 76-1:2006</span>
@@ -1703,10 +1703,10 @@ export function SIH26035DashboardPage({
                         <p className="sih-rp-sub">OIML R 76 Test Report for Non-Automatic Weighing Instruments</p>
                       </div>
 
-                      <div className="sih-rp-header-right">
+                      <div className="sih-rp-header-action">
                         <button
                           type="button"
-                          className="sih-secondary-action-btn"
+                          className="sih-rp-back-btn"
                           onClick={() => setShowReportPreview(false)}
                         >
                           ← Back to Results Review
@@ -1714,57 +1714,67 @@ export function SIH26035DashboardPage({
                       </div>
                     </div>
 
-                    {/* Export Format Options */}
-                    <div className="sih-export-formats-row">
-                      {/* PDF Format Option Card */}
-                      <div className="sih-format-card">
-                        <div className="sih-format-card-info">
-                          <div className="sih-format-badge pdf">PDF</div>
-                          <div>
-                            <strong className="sih-format-title">Portable Document Format</strong>
-                            <span className="sih-format-desc">Official compliance report with digital verification badge</span>
-                          </div>
-                        </div>
-
-                        <div className="sih-format-actions">
-                          <button
-                            type="button"
-                            className="sih-format-btn primary"
-                            disabled={busySessionId === selectedSessionId}
-                            onClick={() => handlePreviewReport(selectedSessionId)}
-                          >
-                            {busySessionId === selectedSessionId ? 'Generating PDF...' : 'Preview PDF'}
-                          </button>
-                          <button
-                            type="button"
-                            className="sih-format-btn secondary"
-                            disabled={busySessionId === selectedSessionId}
-                            onClick={() => handleDownloadReport(selectedSessionId)}
-                          >
-                            Download PDF
-                          </button>
-                        </div>
+                    {/* Export Report Section */}
+                    <div className="sih-rp-export-section">
+                      <div className="sih-rp-export-header">
+                        <span className="sih-rp-export-title">EXPORT REPORT</span>
                       </div>
 
-                      {/* DOCX Format Option Card */}
-                      <div className="sih-format-card">
-                        <div className="sih-format-card-info">
-                          <div className="sih-format-badge docx">DOCX</div>
-                          <div>
-                            <strong className="sih-format-title">Editable Word Document</strong>
-                            <span className="sih-format-desc">Full editable test report for laboratory archiving</span>
+                      <div className="sih-rp-cards-grid">
+                        {/* PDF Format Option Card */}
+                        <div className="sih-rp-card">
+                          <div className="sih-rp-card-body">
+                            <div className="sih-rp-card-header">
+                              <span className="sih-rp-badge pdf">PDF</span>
+                              <div className="sih-rp-card-text">
+                                <h3 className="sih-rp-card-heading">Portable Document Format</h3>
+                                <p className="sih-rp-card-desc">Official compliance report with digital verification badge</p>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="sih-rp-card-actions">
+                            <button
+                              type="button"
+                              className="sih-rp-btn secondary"
+                              disabled={busySessionId === selectedSessionId}
+                              onClick={() => handlePreviewReport(selectedSessionId)}
+                            >
+                              {busySessionId === selectedSessionId ? 'Generating PDF...' : 'Preview PDF'}
+                            </button>
+                            <button
+                              type="button"
+                              className="sih-rp-btn primary"
+                              disabled={busySessionId === selectedSessionId}
+                              onClick={() => handleDownloadReport(selectedSessionId)}
+                            >
+                              Download PDF
+                            </button>
                           </div>
                         </div>
 
-                        <div className="sih-format-actions">
-                          <button
-                            type="button"
-                            className="sih-format-btn secondary"
-                            disabled={busySessionId === selectedSessionId}
-                            onClick={() => handleDownloadDocxReport(selectedSessionId)}
-                          >
-                            Download DOCX
-                          </button>
+                        {/* DOCX Format Option Card */}
+                        <div className="sih-rp-card">
+                          <div className="sih-rp-card-body">
+                            <div className="sih-rp-card-header">
+                              <span className="sih-rp-badge docx">DOCX</span>
+                              <div className="sih-rp-card-text">
+                                <h3 className="sih-rp-card-heading">Editable Word Document</h3>
+                                <p className="sih-rp-card-desc">Full editable test report for laboratory archiving</p>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="sih-rp-card-actions">
+                            <button
+                              type="button"
+                              className="sih-rp-btn primary"
+                              disabled={busySessionId === selectedSessionId}
+                              onClick={() => handleDownloadDocxReport(selectedSessionId)}
+                            >
+                              Download DOCX
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
