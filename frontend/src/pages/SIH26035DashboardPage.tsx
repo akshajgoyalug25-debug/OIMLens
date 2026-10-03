@@ -59,7 +59,6 @@ export function SIH26035DashboardPage({
   }
   const [busySessionId, setBusySessionId] = useState<string | null>(null)
   const [error, setError] = useState('')
-  const [previewPdfUrl, setPreviewPdfUrl] = useState<string | null>(null)
 
   const [showInstrumentForm, setShowInstrumentForm] = useState(false)
   const [editingInstrumentId, setEditingInstrumentId] = useState<string | null>(null)
@@ -282,15 +281,10 @@ export function SIH26035DashboardPage({
       setBusySessionId(sessionId)
       setError('')
 
-      if (previewPdfUrl) {
-        window.URL.revokeObjectURL(previewPdfUrl)
-        setPreviewPdfUrl(null)
-      }
-
       const blob = await downloadR76Report(sessionId)
       const url = window.URL.createObjectURL(blob)
 
-      setPreviewPdfUrl(url)
+      window.open(url, '_blank')
     } catch (err) {
       setError(
         err instanceof Error
@@ -300,14 +294,6 @@ export function SIH26035DashboardPage({
     } finally {
       setBusySessionId(null)
     }
-  }
-
-  function closePdfPreview() {
-    if (previewPdfUrl) {
-      window.URL.revokeObjectURL(previewPdfUrl)
-    }
-
-    setPreviewPdfUrl(null)
   }
 
   const catalogProcedures = useMemo(() => {
@@ -2351,7 +2337,6 @@ export function SIH26035DashboardPage({
                           disabled={busySessionId === selectedSessionId}
                           onClick={() => {
                             setShowReportPreview(true)
-                            handlePreviewReport(selectedSessionId)
                           }}
                         >
                           {busySessionId === selectedSessionId ? 'Generating...' : 'Report Preview & Export →'}
@@ -3561,66 +3546,6 @@ export function SIH26035DashboardPage({
             )}
           </section>
         )}
-      {previewPdfUrl && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-label="PDF preview"
-          className="sih-pdf-modal-overlay"
-          onClick={closePdfPreview}
-        >
-          <div
-            className="sih-pdf-modal-container"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <div className="sih-pdf-modal-header">
-              <div className="sih-pdf-modal-title-group">
-                <span className="sih-pdf-badge font-mono">PDF</span>
-                <div>
-                  <strong className="sih-pdf-modal-title">OIMLense — PDF Report Preview</strong>
-                  <span className="sih-pdf-modal-sub">
-                    {selectedSession?.session_number || 'Verification Report'} · OIML R 76-1:2006
-                  </span>
-                </div>
-              </div>
-
-              <div className="sih-pdf-modal-actions">
-                {selectedSessionId && (
-                  <>
-                    <button
-                      type="button"
-                      className="sih-pdf-action-btn secondary"
-                      onClick={() => handleDownloadReport(selectedSessionId)}
-                    >
-                      Download PDF
-                    </button>
-                    <button
-                      type="button"
-                      className="sih-pdf-action-btn secondary"
-                      onClick={() => handleDownloadDocxReport(selectedSessionId)}
-                    >
-                      Download DOCX
-                    </button>
-                  </>
-                )}
-                <button
-                  type="button"
-                  className="sih-pdf-action-btn close"
-                  onClick={closePdfPreview}
-                >
-                  Close ×
-                </button>
-              </div>
-            </div>
-
-            <iframe
-              title="OIMLense PDF Preview"
-              src={previewPdfUrl}
-              className="sih-pdf-iframe"
-            />
-          </div>
-        </div>
-      )}
 
       </main>
     </div>
