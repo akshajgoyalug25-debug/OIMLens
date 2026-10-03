@@ -837,8 +837,13 @@ export function SIH26035DashboardPage({
               <strong>{user?.name || user?.officer_id || 'Officer'}</strong>
               <span>{user?.email || 'R76 Test Officer'}</span>
             </div>
-            <button type="button" onClick={onLogout} title="Logout">
-              ↪
+            <button
+              type="button"
+              className="sih-logout-btn"
+              onClick={onLogout}
+              title="Logout"
+            >
+              Logout
             </button>
           </div>
         </div>
@@ -918,6 +923,14 @@ export function SIH26035DashboardPage({
               }}
             >
               + New Session
+            </button>
+            <button
+              type="button"
+              className="sih-logout-btn sih-topbar-logout"
+              onClick={onLogout}
+              title="Logout"
+            >
+              Logout
             </button>
           </div>
         </header>

@@ -5802,10 +5802,208 @@ ol {
   display: block;
 }
 
-/* ---------- Navigation ---------- */
+/* ---------- Navigation & Sidebar Layout ---------- */
 
-.sih-sidebar {
-  display: none !important;
+.sih-shell {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  background: #F7F7F5;
+}
+
+.sih-shell > .sih-sidebar {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 260px;
+  min-width: 260px;
+  background: #111111;
+  color: #FFFFFF;
+  padding: 24px 20px;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+.sih-sidebar-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.sih-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sih-nav button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.7);
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.sih-nav button:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: #FFFFFF;
+}
+
+.sih-nav button.active {
+  background: rgba(185, 150, 91, 0.15);
+  color: #D6B36A;
+  font-weight: 600;
+}
+
+.sih-sidebar-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sih-standard-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+}
+
+.sih-standard-card span {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #B9965B;
+  text-transform: uppercase;
+}
+
+.sih-standard-card strong {
+  font-size: 13px;
+  color: #FFFFFF;
+}
+
+.sih-standard-card small {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.sih-user-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.sih-avatar {
+  width: 34px;
+  height: 34px;
+  min-width: 34px;
+  border-radius: 50%;
+  background: #B9965B;
+  color: #111111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.sih-user-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.sih-user-info strong {
+  font-size: 12px;
+  font-weight: 600;
+  color: #FFFFFF;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+}
+
+.sih-user-info span {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.5);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+  margin-top: 2px;
+}
+
+.sih-logout-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 14px;
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border-radius: 8px;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  background: rgba(239, 68, 68, 0.12);
+  color: #f87171;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.sih-logout-btn:hover {
+  background: #dc2626;
+  color: #ffffff;
+  border-color: #dc2626;
+  box-shadow: 0 2px 8px rgba(220, 38, 38, 0.3);
+  transform: translateY(-1px);
+}
+
+.sih-logout-btn:active {
+  transform: translateY(0);
+}
+
+.sih-topbar .sih-logout-btn {
+  border: 1px solid rgba(220, 38, 38, 0.3);
+  background: rgba(220, 38, 38, 0.08);
+  color: #dc2626;
+  padding: 8px 14px;
+  border-radius: 10px;
+}
+
+.sih-topbar .sih-logout-btn:hover {
+  background: #dc2626;
+  color: #ffffff;
+  border-color: #dc2626;
+  box-shadow: 0 2px 8px rgba(220, 38, 38, 0.2);
 }
 
 .sih-main {
