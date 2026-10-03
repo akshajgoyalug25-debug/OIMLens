@@ -211,9 +211,7 @@ export function AuthModal({ initialMode = 'login', onSuccess, onClose }: AuthMod
         <h2 className="auth-modal-title">
           {mode === 'login' ? (
             <>
-              SIGN IN,
-              <br />
-              THEN SCAN.
+              WELCOME BACK
             </>
           ) : mode === 'forgot' ? (
             <>
