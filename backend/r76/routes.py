@@ -271,6 +271,7 @@ def list_instruments(
     response = (
         db.table("instruments")
         .select("*")
+        .eq("user_id", current_user.id)
         .order("created_at", desc=True)
         .execute()
     )
@@ -447,6 +448,7 @@ def list_test_sessions(
     query = (
         db.table("test_sessions")
         .select("*")
+        .eq("officer_user_id", current_user.id)
     )
 
     # Repository search across session number and test location.
