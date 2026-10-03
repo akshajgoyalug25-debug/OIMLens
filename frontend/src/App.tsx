@@ -24,16 +24,32 @@ function App() {
     }
 
     document.title = 'OIMLense — SIH26035'
+
     getMe().then((u) => {
       setUser(u)
       setAuthChecked(true)
 
       const params = new URLSearchParams(window.location.search)
       const qMode = params.get('mode')
+      const path = window.location.pathname
 
       if (qMode === 'forgot' || qMode === 'login' || qMode === 'register') {
         setAuthInitialMode(qMode as AuthMode)
         setMode('auth')
+        return
+      }
+
+      // Restore the correct application surface after a browser refresh.
+      // Protected workspace pages require an authenticated user.
+      if (u && (
+        path === '/dashboard' ||
+        path === '/instruments' ||
+        path === '/sessions' ||
+        path === '/tests' ||
+        path === '/history' ||
+        path === '/reports'
+      )) {
+        setMode('workspace')
       } else {
         setMode('landing')
       }
@@ -43,7 +59,21 @@ function App() {
   function startWorkspaceTransition(targetUser: User) {
     setUser(targetUser)
     setMode('workspace')
-    window.history.replaceState({}, '', window.location.pathname)
+
+    const currentPath = window.location.pathname
+    const workspacePaths = [
+      '/dashboard',
+      '/instruments',
+      '/sessions',
+      '/tests',
+      '/history',
+      '/reports',
+    ]
+
+    if (!workspacePaths.includes(currentPath)) {
+      window.history.replaceState({}, '', '/dashboard')
+    }
+
     window.scrollTo(0, 0)
   }
 
@@ -66,6 +96,23 @@ function App() {
     setUser(null)
     setMode('landing')
     window.scrollTo(0, 0)
+  }
+
+  // The public landing page does not need to wait for authentication.
+  // This prevents a loading/blank transition when refreshing `/`.
+  if (!authChecked && window.location.pathname === '/') {
+    return (
+      <SIH26035LandingPage
+        onLogin={() => {
+          setAuthInitialMode('login')
+          setMode('auth')
+        }}
+        onStartTesting={() => {
+          setAuthInitialMode('login')
+          setMode('auth')
+        }}
+      />
+    )
   }
 
   if (!authChecked) {
@@ -101,6 +148,7 @@ function App() {
           onLogout={handleLogout}
           onGoToLanding={() => {
             setMode('landing')
+            window.history.pushState({}, '', '/')
             window.scrollTo(0, 0)
           }}
         />

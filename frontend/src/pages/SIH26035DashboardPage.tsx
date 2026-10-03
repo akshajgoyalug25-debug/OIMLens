@@ -51,13 +51,29 @@ export function SIH26035DashboardPage({
 
   const [loading, setLoading] = useState(true)
   const [busy, setBusy] = useState(false)
+
+  const CACHE_KEYS = {
+    instruments: 'oimlense_cache_instruments',
+    definitions: 'oimlense_cache_definitions',
+    sessions: 'oimlense_cache_sessions',
+  }
   const [busySessionId, setBusySessionId] = useState<string | null>(null)
   const [error, setError] = useState('')
   const [previewPdfUrl, setPreviewPdfUrl] = useState<string | null>(null)
 
   const [showInstrumentForm, setShowInstrumentForm] = useState(false)
   const [editingInstrumentId, setEditingInstrumentId] = useState<string | null>(null)
-  const [activeView, setActiveView] = useState<'overview' | 'instruments' | 'sessions' | 'tests' | 'history' | 'reports'>('overview')
+  const dashboardViews = ['overview', 'instruments', 'sessions', 'tests', 'history', 'reports'] as const
+  type DashboardView = typeof dashboardViews[number]
+
+  function getViewFromPath(): DashboardView {
+    const path = window.location.pathname.replace(/^\/+|\/+$/g, '')
+    return dashboardViews.includes(path as DashboardView)
+      ? (path as DashboardView)
+      : 'overview'
+  }
+
+  const [activeView, setActiveView] = useState<DashboardView>(getViewFromPath())
   const [showSessionForm, setShowSessionForm] = useState(false)
 
   const [categoryFilter, setCategoryFilter] = useState<'all' | 'weighing' | 'mechanical' | 'environmental' | 'electrical' | 'other'>('all')
@@ -66,11 +82,37 @@ export function SIH26035DashboardPage({
   const [showMobileProcDropdown, setShowMobileProcDropdown] = useState(false)
   const [showCompletionScreen, setShowCompletionScreen] = useState(false)
   const [showReportPreview, setShowReportPreview] = useState(false)
+  const [showReportDetail, setShowReportDetail] = useState(false)
   const [expandedFailureCode, setExpandedFailureCode] = useState<string | null>(null)
 
   const [reportSearch, setReportSearch] = useState('')
   const [reportStatusFilter, setReportStatusFilter] = useState('')
   const [reportTypeFilter, setReportTypeFilter] = useState('')
+
+  function navigateToView(view: DashboardView) {
+    setActiveView(view)
+
+    const path = view === 'overview' ? '/dashboard' : `/${view}`
+
+    if (window.location.pathname !== path) {
+      window.history.pushState({}, '', path)
+    }
+
+    window.scrollTo(0, 0)
+  }
+
+  useEffect(() => {
+    function handlePopState() {
+      setActiveView(getViewFromPath())
+    }
+
+    window.addEventListener('popstate', handlePopState)
+
+    return () => {
+      window.removeEventListener('popstate', handlePopState)
+    }
+  }, [])
+
 
   const instrumentById = new Map(instruments.map((inst) => [inst.id, inst]))
 
@@ -376,9 +418,22 @@ export function SIH26035DashboardPage({
   }
 
   async function loadInitialData() {
-    setLoading(true)
     setError('')
 
+    // Show the last known dashboard data immediately after reload.
+    try {
+      const cachedInstruments = localStorage.getItem(CACHE_KEYS.instruments)
+      const cachedDefinitions = localStorage.getItem(CACHE_KEYS.definitions)
+      const cachedSessions = localStorage.getItem(CACHE_KEYS.sessions)
+
+      if (cachedInstruments) setInstruments(JSON.parse(cachedInstruments))
+      if (cachedDefinitions) setDefinitions(JSON.parse(cachedDefinitions))
+      if (cachedSessions) setSessions(JSON.parse(cachedSessions))
+    } catch {
+      // Ignore invalid/stale cache and fetch fresh data below.
+    }
+
+    // Refresh from the server silently in the background.
     try {
       const [instrumentData, definitionData, sessionData] =
         await Promise.all([
@@ -390,6 +445,10 @@ export function SIH26035DashboardPage({
       setInstruments(instrumentData)
       setDefinitions(definitionData)
       setSessions(sessionData)
+
+      localStorage.setItem(CACHE_KEYS.instruments, JSON.stringify(instrumentData))
+      localStorage.setItem(CACHE_KEYS.definitions, JSON.stringify(definitionData))
+      localStorage.setItem(CACHE_KEYS.sessions, JSON.stringify(sessionData))
 
       if (instrumentData.length > 0) {
         const savedInst = localStorage.getItem('oimlense_selected_instrument_id')
@@ -415,7 +474,7 @@ export function SIH26035DashboardPage({
         setSelectedTestCode('ZERO_RANGE')
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to load R76 data.')
+      setError(err instanceof Error ? err.message : 'Failed to refresh R76 data.')
     } finally {
       setLoading(false)
     }
@@ -600,7 +659,7 @@ export function SIH26035DashboardPage({
       setSessions((current) => [session, ...current])
       selectSession(session.id)
       setShowSessionForm(false)
-      setActiveView('tests')
+      navigateToView('tests')
     } catch (err) {
       setError(
         err instanceof Error ? err.message : 'Failed to create test session.',
@@ -655,32 +714,6 @@ export function SIH26035DashboardPage({
     }
   }
 
-  if (loading) {
-    return (
-      <div className="oiml-loading-overlay">
-        <div className="oiml-loading-box">
-          <img
-            src="/oimlense-logo.png"
-            alt="OIMLense Logo"
-            className="oiml-loading-logo"
-          />
-          <div className="oiml-loading-bar-container">
-            <div
-              className="oiml-loading-bar"
-              style={{
-                width: '100%',
-                animation: 'pulseGlow 1.5s infinite ease-in-out',
-              }}
-            />
-          </div>
-          <div className="oiml-loading-status">
-            <span>Loading R76 Compliance Suite...</span>
-            <small>FETCHING DATA</small>
-          </div>
-        </div>
-      </div>
-    )
-  }
 
   const completedTests = results.length
   const passedTests = results.filter((item) => item.pass_fail === true).length
@@ -792,7 +825,7 @@ export function SIH26035DashboardPage({
                 key={item.id}
                 type="button"
                 className={activeView === item.id ? 'active' : ''}
-                onClick={() => setActiveView(item.id)}
+                onClick={() => navigateToView(item.id as DashboardView)}
               >
                 <span className="sih-nav-icon">{item.icon}</span>
                 {item.label}
@@ -842,7 +875,7 @@ export function SIH26035DashboardPage({
             <button
               type="button"
               className={activeView === 'overview' ? 'active' : ''}
-              onClick={() => setActiveView('overview')}
+              onClick={() => navigateToView('overview')}
             >
               Overview
             </button>
@@ -850,7 +883,7 @@ export function SIH26035DashboardPage({
             <button
               type="button"
               className={activeView === 'instruments' ? 'active' : ''}
-              onClick={() => setActiveView('instruments')}
+              onClick={() => navigateToView('instruments')}
             >
               Instruments
             </button>
@@ -858,7 +891,7 @@ export function SIH26035DashboardPage({
             <button
               type="button"
               className={activeView === 'sessions' ? 'active' : ''}
-              onClick={() => setActiveView('sessions')}
+              onClick={() => navigateToView('sessions')}
             >
               Sessions
             </button>
@@ -866,7 +899,7 @@ export function SIH26035DashboardPage({
             <button
               type="button"
               className={activeView === 'tests' ? 'active' : ''}
-              onClick={() => setActiveView('tests')}
+              onClick={() => navigateToView('tests')}
             >
               R76 Tests
             </button>
@@ -874,7 +907,7 @@ export function SIH26035DashboardPage({
             <button
               type="button"
               className={activeView === 'history' ? 'active' : ''}
-              onClick={() => setActiveView('history')}
+              onClick={() => navigateToView('history')}
             >
               History
             </button>
@@ -882,7 +915,7 @@ export function SIH26035DashboardPage({
             <button
               type="button"
               className={activeView === 'reports' ? 'active' : ''}
-              onClick={() => setActiveView('reports')}
+              onClick={() => navigateToView('reports')}
             >
               Reports
             </button>
@@ -895,7 +928,7 @@ export function SIH26035DashboardPage({
               className="sih-primary-action"
               onClick={() => {
                 setShowSessionForm(true)
-                setActiveView('sessions')
+                navigateToView('sessions')
               }}
             >
               + New Session
@@ -927,7 +960,7 @@ export function SIH26035DashboardPage({
                   className="sih-primary-action"
                   onClick={() => {
                     setShowSessionForm(true)
-                    setActiveView('sessions')
+                    navigateToView('sessions')
                   }}
                 >
                   Start New Test
@@ -935,7 +968,7 @@ export function SIH26035DashboardPage({
                 <button
                   type="button"
                   className="sih-secondary-action"
-                  onClick={() => setActiveView('instruments')}
+                  onClick={() => navigateToView('instruments')}
                 >
                   Manage Instruments
                 </button>
@@ -1181,7 +1214,7 @@ export function SIH26035DashboardPage({
                   <button
                     type="button"
                     className="sih-link-button"
-                    onClick={() => setActiveView('instruments')}
+                    onClick={() => navigateToView('instruments')}
                   >
                     View instruments →
                   </button>
@@ -1205,7 +1238,7 @@ export function SIH26035DashboardPage({
                       className="sih-primary-action"
                       onClick={() => {
                         setShowInstrumentForm(true)
-                        setActiveView('instruments')
+                        navigateToView('instruments')
                       }}
                     >
                       + Add Instrument
@@ -1240,7 +1273,7 @@ export function SIH26035DashboardPage({
                     <button
                       type="button"
                       className="sih-primary-action full"
-                      onClick={() => setActiveView('tests')}
+                      onClick={() => navigateToView('tests')}
                     >
                       Open 78 Test Procedures →
                     </button>
@@ -1253,7 +1286,7 @@ export function SIH26035DashboardPage({
                       className="sih-primary-action"
                       onClick={() => {
                         setShowSessionForm(true)
-                        setActiveView('sessions')
+                        navigateToView('sessions')
                       }}
                     >
                       Create Session
@@ -1269,12 +1302,13 @@ export function SIH26035DashboardPage({
                   <span className="sih-eyebrow">RECENT ACTIVITY</span>
                   <h3>Latest test sessions</h3>
                 </div>
-                <button type="button" className="sih-link-button" onClick={() => setActiveView('history')}>
+                <button type="button" className="sih-link-button" onClick={() => navigateToView('history')}>
                   View history →
                 </button>
               </div>
 
-              {sessions.length === 0 ? (
+              {sessions.length === 0 && !loading ? (
+
                 <div className="sih-empty">No test sessions have been created yet.</div>
               ) : (
                 <div className="sih-table-wrap">
@@ -1301,7 +1335,7 @@ export function SIH26035DashboardPage({
                               className="sih-row-action"
                               onClick={() => {
                                 setSelectedSessionId(session.id)
-                                setActiveView('tests')
+                                navigateToView('tests')
                               }}
                             >
                               Open →
@@ -1418,7 +1452,7 @@ export function SIH26035DashboardPage({
                   </div>
                 </div>
               ))}
-              {instruments.length === 0 && (
+              {instruments.length === 0 && !loading && (
                 <div className="sih-empty">No instruments registered yet.</div>
               )}
             </div>
@@ -1556,7 +1590,7 @@ export function SIH26035DashboardPage({
                           className="sih-row-action"
                           onClick={() => {
                             setSelectedSessionId(session.id)
-                            setActiveView('tests')
+                            navigateToView('tests')
                           }}
                         >
                           Open →
@@ -1616,7 +1650,7 @@ export function SIH26035DashboardPage({
               <div className="sih-empty large">
                 <strong>Select or create a test session first.</strong>
                 <span>The test runner needs an active session to store observations and evaluate compliance.</span>
-                <button type="button" className="sih-primary-action" onClick={() => setActiveView('sessions')}>
+                <button type="button" className="sih-primary-action" onClick={() => navigateToView('sessions')}>
                   Go to Sessions
                 </button>
               </div>
@@ -2783,7 +2817,7 @@ export function SIH26035DashboardPage({
                       className="sih-history-card"
                       onClick={() => {
                         setSelectedSessionId(session.id)
-                        setActiveView('tests')
+                        navigateToView('tests')
                       }}
                     >
                       <div className="sih-history-top">
@@ -2806,7 +2840,333 @@ export function SIH26035DashboardPage({
           </section>
         )}
 
-        {activeView === 'reports' && (
+        {showReportDetail && selectedSessionId && (
+          <>
+                {showReportDetail ? (
+                  <section className="sih-report-detail">
+                    <div className="sih-report-detail-toolbar">
+                      <div>
+                        <span className="sih-eyebrow">REPORT REPOSITORY</span>
+                        <h2>Test Report</h2>
+                        <p>OIML R 76-1:2006 • Non-Automatic Weighing Instrument</p>
+                      </div>
+
+                      <div className="sih-report-detail-actions">
+                        <button
+                          type="button"
+                          className="sih-secondary-action"
+                          onClick={() => setShowReportDetail(false)}
+                        >
+                          ← Back to Reports
+                        </button>
+                        {selectedSessionId && (
+                          <>
+                            <button
+                              type="button"
+                              className="sih-secondary-action"
+                              disabled={busySessionId === selectedSessionId}
+                              onClick={() => handleDownloadReport(selectedSessionId)}
+                            >
+                              PDF
+                            </button>
+                            <button
+                              type="button"
+                              className="sih-primary-action"
+                              disabled={busySessionId === selectedSessionId}
+                              onClick={() => handleDownloadDocxReport(selectedSessionId)}
+                            >
+                              DOCX
+                            </button>
+                          </>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="sih-report-document">
+                      <header className="sih-report-document-header">
+                        <div>
+                          <div className="sih-report-brand">OIMLENSE</div>
+                          <div className="sih-report-brand-sub">
+                            Digital NAWI Testing & Compliance System
+                          </div>
+                        </div>
+
+                        <div className="sih-report-standard">
+                          <strong>OIML R 76-1:2006</strong>
+                          <span>TEST & VERIFICATION REPORT</span>
+                        </div>
+                      </header>
+
+                      <div className="sih-report-title-row">
+                        <div>
+                          <span>OFFICIAL TEST RECORD</span>
+                          <h1>NAWI TEST REPORT</h1>
+                        </div>
+
+                        <div className={`sih-report-result ${
+                          selectedSession?.status === 'approved' ||
+                          selectedSession?.status === 'completed'
+                            ? 'pass'
+                            : selectedSession?.status === 'rejected' ||
+                              selectedSession?.status === 'failed'
+                              ? 'fail'
+                              : 'review'
+                        }`}>
+                          <small>RESULT STATUS</small>
+                          <strong>
+                            {selectedSession?.status === 'approved' ||
+                            selectedSession?.status === 'completed'
+                              ? 'PASS'
+                              : selectedSession?.status === 'rejected' ||
+                                selectedSession?.status === 'failed'
+                                ? 'FAIL'
+                                : 'REVIEW'}
+                          </strong>
+                        </div>
+                      </div>
+
+                      <section className="sih-report-section">
+                        <div className="sih-report-section-heading">
+                          <span>01</span>
+                          <div>
+                            <strong>Report Information</strong>
+                            <small>Identification and inspection details</small>
+                          </div>
+                        </div>
+
+                        <div className="sih-report-info-grid">
+                          <div>
+                            <span>REPORT NUMBER</span>
+                            <strong>
+                              {selectedSession?.report_id ||
+                                selectedSession?.session_number ||
+                                selectedSession?.id ||
+                                'N/A'}
+                            </strong>
+                          </div>
+                          <div>
+                            <span>SESSION NUMBER</span>
+                            <strong>{selectedSession?.session_number || 'N/A'}</strong>
+                          </div>
+                          <div>
+                            <span>INSPECTION DATE</span>
+                            <strong>
+                              {selectedSession?.started_at
+                                ? new Date(selectedSession.started_at).toLocaleDateString('en-GB', {
+                                    day: '2-digit',
+                                    month: 'long',
+                                    year: 'numeric',
+                                  })
+                                : 'N/A'}
+                            </strong>
+                          </div>
+                          <div>
+                            <span>TEST TYPE</span>
+                            <strong>
+                              {(selectedSession?.test_type || 'Initial Verification')
+                                .replace(/_/g, ' ')}
+                            </strong>
+                          </div>
+                          <div>
+                            <span>TEST LOCATION</span>
+                            <strong>{selectedSession?.test_location || 'Laboratory'}</strong>
+                          </div>
+                          <div>
+                            <span>VERIFICATION STAGE</span>
+                            <strong>
+                              {(selectedSession?.verification_stage || 'Standard')
+                                .replace(/_/g, ' ')}
+                            </strong>
+                          </div>
+                        </div>
+                      </section>
+
+                      <section className="sih-report-section">
+                        <div className="sih-report-section-heading">
+                          <span>02</span>
+                          <div>
+                            <strong>Instrument Under Test</strong>
+                            <small>Registered weighing instrument details</small>
+                          </div>
+                        </div>
+
+                        <div className="sih-report-instrument-grid">
+                          <div className="sih-report-instrument-main">
+                            <span>MANUFACTURER / MODEL</span>
+                            <strong>
+                              {selectedInstrument
+                                ? `${selectedInstrument.manufacturer || ''} ${selectedInstrument.model || ''}`.trim()
+                                : 'N/A'}
+                            </strong>
+                          </div>
+
+                          <div>
+                            <span>SERIAL NUMBER</span>
+                            <strong>{selectedInstrument?.serial_number || 'N/A'}</strong>
+                          </div>
+
+                          <div>
+                            <span>ACCURACY CLASS</span>
+                            <strong>Class {selectedInstrument?.accuracy_class || 'III'}</strong>
+                          </div>
+
+                          <div>
+                            <span>MAXIMUM CAPACITY</span>
+                            <strong>
+                              {selectedInstrument?.max_capacity || 'N/A'} {selectedInstrument?.unit || 'kg'}
+                            </strong>
+                          </div>
+
+                          <div>
+                            <span>VERIFICATION SCALE interval (e)</span>
+                            <strong>
+                              {selectedInstrument?.e || 'N/A'} {selectedInstrument?.unit || 'kg'}
+                            </strong>
+                          </div>
+
+                          <div>
+                            <span>ACTUAL SCALE interval (d)</span>
+                            <strong>
+                              {selectedInstrument?.d || selectedInstrument?.e || 'N/A'} {selectedInstrument?.unit || 'kg'}
+                            </strong>
+                          </div>
+                        </div>
+                      </section>
+
+                      <section className="sih-report-section">
+                        <div className="sih-report-section-heading">
+                          <span>03</span>
+                          <div>
+                            <strong>Compliance Summary</strong>
+                            <small>Deterministic evaluation of recorded procedures</small>
+                          </div>
+                        </div>
+
+                        <div className="sih-report-summary-grid">
+                          <div>
+                            <span>TOTAL TESTS</span>
+                            <strong>{results.length}</strong>
+                          </div>
+                          <div className="pass">
+                            <span>PASSED</span>
+                            <strong>
+                              {results.filter(r =>
+                                ['PASS', 'PASSED', 'COMPLIANT'].includes(
+                                  String(r.result_status || '').toUpperCase()
+                                )
+                              ).length}
+                            </strong>
+                          </div>
+                          <div className="fail">
+                            <span>FAILED</span>
+                            <strong>
+                              {results.filter(r =>
+                                ['FAIL', 'FAILED', 'NON_COMPLIANT'].includes(
+                                  String(r.result_status || '').toUpperCase()
+                                )
+                              ).length}
+                            </strong>
+                          </div>
+                          <div>
+                            <span>RECORDED</span>
+                            <strong>{results.length}</strong>
+                          </div>
+                        </div>
+                      </section>
+
+                      <section className="sih-report-section">
+                        <div className="sih-report-section-heading">
+                          <span>04</span>
+                          <div>
+                            <strong>Procedure Evaluation</strong>
+                            <small>Recorded OIML R 76 test results</small>
+                          </div>
+                        </div>
+
+                        {results.length > 0 ? (
+                          <div className="sih-report-results-table-wrap">
+                            <table className="sih-report-results-table">
+                              <thead>
+                                <tr>
+                                  <th>#</th>
+                                  <th>Test / Procedure</th>
+                                  <th>Result</th>
+                                  <th>Measured Value</th>
+                                  <th>MPE</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {results.map((result, index) => {
+                                  const resultValue = String(
+                                    result.result_status || 'PENDING'
+                                  ).toUpperCase()
+
+                                  const isPass = ['PASS', 'PASSED', 'COMPLIANT'].includes(resultValue)
+                                  const isFail = ['FAIL', 'FAILED', 'NON_COMPLIANT'].includes(resultValue)
+
+                                  return (
+                                    <tr key={result.id || index}>
+                                      <td>{String(index + 1).padStart(2, '0')}</td>
+                                      <td>
+                                        <strong>
+                                          {result.test_definition_id || 'R76 Test'}
+                                        </strong>
+                                        {result.test_definition_id && (
+                                          <small>{result.test_definition_id}</small>
+                                        )}
+                                      </td>
+                                      <td>
+                                        <span className={`sih-report-table-result ${
+                                          isPass ? 'pass' : isFail ? 'fail' : 'review'
+                                        }`}>
+                                          {isPass ? 'PASS' : isFail ? 'FAIL' : 'REVIEW'}
+                                        </span>
+                                      </td>
+                                      <td>
+                                        {result.measured_error ?? '—'}
+                                      </td>
+                                      <td>
+                                        {result.mpe_value ?? '—'}
+                                      </td>
+                                    </tr>
+                                  )
+                                })}
+                              </tbody>
+                            </table>
+                          </div>
+                        ) : (
+                          <div className="sih-report-no-results">
+                            No test results have been recorded for this session.
+                          </div>
+                        )}
+                      </section>
+
+                      <footer className="sih-report-document-footer">
+                        <div>
+                          <strong>OIMLense</strong>
+                          <span>Digital NAWI Testing & Compliance System</span>
+                        </div>
+                        <div>
+                          <span>STANDARD</span>
+                          <strong>OIML R 76-1:2006</strong>
+                        </div>
+                        <div>
+                          <span>REPORT ID</span>
+                          <strong>
+                            {selectedSession?.report_id ||
+                              selectedSession?.session_number ||
+                              selectedSession?.id ||
+                              'N/A'}
+                          </strong>
+                        </div>
+                      </footer>
+                    </div>
+                  </section>
+                ) : null}
+          </>
+        )}
+
+        {activeView === 'reports' && !showReportDetail && (
           <section className="sih-panel sih-repo-panel">
             {/* Header */}
             <div className="sih-panel-header sih-repo-header">
@@ -2929,7 +3289,7 @@ export function SIH26035DashboardPage({
                   type="button"
                   className="sih-primary-action-btn"
                   style={{ marginTop: '16px' }}
-                  onClick={() => setActiveView('sessions')}
+                  onClick={() => navigateToView('sessions')}
                 >
                   + Start New Test Session
                 </button>
@@ -3030,8 +3390,7 @@ export function SIH26035DashboardPage({
                                 className="sih-repo-action-btn view"
                                 onClick={() => {
                                   setSelectedSessionId(session.id)
-                                  setShowReportPreview(true)
-                                  setActiveView('tests')
+                                  setShowReportDetail(true)
                                 }}
                                 title="View report preview & compliance details"
                               >

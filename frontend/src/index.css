@@ -16681,3 +16681,624 @@ textarea {
   }
 }
 
+
+
+/* =========================================================
+   OIMLENSE REPORT DETAIL
+   ========================================================= */
+
+.sih-report-detail {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 28px 0 60px;
+}
+
+.sih-report-detail-toolbar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 22px;
+}
+
+.sih-report-detail-toolbar h2 {
+  margin: 4px 0 4px;
+  font-size: 28px;
+  letter-spacing: -0.02em;
+}
+
+.sih-report-detail-toolbar p {
+  margin: 0;
+  color: #8f949d;
+  font-size: 13px;
+}
+
+.sih-report-detail-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.sih-report-detail-actions button {
+  min-height: 40px;
+  padding: 0 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,.12);
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.sih-report-detail-actions .sih-secondary-action {
+  background: rgba(255,255,255,.04);
+  color: #e8e9eb;
+}
+
+.sih-report-detail-actions .sih-primary-action {
+  background: #d8bd72;
+  color: #171717;
+  border-color: #d8bd72;
+}
+
+.sih-report-detail-actions button:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+}
+
+/* Paper */
+
+.sih-report-document {
+  background: #f7f6f2;
+  color: #1d1e20;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,.28);
+}
+
+.sih-report-document-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 30px;
+  padding: 30px 34px 24px;
+  border-bottom: 1px solid #d9d8d2;
+}
+
+.sih-report-brand {
+  font-size: 25px;
+  font-weight: 900;
+  letter-spacing: .12em;
+}
+
+.sih-report-brand-sub {
+  margin-top: 5px;
+  color: #686a6e;
+  font-size: 11px;
+  letter-spacing: .04em;
+}
+
+.sih-report-standard {
+  text-align: right;
+}
+
+.sih-report-standard strong {
+  display: block;
+  font-size: 13px;
+  letter-spacing: .06em;
+}
+
+.sih-report-standard span {
+  display: block;
+  margin-top: 5px;
+  color: #777a7d;
+  font-size: 10px;
+  letter-spacing: .1em;
+}
+
+/* Title */
+
+.sih-report-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 28px 34px;
+  background: #eeede8;
+  border-bottom: 1px solid #d9d8d2;
+}
+
+.sih-report-title-row > div:first-child > span {
+  color: #8a7a4c;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .13em;
+}
+
+.sih-report-title-row h1 {
+  margin: 7px 0 0;
+  font-size: 30px;
+  letter-spacing: .04em;
+}
+
+.sih-report-result {
+  min-width: 120px;
+  padding: 12px 18px;
+  border: 1px solid #cfcfc9;
+  border-radius: 7px;
+  text-align: center;
+  background: #faf9f5;
+}
+
+.sih-report-result small {
+  display: block;
+  color: #777;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .1em;
+}
+
+.sih-report-result strong {
+  display: block;
+  margin-top: 4px;
+  font-size: 20px;
+  letter-spacing: .08em;
+}
+
+.sih-report-result.pass {
+  border-color: #a8c7ad;
+}
+
+.sih-report-result.pass strong {
+  color: #31733c;
+}
+
+.sih-report-result.fail {
+  border-color: #d4aaaa;
+}
+
+.sih-report-result.fail strong {
+  color: #a23d3d;
+}
+
+.sih-report-result.review {
+  border-color: #d7c38c;
+}
+
+.sih-report-result.review strong {
+  color: #927328;
+}
+
+/* Sections */
+
+.sih-report-section {
+  padding: 26px 34px;
+  border-bottom: 1px solid #deddd7;
+}
+
+.sih-report-section-heading {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 20px;
+}
+
+.sih-report-section-heading > span {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid #c9b67e;
+  border-radius: 5px;
+  color: #8b7440;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.sih-report-section-heading strong {
+  display: block;
+  font-size: 15px;
+}
+
+.sih-report-section-heading small {
+  display: block;
+  margin-top: 3px;
+  color: #7a7b7e;
+  font-size: 11px;
+}
+
+/* Information grids */
+
+.sih-report-info-grid,
+.sih-report-instrument-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border: 1px solid #d8d7d1;
+  border-radius: 7px;
+  overflow: hidden;
+}
+
+.sih-report-info-grid > div,
+.sih-report-instrument-grid > div {
+  min-height: 72px;
+  padding: 14px 16px;
+  background: #fbfaf7;
+  border-right: 1px solid #deddd7;
+  border-bottom: 1px solid #deddd7;
+}
+
+.sih-report-info-grid > div:nth-child(3n),
+.sih-report-instrument-grid > div:nth-child(3n) {
+  border-right: 0;
+}
+
+.sih-report-info-grid > div:nth-last-child(-n+3),
+.sih-report-instrument-grid > div:nth-last-child(-n+3) {
+  border-bottom: 0;
+}
+
+.sih-report-info-grid span,
+.sih-report-instrument-grid span,
+.sih-report-summary-grid span {
+  display: block;
+  color: #85868a;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .08em;
+}
+
+.sih-report-info-grid strong,
+.sih-report-instrument-grid strong {
+  display: block;
+  margin-top: 7px;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.sih-report-instrument-main {
+  grid-column: span 2;
+}
+
+/* Summary */
+
+.sih-report-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.sih-report-summary-grid > div {
+  padding: 16px;
+  border: 1px solid #d8d7d1;
+  border-radius: 7px;
+  background: #fbfaf7;
+}
+
+.sih-report-summary-grid strong {
+  display: block;
+  margin-top: 8px;
+  font-size: 23px;
+}
+
+.sih-report-summary-grid .pass strong {
+  color: #31733c;
+}
+
+.sih-report-summary-grid .fail strong {
+  color: #a23d3d;
+}
+
+/* Results table */
+
+.sih-report-results-table-wrap {
+  border: 1px solid #d8d7d1;
+  border-radius: 7px;
+  overflow-x: auto;
+}
+
+.sih-report-results-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 700px;
+}
+
+.sih-report-results-table th {
+  padding: 11px 13px;
+  background: #e9e8e2;
+  color: #65676a;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-align: left;
+  border-bottom: 1px solid #d2d1cb;
+}
+
+.sih-report-results-table td {
+  padding: 13px;
+  font-size: 12px;
+  border-bottom: 1px solid #e1e0da;
+  vertical-align: middle;
+}
+
+.sih-report-results-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.sih-report-results-table td:first-child {
+  width: 42px;
+  color: #8b8c8f;
+  font-weight: 800;
+}
+
+.sih-report-results-table td strong {
+  display: block;
+}
+
+.sih-report-results-table td small {
+  display: block;
+  margin-top: 4px;
+  color: #85868a;
+  font-size: 10px;
+}
+
+.sih-report-table-result {
+  display: inline-flex;
+  min-width: 58px;
+  justify-content: center;
+  padding: 5px 8px;
+  border-radius: 4px;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .06em;
+  background: #ecebe6;
+  color: #777;
+}
+
+.sih-report-table-result.pass {
+  background: #e4f0e5;
+  color: #31733c;
+}
+
+.sih-report-table-result.fail {
+  background: #f4e4e4;
+  color: #a23d3d;
+}
+
+/* Empty results */
+
+.sih-report-no-results {
+  padding: 24px;
+  border: 1px dashed #c9c8c2;
+  border-radius: 7px;
+  color: #77797c;
+  background: #fbfaf7;
+  text-align: center;
+  font-size: 12px;
+}
+
+/* Footer */
+
+.sih-report-document-footer {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: 20px;
+  padding: 20px 34px;
+  background: #e9e8e2;
+  border-top: 1px solid #d3d2cc;
+}
+
+.sih-report-document-footer > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sih-report-document-footer span {
+  color: #77797c;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .08em;
+}
+
+.sih-report-document-footer strong {
+  font-size: 11px;
+}
+
+/* Mobile */
+
+@media (max-width: 760px) {
+  .sih-report-detail {
+    width: min(100% - 20px, 1180px);
+    padding-top: 16px;
+  }
+
+  .sih-report-detail-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .sih-report-detail-toolbar h2 {
+    font-size: 23px;
+  }
+
+  .sih-report-detail-actions {
+    width: 100%;
+  }
+
+  .sih-report-detail-actions button {
+    flex: 1;
+  }
+
+  .sih-report-document-header,
+  .sih-report-title-row {
+    padding: 22px 18px;
+  }
+
+  .sih-report-document-header {
+    flex-direction: column;
+  }
+
+  .sih-report-standard {
+    text-align: left;
+  }
+
+  .sih-report-title-row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .sih-report-title-row h1 {
+    font-size: 23px;
+  }
+
+  .sih-report-section {
+    padding: 22px 18px;
+  }
+
+  .sih-report-info-grid,
+  .sih-report-instrument-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sih-report-instrument-main {
+    grid-column: auto;
+  }
+
+  .sih-report-info-grid > div,
+  .sih-report-instrument-grid > div {
+    border-right: 0;
+    border-bottom: 1px solid #deddd7;
+  }
+
+  .sih-report-info-grid > div:last-child,
+  .sih-report-instrument-grid > div:last-child {
+    border-bottom: 0;
+  }
+
+  .sih-report-summary-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .sih-report-document-footer {
+    grid-template-columns: 1fr;
+    padding: 18px;
+  }
+}
+
+/* Darker report detail toolbar buttons */
+.sih-report-detail-actions .sih-secondary-action {
+  background: #2a2b2d;
+  color: #f2f2ef;
+  border-color: #4a4b4e;
+}
+
+.sih-report-detail-actions .sih-secondary-action:hover {
+  background: #363739;
+  border-color: #626367;
+}
+
+.sih-report-detail-actions .sih-primary-action {
+  background: #b69a50;
+  color: #111214;
+  border-color: #b69a50;
+}
+
+.sih-report-detail-actions .sih-primary-action:hover {
+  background: #c7ad63;
+  border-color: #c7ad63;
+}
+
+
+/* Keep Sessions table action buttons contained */
+.sih-view-sessions table th:last-child,
+.sih-view-sessions table td:last-child {
+  width: 110px;
+  min-width: 110px;
+  white-space: nowrap;
+  text-align: right;
+}
+
+.sih-view-sessions .sih-row-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  white-space: nowrap;
+  min-width: 82px;
+}
+
+@media (max-width: 768px) {
+  .sih-view-sessions table th:last-child,
+  .sih-view-sessions table td:last-child {
+    width: 100px;
+    min-width: 100px;
+  }
+}
+
+/* ---------- Sessions table final layout fix ---------- */
+.sih-view-sessions .sih-table {
+  min-width: 0 !important;
+  width: 100% !important;
+  table-layout: fixed !important;
+}
+
+.sih-view-sessions .sih-table th:nth-child(1),
+.sih-view-sessions .sih-table td:nth-child(1) {
+  width: 24%;
+}
+
+.sih-view-sessions .sih-table th:nth-child(2),
+.sih-view-sessions .sih-table td:nth-child(2),
+.sih-view-sessions .sih-table th:nth-child(3),
+.sih-view-sessions .sih-table td:nth-child(3) {
+  width: 14%;
+}
+
+.sih-view-sessions .sih-table th:nth-child(4),
+.sih-view-sessions .sih-table td:nth-child(4) {
+  width: 24%;
+}
+
+.sih-view-sessions .sih-table th:nth-child(5),
+.sih-view-sessions .sih-table td:nth-child(5) {
+  width: 12%;
+}
+
+.sih-view-sessions .sih-table th:nth-child(6),
+.sih-view-sessions .sih-table td:nth-child(6) {
+  width: 12%;
+  min-width: 100px;
+  white-space: nowrap;
+  text-align: right;
+}
+
+.sih-view-sessions .sih-table td {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sih-view-sessions .sih-table td:last-child {
+  overflow: visible;
+}
+
+/* ---------- Test Sessions panel containment ---------- */
+.sih-view-sessions > .sih-panel {
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.sih-view-sessions > .sih-panel .sih-table-wrap {
+  box-sizing: border-box;
+  max-width: calc(100% - 76px);
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.sih-view-sessions > .sih-panel .sih-table {
+  max-width: 100%;
+}
+
+.sih-view-sessions > .sih-panel .sih-table td:last-child,
+.sih-view-sessions > .sih-panel .sih-table th:last-child {
+  padding-right: 16px;
+}
