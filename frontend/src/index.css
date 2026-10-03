@@ -17314,7 +17314,7 @@ textarea {
   margin-bottom: 24px;
 }
 
-.sih-rp-header-bar {
+.sih-report-preview-container .sih-rp-header-bar {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -17322,20 +17322,20 @@ textarea {
   padding-bottom: 4px;
 }
 
-.sih-rp-header-titles {
+.sih-report-preview-container .sih-rp-header-titles {
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
 
-.sih-workbench-badge-row {
+.sih-report-preview-container .sih-workbench-badge-row {
   display: flex;
   align-items: center;
   gap: 10px;
   flex-wrap: wrap;
 }
 
-.sih-standard-ref-badge {
+.sih-report-preview-container .sih-standard-ref-badge {
   background: rgba(185, 150, 91, 0.12);
   color: #B9965B;
   border: 1px solid rgba(185, 150, 91, 0.3);
@@ -17346,7 +17346,7 @@ textarea {
   letter-spacing: 0.05em;
 }
 
-.sih-rp-main-title {
+.sih-report-preview-container .sih-rp-main-title {
   margin: 0;
   font-family: var(--display, inherit);
   font-size: 26px;
@@ -17356,7 +17356,7 @@ textarea {
   text-transform: uppercase;
 }
 
-.sih-rp-sub {
+.sih-report-preview-container .sih-rp-sub {
   margin: 0;
   font-size: 14px;
   color: #666666;
@@ -17365,27 +17365,30 @@ textarea {
 }
 
 /* Secondary outline button for Back to Results Review */
-.sih-rp-back-btn {
+.sih-report-preview-container .sih-rp-back-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
+  min-height: 40px;
   padding: 10px 18px;
   background: #FFFFFF;
   color: #111111;
   border: 1px solid rgba(17, 17, 17, 0.2);
   border-radius: 8px;
   font-family: var(--sans, inherit);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.04em;
   cursor: pointer;
   white-space: nowrap;
   transition: all 0.2s ease;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  text-decoration: none;
+  line-height: 1.2;
 }
 
-.sih-rp-back-btn:hover {
+.sih-report-preview-container .sih-rp-back-btn:hover {
   background: #F9F9F6;
   border-color: #B9965B;
   color: #B9965B;
@@ -17394,7 +17397,7 @@ textarea {
 }
 
 /* Export Section Control Panel */
-.sih-rp-export-section {
+.sih-report-preview-container .sih-rp-export-section {
   background: #FFFFFF;
   border: 1px solid rgba(17, 17, 17, 0.1);
   border-radius: 12px;
@@ -17402,11 +17405,11 @@ textarea {
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
 }
 
-.sih-rp-export-header {
+.sih-report-preview-container .sih-rp-export-header {
   margin-bottom: 16px;
 }
 
-.sih-rp-export-title {
+.sih-report-preview-container .sih-rp-export-title {
   font-family: var(--sans, inherit);
   font-size: 11px;
   font-weight: 800;
@@ -17416,14 +17419,14 @@ textarea {
 }
 
 /* Cards Grid */
-.sih-rp-cards-grid {
+.sih-report-preview-container .sih-rp-cards-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 16px;
 }
 
 /* Format Card */
-.sih-rp-card {
+.sih-report-preview-container .sih-rp-card {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -17431,25 +17434,27 @@ textarea {
   border: 1px solid rgba(17, 17, 17, 0.1);
   border-radius: 10px;
   padding: 20px;
+  min-height: 180px;
+  box-sizing: border-box;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.sih-rp-card:hover {
+.sih-report-preview-container .sih-rp-card:hover {
   border-color: rgba(185, 150, 91, 0.4);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
 }
 
-.sih-rp-card-body {
+.sih-report-preview-container .sih-rp-card-body {
   margin-bottom: 20px;
 }
 
-.sih-rp-card-header {
+.sih-report-preview-container .sih-rp-card-header {
   display: flex;
   align-items: flex-start;
   gap: 14px;
 }
 
-.sih-rp-badge {
+.sih-report-preview-container .sih-rp-badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -17462,24 +17467,24 @@ textarea {
   flex-shrink: 0;
 }
 
-.sih-rp-badge.pdf {
+.sih-report-preview-container .sih-rp-badge.pdf {
   background: #111111;
   color: #B9965B;
   border: 1px solid rgba(185, 150, 91, 0.4);
 }
 
-.sih-rp-badge.docx {
+.sih-report-preview-container .sih-rp-badge.docx {
   background: #2B579A;
   color: #FFFFFF;
 }
 
-.sih-rp-card-text {
+.sih-report-preview-container .sih-rp-card-text {
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
 
-.sih-rp-card-heading {
+.sih-report-preview-container .sih-rp-card-heading {
   margin: 0;
   font-size: 15px;
   font-weight: 700;
@@ -17487,7 +17492,7 @@ textarea {
   line-height: 1.3;
 }
 
-.sih-rp-card-desc {
+.sih-report-preview-container .sih-rp-card-desc {
   margin: 0;
   font-size: 13px;
   color: #666666;
@@ -17495,49 +17500,56 @@ textarea {
 }
 
 /* Card Actions */
-.sih-rp-card-actions {
+.sih-report-preview-container .sih-rp-card-actions {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   flex-wrap: wrap;
+  margin-top: 16px;
   padding-top: 16px;
-  border-top: 1px solid rgba(17, 17, 17, 0.06);
+  border-top: 1px solid rgba(17, 17, 17, 0.08);
 }
 
-.sih-rp-btn {
+/* Base button rules explicitly overriding generic button reset */
+.sih-report-preview-container .sih-rp-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
+  min-height: 40px;
   padding: 10px 18px;
   border-radius: 8px;
   font-family: var(--sans, inherit);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
   cursor: pointer;
-  transition: all 0.2s ease;
   white-space: nowrap;
+  line-height: 1.2;
+  text-decoration: none;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
 }
 
-.sih-rp-btn:disabled {
+.sih-report-preview-container .sih-rp-btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+  transform: none;
 }
 
 /* Button hierarchy:
-   - Primary filled button: black bg (#111111), white text (#FFFFFF), hover #2D2D2D
+   - Primary filled button: dark/black bg (#111111), white text (#FFFFFF), hover #2D2D2D
    - Secondary outline button: white bg (#FFFFFF), dark text (#111111), border 1px solid rgba(17,17,17,0.2), hover border #B9965B / text #B9965B
 */
 
-.sih-rp-btn.primary {
+.sih-report-preview-container .sih-rp-btn.primary {
   background: #111111;
   color: #FFFFFF;
   border: 1px solid #111111;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
 
-.sih-rp-btn.primary:hover:not(:disabled) {
+.sih-report-preview-container .sih-rp-btn.primary:hover:not(:disabled) {
   background: #2D2D2D;
   border-color: #2D2D2D;
   color: #FFFFFF;
@@ -17545,13 +17557,13 @@ textarea {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.14);
 }
 
-.sih-rp-btn.secondary {
+.sih-report-preview-container .sih-rp-btn.secondary {
   background: #FFFFFF;
   color: #111111;
   border: 1px solid rgba(17, 17, 17, 0.2);
 }
 
-.sih-rp-btn.secondary:hover:not(:disabled) {
+.sih-report-preview-container .sih-rp-btn.secondary:hover:not(:disabled) {
   background: #F9F9F6;
   border-color: #B9965B;
   color: #B9965B;
@@ -17561,29 +17573,29 @@ textarea {
 
 /* Responsive */
 @media (max-width: 768px) {
-  .sih-rp-header-bar {
+  .sih-report-preview-container .sih-rp-header-bar {
     flex-direction: column;
     align-items: stretch;
   }
 
-  .sih-rp-header-action {
+  .sih-report-preview-container .sih-rp-header-action {
     width: 100%;
   }
 
-  .sih-rp-back-btn {
+  .sih-report-preview-container .sih-rp-back-btn {
     width: 100%;
   }
 
-  .sih-rp-cards-grid {
+  .sih-report-preview-container .sih-rp-cards-grid {
     grid-template-columns: 1fr;
   }
 
-  .sih-rp-card-actions {
+  .sih-report-preview-container .sih-rp-card-actions {
     flex-direction: column;
     align-items: stretch;
   }
 
-  .sih-rp-btn {
+  .sih-report-preview-container .sih-rp-btn {
     width: 100%;
   }
 }
