@@ -1784,205 +1784,284 @@ export function SIH26035DashboardPage({
                       </div>
                     )}
 
-                    {/* Document Surface - Formal Metrology Document Layout */}
-                    <div className="sih-paper-document">
-                      {/* Document Header */}
-                      <div className="sih-doc-header">
-                        <div className="sih-doc-brand">
-                          <span className="sih-doc-logo-tag">OIMLense</span>
-                          <span className="sih-doc-sub-tag">Digital NAWI Testing &amp; Compliance System</span>
+                    <div className="sih-report-document">
+                      <header className="sih-report-document-header">
+                        <div>
+                          <div className="sih-report-brand">OIMLENSE</div>
+                          <div className="sih-report-brand-sub">
+                            Digital NAWI Testing & Compliance System
+                          </div>
                         </div>
-                        <div className="sih-doc-meta-badge">
-                          <span className="sih-doc-std font-mono">OIML R 76-1:2006</span>
-                          <span className="sih-doc-type">TYPE EVALUATION &amp; VERIFICATION REPORT</span>
+
+                        <div className="sih-report-standard">
+                          <strong>OIML R 76-1:2006</strong>
+                          <span>TEST & VERIFICATION REPORT</span>
+                        </div>
+                      </header>
+
+                      <div className="sih-report-title-row">
+                        <div>
+                          <span>OFFICIAL TEST RECORD</span>
+                          <h1>NAWI TEST REPORT</h1>
+                        </div>
+
+                        <div className={`sih-report-result ${
+                          selectedSession?.status === 'approved' ||
+                          selectedSession?.status === 'completed'
+                            ? 'pass'
+                            : selectedSession?.status === 'rejected' ||
+                              selectedSession?.status === 'failed'
+                              ? 'fail'
+                              : 'review'
+                        }`}>
+                          <small>RESULT STATUS</small>
+                          <strong>
+                            {selectedSession?.status === 'approved' ||
+                            selectedSession?.status === 'completed'
+                              ? 'PASS'
+                              : selectedSession?.status === 'rejected' ||
+                                selectedSession?.status === 'failed'
+                                ? 'FAIL'
+                                : 'REVIEW'}
+                          </strong>
                         </div>
                       </div>
 
-                      <div className="sih-doc-divider" />
-
-                      {/* Document Title */}
-                      <h1 className="sih-doc-title">OIML R 76 TEST REPORT</h1>
-
-                      {/* Section 1: Report Metadata */}
-                      <div className="sih-doc-section">
-                        <div className="sih-doc-section-title">1. REPORT INFORMATION</div>
-                        <div className="sih-doc-grid-3">
-                          <div className="sih-doc-field">
-                            <span className="field-label">REPORT NO.</span>
-                            <strong className="field-val font-mono">{selectedSession?.report_id || selectedSession?.session_number || 'R76-2026-001'}</strong>
+                      <section className="sih-report-section">
+                        <div className="sih-report-section-heading">
+                          <span>01</span>
+                          <div>
+                            <strong>Report Information</strong>
+                            <small>Identification and inspection details</small>
                           </div>
-                          <div className="sih-doc-field">
-                            <span className="field-label">INSPECTION ID / SESSION</span>
-                            <strong className="field-val font-mono">{selectedSession?.session_number || selectedSession?.id || '—'}</strong>
-                          </div>
-                          <div className="sih-doc-field">
-                            <span className="field-label">INSPECTION DATE</span>
-                            <strong className="field-val">
-                              {selectedSession?.created_at ? new Date(selectedSession.created_at).toLocaleDateString() : new Date().toLocaleDateString()}
+                        </div>
+
+                        <div className="sih-report-info-grid">
+                          <div>
+                            <span>REPORT NUMBER</span>
+                            <strong>
+                              {selectedSession?.report_id ||
+                                selectedSession?.session_number ||
+                                selectedSession?.id ||
+                                'N/A'}
                             </strong>
                           </div>
-                          <div className="sih-doc-field">
-                            <span className="field-label">STANDARD REFERENCE</span>
-                            <strong className="field-val">OIML R 76-1:2006</strong>
+                          <div>
+                            <span>SESSION NUMBER</span>
+                            <strong>{selectedSession?.session_number || 'N/A'}</strong>
                           </div>
-                          <div className="sih-doc-field">
-                            <span className="field-label">LABORATORY / LOCATION</span>
-                            <strong className="field-val">{selectedSession?.test_location || 'Metrology Testing Laboratory'}</strong>
+                          <div>
+                            <span>INSPECTION DATE</span>
+                            <strong>
+                              {selectedSession?.started_at
+                                ? new Date(selectedSession.started_at).toLocaleDateString('en-GB', {
+                                    day: '2-digit',
+                                    month: 'long',
+                                    year: 'numeric',
+                                  })
+                                : 'N/A'}
+                            </strong>
                           </div>
-                          <div className="sih-doc-field">
-                            <span className="field-label">VERIFICATION OFFICER</span>
-                            <strong className="field-val">{user?.name || user?.officer_id || 'Verification Officer'}</strong>
+                          <div>
+                            <span>TEST TYPE</span>
+                            <strong>
+                              {(selectedSession?.test_type || 'Initial Verification')
+                                .replace(/_/g, ' ')}
+                            </strong>
                           </div>
-                          <div className="sih-doc-field">
-                            <span className="field-label">REPORT STATUS</span>
-                            <strong className="field-val status-tag">{(selectedSession?.status || 'GENERATED').toUpperCase()}</strong>
+                          <div>
+                            <span>TEST LOCATION</span>
+                            <strong>{selectedSession?.test_location || 'Laboratory'}</strong>
                           </div>
-                        </div>
-                      </div>
-
-                      {/* Section 2: Instrument Details */}
-                      <div className="sih-doc-section">
-                        <div className="sih-doc-section-title">2. INSTRUMENT UNDER TEST</div>
-                        <div className="sih-doc-inst-box">
-                          <div className="sih-doc-inst-header">
-                            <strong>{selectedInstrument ? `${selectedInstrument.manufacturer} ${selectedInstrument.model}` : 'Standard NAWI Instrument'}</strong>
-                            <span className="font-mono">{selectedInstrument?.serial_number ? `Serial ${selectedInstrument.serial_number}` : 'Serial N/A'}</span>
-                          </div>
-                          <div className="sih-doc-grid-4">
-                            <div className="sih-doc-field">
-                              <span className="field-label">ACCURACY CLASS</span>
-                              <strong className="field-val">Class {selectedInstrument?.accuracy_class || 'III'}</strong>
-                            </div>
-                            <div className="sih-doc-field">
-                              <span className="field-label">MAX CAPACITY</span>
-                              <strong className="field-val">Max {selectedInstrument?.max_capacity ?? 30} {selectedInstrument?.unit || 'kg'}</strong>
-                            </div>
-                            {selectedInstrument?.min_capacity !== undefined && (
-                              <div className="sih-doc-field">
-                                <span className="field-label">MIN CAPACITY</span>
-                                <strong className="field-val">Min {selectedInstrument.min_capacity} {selectedInstrument.unit || 'kg'}</strong>
-                              </div>
-                            )}
-                            <div className="sih-doc-field">
-                              <span className="field-label">VERIFICATION SCALE e</span>
-                              <strong className="field-val">e = {selectedInstrument?.e ?? 0.01} {selectedInstrument?.unit || 'kg'}</strong>
-                            </div>
-                            <div className="sih-doc-field">
-                              <span className="field-label">SCALE INTERVAL d</span>
-                              <strong className="field-val">d = {selectedInstrument?.d ?? selectedInstrument?.e ?? 0.01} {selectedInstrument?.unit || 'kg'}</strong>
-                            </div>
-                            <div className="sih-doc-field">
-                              <span className="field-label">VERIFICATION INTERVALS n</span>
-                              <strong className="field-val">
-                                n = {selectedInstrument?.n ?? (selectedInstrument?.e && selectedInstrument?.max_capacity ? Math.round(selectedInstrument.max_capacity / selectedInstrument.e) : 3000)}
-                              </strong>
-                            </div>
+                          <div>
+                            <span>VERIFICATION STAGE</span>
+                            <strong>
+                              {(selectedSession?.verification_stage || 'Standard')
+                                .replace(/_/g, ' ')}
+                            </strong>
                           </div>
                         </div>
-                      </div>
+                      </section>
 
-                      {/* Section 3: Inspection Summary */}
-                      <div className="sih-doc-section">
-                        <div className="sih-doc-section-title">3. INSPECTION SUMMARY</div>
-                        <div className="sih-doc-summary-strip">
-                          <div className="sih-doc-summary-stat">
-                            <span className="stat-label">TOTAL PROCEDURES</span>
-                            <strong className="stat-val">{catalogProcedures.length}</strong>
+                      <section className="sih-report-section">
+                        <div className="sih-report-section-heading">
+                          <span>02</span>
+                          <div>
+                            <strong>Instrument Under Test</strong>
+                            <small>Registered weighing instrument details</small>
                           </div>
-                          <div className="sih-doc-summary-stat">
-                            <span className="stat-label">COMPLETED RUNS</span>
-                            <strong className="stat-val">{completedTests}</strong>
-                          </div>
-                          <div className="sih-doc-summary-stat pass">
-                            <span className="stat-label">PASS</span>
-                            <strong className="stat-val">{passedTests}</strong>
-                          </div>
-                          <div className="sih-doc-summary-stat fail">
-                            <span className="stat-label">FAIL</span>
-                            <strong className="stat-val">{failedTests}</strong>
-                          </div>
-                          {testPlan?.counts?.review_required ? (
-                            <div className="sih-doc-summary-stat review">
-                              <span className="stat-label">REVIEW REQUIRED</span>
-                              <strong className="stat-val">{testPlan.counts.review_required}</strong>
-                            </div>
-                          ) : null}
                         </div>
-                      </div>
 
-                      {/* Section 4: Procedure Evaluation Results Table */}
-                      <div className="sih-doc-section">
-                        <div className="sih-doc-section-title">4. PROCEDURE EVALUATION RESULTS</div>
-                        <table className="sih-doc-table">
-                          <thead>
-                            <tr>
-                              <th style={{ width: '35%' }}>Procedure</th>
-                              <th style={{ width: '25%' }}>Procedure ID</th>
-                              <th style={{ width: '20%' }}>OIML Clause</th>
-                              <th style={{ width: '20%', textAlign: 'right' }}>Result</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {catalogProcedures.map((proc) => {
-                              const res = results.find(
-                                (r) => r.test_definition_id === proc.id || r.rule_id === proc.test_code
-                              )
-                              const isFailed = res && res.pass_fail === false
-                              const isPassed = res && res.pass_fail === true
+                        <div className="sih-report-instrument-grid">
+                          <div className="sih-report-instrument-main">
+                            <span>MANUFACTURER / MODEL</span>
+                            <strong>
+                              {selectedInstrument
+                                ? `${selectedInstrument.manufacturer || ''} ${selectedInstrument.model || ''}`.trim()
+                                : 'N/A'}
+                            </strong>
+                          </div>
 
-                              return (
-                                <Fragment key={proc.test_code}>
-                                  <tr className={`sih-doc-tr ${isFailed ? 'fail-row' : ''}`}>
-                                    <td>
-                                      <strong className="doc-proc-title">{proc.test_name}</strong>
-                                    </td>
-                                    <td>
-                                      <code className="doc-proc-code font-mono">{proc.test_code}</code>
-                                    </td>
-                                    <td>
-                                      <span className="doc-clause-tag font-mono">{proc.source_clause || '—'}</span>
-                                    </td>
-                                    <td style={{ textAlign: 'right' }}>
-                                      {res ? (
-                                        <span className={`doc-result-badge ${isPassed ? 'pass' : 'fail'}`}>
-                                          {isPassed ? 'PASS' : 'FAIL'}
+                          <div>
+                            <span>SERIAL NUMBER</span>
+                            <strong>{selectedInstrument?.serial_number || 'N/A'}</strong>
+                          </div>
+
+                          <div>
+                            <span>ACCURACY CLASS</span>
+                            <strong>Class {selectedInstrument?.accuracy_class || 'III'}</strong>
+                          </div>
+
+                          <div>
+                            <span>MAXIMUM CAPACITY</span>
+                            <strong>
+                              {selectedInstrument?.max_capacity || 'N/A'} {selectedInstrument?.unit || 'kg'}
+                            </strong>
+                          </div>
+
+                          <div>
+                            <span>VERIFICATION SCALE interval (e)</span>
+                            <strong>
+                              {selectedInstrument?.e || 'N/A'} {selectedInstrument?.unit || 'kg'}
+                            </strong>
+                          </div>
+
+                          <div>
+                            <span>ACTUAL SCALE interval (d)</span>
+                            <strong>
+                              {selectedInstrument?.d || selectedInstrument?.e || 'N/A'} {selectedInstrument?.unit || 'kg'}
+                            </strong>
+                          </div>
+                        </div>
+                      </section>
+
+                      <section className="sih-report-section">
+                        <div className="sih-report-section-heading">
+                          <span>03</span>
+                          <div>
+                            <strong>Compliance Summary</strong>
+                            <small>Deterministic evaluation of recorded procedures</small>
+                          </div>
+                        </div>
+
+                        <div className="sih-report-summary-grid">
+                          <div>
+                            <span>TOTAL TESTS</span>
+                            <strong>{results.length}</strong>
+                          </div>
+                          <div className="pass">
+                            <span>PASSED</span>
+                            <strong>
+                              {results.filter(r =>
+                                ['PASS', 'PASSED', 'COMPLIANT'].includes(
+                                  String(r.result_status || '').toUpperCase()
+                                )
+                              ).length}
+                            </strong>
+                          </div>
+                          <div className="fail">
+                            <span>FAILED</span>
+                            <strong>
+                              {results.filter(r =>
+                                ['FAIL', 'FAILED', 'NON_COMPLIANT'].includes(
+                                  String(r.result_status || '').toUpperCase()
+                                )
+                              ).length}
+                            </strong>
+                          </div>
+                          <div>
+                            <span>RECORDED</span>
+                            <strong>{results.length}</strong>
+                          </div>
+                        </div>
+                      </section>
+
+                      <section className="sih-report-section">
+                        <div className="sih-report-section-heading">
+                          <span>04</span>
+                          <div>
+                            <strong>Procedure Evaluation</strong>
+                            <small>Recorded OIML R 76 test results</small>
+                          </div>
+                        </div>
+
+                        {results.length > 0 ? (
+                          <div className="sih-report-results-table-wrap">
+                            <table className="sih-report-results-table">
+                              <thead>
+                                <tr>
+                                  <th>#</th>
+                                  <th>Test / Procedure</th>
+                                  <th>Result</th>
+                                  <th>Measured Value</th>
+                                  <th>MPE</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {results.map((result, index) => {
+                                  const resultValue = String(
+                                    result.result_status || 'PENDING'
+                                  ).toUpperCase()
+
+                                  const isPass = ['PASS', 'PASSED', 'COMPLIANT'].includes(resultValue)
+                                  const isFail = ['FAIL', 'FAILED', 'NON_COMPLIANT'].includes(resultValue)
+
+                                  return (
+                                    <tr key={result.id || index}>
+                                      <td>{String(index + 1).padStart(2, '0')}</td>
+                                      <td>
+                                        <strong>
+                                          {result.test_definition_id || 'R76 Test'}
+                                        </strong>
+                                        {result.test_definition_id && (
+                                          <small>{result.test_definition_id}</small>
+                                        )}
+                                      </td>
+                                      <td>
+                                        <span className={`sih-report-table-result ${
+                                          isPass ? 'pass' : isFail ? 'fail' : 'review'
+                                        }`}>
+                                          {isPass ? 'PASS' : isFail ? 'FAIL' : 'REVIEW'}
                                         </span>
-                                      ) : (
-                                        <span className="doc-result-badge pending">NOT STARTED</span>
-                                      )}
-                                    </td>
-                                  </tr>
-
-                                  {/* Failed Procedure Diagnostic Row */}
-                                  {isFailed && (
-                                    <tr className="sih-doc-diag-tr">
-                                      <td colSpan={4}>
-                                        <div className="sih-doc-diag-box">
-                                          <strong>! Failure Diagnostic:</strong>{' '}
-                                          {res.failure_reason || (
-                                            res.measured_error !== undefined
-                                              ? `Measured error (${res.measured_error} ${selectedInstrument?.unit || 'kg'}) exceeds permitted MPE limit (${res.mpe_value ?? '—'} ${selectedInstrument?.unit || 'kg'}).`
-                                              : 'Measurement exceeds applicable OIML R 76 MPE limits.'
-                                          )}
-                                        </div>
+                                      </td>
+                                      <td>
+                                        {result.measured_error ?? '—'}
+                                      </td>
+                                      <td>
+                                        {result.mpe_value ?? '—'}
                                       </td>
                                     </tr>
-                                  )}
-                                </Fragment>
-                              )
-                            })}
-                          </tbody>
-                        </table>
-                      </div>
+                                  )
+                                })}
+                              </tbody>
+                            </table>
+                          </div>
+                        ) : (
+                          <div className="sih-report-no-results">
+                            No test results have been recorded for this session.
+                          </div>
+                        )}
+                      </section>
 
-                      {/* Document Footer */}
-                      <div className="sih-doc-footer">
+                      <footer className="sih-report-document-footer">
                         <div>
-                          <span>OIMLense NAWI Compliance Engine · OIML R 76-1:2006</span>
-                          <small>Document preview generated for Session {selectedSession?.session_number || 'R76-SESSION'}</small>
+                          <strong>OIMLense</strong>
+                          <span>Digital NAWI Testing & Compliance System</span>
                         </div>
-                        <div className="sih-doc-seal-tag">OFFICIAL RECORD</div>
-                      </div>
+                        <div>
+                          <span>STANDARD</span>
+                          <strong>OIML R 76-1:2006</strong>
+                        </div>
+                        <div>
+                          <span>REPORT ID</span>
+                          <strong>
+                            {selectedSession?.report_id ||
+                              selectedSession?.session_number ||
+                              selectedSession?.id ||
+                              'N/A'}
+                          </strong>
+                        </div>
+                      </footer>
                     </div>
                   </div>
                 ) : showCompletionScreen ? (
