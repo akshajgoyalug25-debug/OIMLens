@@ -1,7 +1,7 @@
 # OIMLense
 
 <p align="center">
-  <img src="assets/logo-white.png" alt="OIMLense Logo" width="400"/>
+  <img src="assets/logo2.png" alt="OIMLense Logo" width="400"/>
 </p>
 
 <h2 align="center">

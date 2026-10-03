@@ -53,3 +53,4 @@ frontend/src/components/r76/R76TestForm.ui-backup.tsx
 frontend/src/index.css.before-r76-layout-fix
 frontend/src/pages/SIH26035DashboardPage.before-structure-refine.tsx
 frontend/src/pages/SIH26035DashboardPage.blue-theme-backup.tsx
+.vercel
