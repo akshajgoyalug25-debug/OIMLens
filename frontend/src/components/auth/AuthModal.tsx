@@ -231,7 +231,7 @@ export function AuthModal({ initialMode = 'login', onSuccess, onClose }: AuthMod
         </h2>
         <p className="auth-modal-lede">
           {mode === 'login'
-            ? 'Log in to continue packaged commodity label verification.'
+            ? 'Log in to continue NAWI testing and OIML R-76 compliance verification.'
             : mode === 'forgot'
             ? "Enter your Officer ID and we'll send a reset link to your registered email."
             : 'Register to start AI-powered label compliance checks.'}
