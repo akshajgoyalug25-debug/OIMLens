@@ -48,33 +48,59 @@ export type RegisterResult = AuthSuccess | AuthNotice | AuthError
 
 /** Login with officer ID + password. */
 export async function login(input: LoginInput): Promise<LoginResult> {
-  try {
-    const res = await fetch(`${API}/login`, {
-      method: 'POST',
-      credentials: 'include',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(input),
-    })
-    const data = await res.json().catch(() => null)
-    if (!res.ok) {
+  const maxRetries = 2
+  const retryDelay = 2000
+
+  for (let attempt = 0; attempt <= maxRetries; attempt++) {
+    try {
+      const res = await fetch(`${API}/login`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(input),
+      })
+
+      const data = await res.json().catch(() => null)
+
+      // Retry temporary server/proxy errors during Render cold starts.
+      if (
+        (res.status === 502 || res.status === 503 || res.status === 504) &&
+        attempt < maxRetries
+      ) {
+        await new Promise((resolve) => setTimeout(resolve, retryDelay))
+        continue
+      }
+
+      if (!res.ok) {
+        return {
+          error:
+            data?.error ||
+            data?.detail ||
+            data?.message ||
+            (res.status === 502 || res.status === 503 || res.status === 504
+              ? 'The OIMLense server is starting up. Please try again in a few seconds.'
+              : `Login failed (${res.status}). Please try again.`),
+        }
+      }
+
+      return data as LoginResult
+    } catch (err: any) {
+      if (attempt < maxRetries) {
+        await new Promise((resolve) => setTimeout(resolve, retryDelay))
+        continue
+      }
+
       return {
         error:
-          data?.error ||
-          data?.detail ||
-          data?.message ||
-          `Login failed (${res.status}). Please try again.`,
+          'Unable to connect to the OIMLense server. Please try again in a few seconds.',
       }
     }
-    return data as LoginResult
-  } catch (err: any) {
-    return {
-      error:
-        err?.message ||
-        'Unable to connect to authentication server. Please check your connection.',
-    }
+  }
+
+  return {
+    error: 'The OIMLense server is temporarily unavailable. Please try again.',
   }
 }
-
 /** Register a new account. */
 export async function register(input: RegisterInput): Promise<RegisterResult> {
   try {
