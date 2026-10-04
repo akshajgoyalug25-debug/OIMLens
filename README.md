@@ -20,10 +20,10 @@
   <a href="https://oimlense.vercel.app">
     <img src="https://img.shields.io/badge/Live%20Demo-OIMLense-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo"/>
   </a>
-  <a href="YOUR_DEMO_VIDEO_LINK">
+  <a href="https://youtu.be/_8RIWsaj81E">
     <img src="https://img.shields.io/badge/Demo%20Video-Watch-8B5CF6?style=for-the-badge&logo=youtube&logoColor=white" alt="Demo Video"/>
   </a>
-  <a href="YOUR_PPT_LINK">
+  <a href="assets/SIH26035.pdf">
     <img src="https://img.shields.io/badge/Presentation-View-D4AF37?style=for-the-badge&logo=microsoftpowerpoint&logoColor=white" alt="Presentation"/>
   </a>
 </p>
@@ -59,8 +59,8 @@ The platform converts a traditionally manual and document-heavy workflow into a 
 
 | Resource | Link |
 |---|---|
-| 🎥 **Demo Video** | [Watch Project Demo](YOUR_DEMO_VIDEO_LINK) |
-| 📊 **Project PPT** | [View Project Presentation](YOUR_PPT_LINK) |
+| 🔏 \\*\\*Demo Video\\** | [Watch Project Demo](https://youtu.be/_8RIWsaj81E) |
+| 💌 |\\*\\*Project PPT\\**\\  | [View Project Presentation](assets/SIH26035.pdf) |
 | 🚀 **Live Application** | [Open OIMLense](https://oimlense.vercel.app) |
 
 ---
@@ -673,8 +673,8 @@ OIMLense is designed to support workflows for:
 | Resource | Link |
 |---|---|
 | 🚀 **Live Application** | [oimlense.vercel.app](https://oimlense.vercel.app) |
-| 🎥 **Demo Video** | [Watch Demo](YOUR_DEMO_VIDEO_LINK) |
-| 📊 **Project Presentation** | [View PPT](YOUR_PPT_LINK) |
+| 🔏 \\*\\*Demo Video\\** | [Watch Demo](https://youtu.be/_8RIWsaj81E) |
+| 💌 |\\*\\*Project Presentation\\**\\  | [View PYT](assets/SHI26035.pdf) |
 | 💻 **Source Code** | [GitHub Repository](https://github.com/akshajgoyalug25-debug/product-label-compliance) |
 
 ---
