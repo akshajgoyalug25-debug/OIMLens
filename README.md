@@ -59,8 +59,8 @@ The platform converts a traditionally manual and document-heavy workflow into a 
 
 | Resource | Link |
 |---|---|
-| 🔏 \\*\\*Demo Video\\** | [Watch Project Demo](https://youtu.be/_8RIWsaj81E) |
-| 💌 |\\*\\*Project PPT\\**\\  | [View Project Presentation](assets/SIH26035.pdf) |
+| 🎥 **Demo Video** | [Watch Project Demo](https://youtu.be/_8RIWsaj81E) |
+| 📊 **Project PPT** | [View Project Presentation](assets/SIH26035.pdf) |
 | 🚀 **Live Application** | [Open OIMLense](https://oimlense.vercel.app) |
 
 ---
@@ -673,8 +673,8 @@ OIMLense is designed to support workflows for:
 | Resource | Link |
 |---|---|
 | 🚀 **Live Application** | [oimlense.vercel.app](https://oimlense.vercel.app) |
-| 🔏 \\*\\*Demo Video\\** | [Watch Demo](https://youtu.be/_8RIWsaj81E) |
-| 💌 |\\*\\*Project Presentation\\**\\  | [View PYT](assets/SHI26035.pdf) |
+| 🎥 **Demo Video** | [Watch Demo](https://youtu.be/_8RIWsaj81E) |
+| 📊 **Project Presentation** | [View PPT](assets/SIH26035.pdf) |
 | 💻 **Source Code** | [GitHub Repository](https://github.com/akshajgoyalug25-debug/product-label-compliance) |
 
 ---
